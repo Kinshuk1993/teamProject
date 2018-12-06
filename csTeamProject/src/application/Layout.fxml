@@ -52,7 +52,7 @@
                       <AnchorPane fx:id="configPane" />
                     </content>
                   </TitledPane>
-                  <TitledPane animated="false" text="App">
+                  <TitledPane fx:id="applicationsList" animated="false" text="Application">
                     <content>
                       <AnchorPane fx:id="appPane" />
                     </content>
