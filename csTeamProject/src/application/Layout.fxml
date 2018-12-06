@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<fx:root fx:id="root_pane" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" stylesheets="@app.css">
+         <top>
+            <VBox BorderPane.alignment="CENTER">
+               <children>
+                  <MenuBar>
+                    <menus>
+                      <Menu mnemonicParsing="false" text="File">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="Close" />
+                        </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Edit">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="Delete" />
+                        </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Help">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="About" />
+                        </items>
+                      </Menu>
+                    </menus>
+                  </MenuBar>
+                  <ToolBar>
+                    <items>
+                        <Button fx:id="saveButton" mnemonicParsing="false" text="Save" />
+                        <Button fx:id="generateButton" mnemonicParsing="false" text="Generate" />
+                        <Button fx:id="exportButton" mnemonicParsing="false" text="Export" />
+                        <Button fx:id="clearButton" mnemonicParsing="false" text="Clear" />
+                    </items>
+                  </ToolBar>
+               </children>
+            </VBox>
+         </top>
+         <right>
+            <VBox BorderPane.alignment="CENTER">
+               <children>
+                  <TitledPane fx:id="configBox" animated="false" text="Configuration">
+                    <content>
+                      <AnchorPane fx:id="configPane" />
+                    </content>
+                  </TitledPane>
+                  <TitledPane animated="false" text="App">
+                    <content>
+                      <AnchorPane fx:id="appPane" />
+                    </content>
+                  </TitledPane>
+               </children>
+            </VBox>
+         </right>
+         <bottom>
+            <TextArea fx:id="textArea" prefHeight="99.0" prefWidth="640.0" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <padding>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+               </padding>
+            </TextArea>
+         </bottom>
+         <center>
+            <SplitPane fx:id="base_pane" dividerPositions="0.2" prefHeight="0.0" prefWidth="0.0" BorderPane.alignment="CENTER">
+              <items>
+                  <ScrollPane fitToHeight="true" prefViewportHeight="384.0" prefViewportWidth="169.0" vbarPolicy="NEVER">
+                     <content>
+                        <VBox fx:id="left_pane" spacing="10.0">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+                <AnchorPane fx:id="right_pane" prefHeight="317.0" prefWidth="423.0" />
+              </items>
+            </SplitPane>
+         </center>
+      </BorderPane>
+   </children>
+</fx:root>
