@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<fx:root fx:id="root_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <VBox spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Properties" />
+            <Line endX="250.0" startX="-100.0" />
+            <CheckBox mnemonicParsing="false" text="Wind speed" />
+            <CheckBox layoutX="10.0" layoutY="28.0" mnemonicParsing="false" text="Temperature" />
+            <CheckBox layoutX="10.0" layoutY="45.0" mnemonicParsing="false" text="Humidity" />
+            <CheckBox layoutX="10.0" layoutY="62.0" mnemonicParsing="false" text="Vibration" />
+            <CheckBox layoutX="10.0" layoutY="79.0" mnemonicParsing="false" text="Pressure" />
+            <HBox alignment="CENTER_RIGHT" spacing="10.0">
+               <children>
+                  <Button mnemonicParsing="false" text="clear" />
+                  <Button fx:id="savePropertyButton" mnemonicParsing="false" text="save" />
+               </children>
+               <padding>
+                  <Insets right="40.0" />
+               </padding>
+            </HBox>
+            <Label text="App" />
+            <Line endX="250.0" startX="-100.0" />
+            <CheckBox mnemonicParsing="false" text="App 1" />
+            <CheckBox mnemonicParsing="false" text="App 2" />
+            <HBox alignment="CENTER_RIGHT" spacing="10.0">
+               <children>
+                  <Button fx:id="saveAppButton" mnemonicParsing="false" text="clear" />
+                  <Button mnemonicParsing="false" text="save" />
+               </children>
+               <padding>
+                  <Insets right="40.0" />
+               </padding>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="20.0" top="10.0" />
+         </padding>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+</fx:root>
