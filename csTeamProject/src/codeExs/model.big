@@ -1,0 +1,36 @@
+# Signature
+
+# Data types
+atomic fun ctrl Int(x) = 0;
+atomic fun ctrl Float(x) = 0;
+atomic fun ctrl String(x) = 0;
+
+# Node types
+ctrl N = 1;                 # Idle node
+ctrl N_U = 1;               # Node in use
+atomic ctrl N_F = 1;        # Node with failure
+ctrl L = 0;                 # Links
+atomic ctrl L_E = 1;        # Link end
+
+fun ctrl App(x) = 0;        # Application
+atomic fun ctrl A(x) = 0;   # Application token
+
+# Node configuration
+ctrl Conf = 1;
+
+# Node configuration values
+atomic fun ctrl MAC(x) = 0;
+atomic fun ctrl IPv6(x) = 0;
+atomic ctrl IPv6_unassigned = 0;
+ctrl Sensors = 0;
+atomic fun ctrl Date(x) = 0;
+atomic fun ctrl Temperature(x) = 0;
+atomic fun ctrl Humidity(x) = 0;
+atomic fun ctrl Light_level(x) = 0;
+atomic fun ctrl Pressure(x) = 0;
+atomic fun ctrl Energy_consumed(x) = 0;
+atomic fun ctrl Energy_generated(x) = 0;
+atomic fun ctrl Battery_state(x) = 0;
+atomic ctrl Battery_depleted = 0;
+atomic fun ctrl Max_battery(x) = 0;
+

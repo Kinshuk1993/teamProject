@@ -1,3 +1,5 @@
+package node;
+
 public class configBox {
 
     private boolean temp;

@@ -1,3 +1,5 @@
+package node;
+
 public class node {
     
     private String name;
