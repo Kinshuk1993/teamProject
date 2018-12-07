@@ -1,4 +1,3 @@
-package controller;
 
 /** 
  * Controller for Node, Area, Apps
