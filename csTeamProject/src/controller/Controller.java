@@ -1,4 +1,3 @@
-
 /** 
  * Controller for Node, Area, Apps
  * Makes sure the interactions between the Node, Area and Apps are done in a correct manner.
@@ -114,7 +113,7 @@ public class Controller{
         Area areaToAddTo = findArea(areaName); 
 
         // Create nodeId
-        String nodeId = "Nu"+ (listOfNodes.size()+1);
+        String nodeId = "{c"+(listOfNodes.size()+1)+"}";
         // create new node
         Node newNode = new Node(nodeId);
         // set nodes configurations
@@ -155,7 +154,7 @@ public class Controller{
 
     // ---------------- Apps ----------------------------
     public String newApp(String appName){
-        String appID = "A" + (this.listOfApps.size()+1);
+        String appID = "A(" + (this.listOfApps.size()+1)+")";
         Apps  newApp = new Apps(appName, appID);
         this.listOfApps.add(newApp);
 
@@ -217,11 +216,14 @@ public class Controller{
         String toRet = "(";
 
         for (int i = 0; i < this.listOfNodes.size(); i++){
-            toRet = toRet + this.listOfNodes.get(i).printNodeConf() + "|";
+            if (i == this.listOfNodes.size()-1){
+                toRet = toRet + this.listOfNodes.get(i).printNodeConf();    
+            }
+            else{
+                toRet = toRet + this.listOfNodes.get(i).printNodeConf() + "\n\t\t\t\t| ";
+            }
         }
-        if(toRet.substring(toRet.length() - 1).equals("|")){
-            toRet = toRet.substring(0,toRet.length()-1);
-        }
+
         toRet = toRet+")";
 
         return toRet;
@@ -257,6 +259,38 @@ public class Controller{
         return toRet;
     }
 
+    private String printApps(){
+        String toRet = "(";
+
+        for(int i = 0; i < this.listOfApps.size();i++){
+            if(i == this.listOfApps.size()-1){
+                toRet = toRet + "App(" + (i+1) + ")." + "(" + this.listOfApps.get(i).getId() + ")";
+            }
+            else{
+                toRet = toRet + "App(" + (i+1) + ")." + "(" + this.listOfApps.get(i).getId() + ")" + "\n\t\t\t\t| ";
+            }
+        }
+
+        toRet = toRet + ")";
+
+        return toRet;
+
+    }
+
+    private String printNodes(){
+        String toRet = "/";
+
+        for(int i = 0; i < this.listOfNodes.size();i++){
+            toRet = toRet + this.listOfNodes.get(i).getId().substring(1, this.listOfNodes.get(i).getId().length()-1) + "/";
+        }
+        if(toRet.substring(toRet.length() - 1).equals("|")){
+            toRet = toRet.substring(0,toRet.length()-1);
+        }
+
+        return toRet;
+
+    }
+
 
     // ---------------- Export BIG file ----------------------------
 
@@ -266,10 +300,34 @@ public class Controller{
             BufferedWriter writer = new BufferedWriter(new FileWriter("model.big"));
 
             // Everything that is unchangable in the bigfile
-            String toWrite = "# Signature\n\n# Data types\natomic fun ctrl Int(x) = 0;\natomic fun ctrl Float(x) = 0;\natomic fun ctrl String(x) = 0;\n\n# Node types\nctrl N = 1;                 # Idle node\nctrl N_U = 1;               # Node in use\natomic ctrl N_F = 1;        # Node with failure\nctrl L = 0;                 # Links\natomic ctrl L_E = 1;        # Link end\n\nfun ctrl App(x) = 0;        # Application\natomic fun ctrl A(x) = 0;   # Application token\n\n# Node configuration\nctrl Conf = 1;\n\n# Node configuration values\natomic fun ctrl MAC(x) = 0;\natomic fun ctrl IPv6(x) = 0;\natomic ctrl IPv6_unassigned = 0;\nctrl Sensors = 0;\natomic fun ctrl Date(x) = 0;\natomic fun ctrl Temperature(x) = 0;\natomic fun ctrl Humidity(x) = 0;\natomic fun ctrl Light_level(x) = 0;\natomic fun ctrl Pressure(x) = 0;\natomic fun ctrl Energy_consumed(x) = 0;\natomic fun ctrl Energy_generated(x) = 0;\natomic fun ctrl Battery_state(x) = 0;\natomic ctrl Battery_depleted = 0;\natomic fun ctrl Max_battery(x) = 0;\n\n";
+            String toWrite = "# Signature\n\n# Node types\n";
+            toWrite = toWrite + "ctrl N = 1;                 # Idle node\nctrl N_U = 1;               # Node in use\natomic ctrl N_F = 1;        # Node with failure\nctrl L = 0;                 # Links\natomic ctrl L_E = 1;        # Link end\n\n";
+            toWrite = toWrite + "fun ctrl App(x) = 0;        # Application\natomic fun ctrl A(x) = 0;   # Application token\n\n";
+            toWrite = toWrite + "# Node configuration\nctrl Conf = 1;\n\n";
+            toWrite = toWrite + "# Node configuration values\natomic fun ctrl MAC(x) = 0;\natomic fun ctrl IPv6(x) = 0;\natomic ctrl T = 0;\natomic ctrl H = 0;\natomic ctrl V = 0;\natomic ctrl P = 0;\natomic ctrl W = 0;\n\n";
 
-            // Construct the rest of the file
+            // Structures that change
+            toWrite = toWrite + "# Topology\n";
+            for(int i = 0; i < this.listOfAreas.size();i++){
+                toWrite = toWrite +"ctrl " + this.listOfAreas.get(i).getId() + " = 0;\n";
+            }
+            toWrite = toWrite + "\n# Perspectives\nctrl PHY = 0;\nctrl DATA = 0;\nctrl CONF = 0;\nctrl SERVICE = 0;\n\n";
 
+            // write PHYSICAL State
+            toWrite = toWrite + "# Current state\nbig s0_P = \n  "+printLinks()+"\n\t";
+            toWrite = toWrite + "PHY.("+printAreas()+");\n\n";
+
+            // write DATA state
+            toWrite = toWrite + "big s0_D = ";
+            toWrite = toWrite + "DATA."+printNodesConf()+";\n\n";
+
+            // write SERVICE stat
+            toWrite = toWrite + "big s0_S = ";
+            toWrite = toWrite + "SERVICE."+printApps()+";\n\n";
+
+            // write NODES stat
+            toWrite = toWrite + "big s0 = \n  ";
+            toWrite = toWrite + printNodes()+"\n\t(s0_P || s0_D || s0_S);";
 
             // Write out the file
             writer.write(toWrite);

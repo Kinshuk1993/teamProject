@@ -1,10 +1,5 @@
 # Signature
 
-# Data types
-atomic fun ctrl Int(x) = 0;
-atomic fun ctrl Float(x) = 0;
-atomic fun ctrl String(x) = 0;
-
 # Node types
 ctrl N = 1;                 # Idle node
 ctrl N_U = 1;               # Node in use
@@ -21,16 +16,38 @@ ctrl Conf = 1;
 # Node configuration values
 atomic fun ctrl MAC(x) = 0;
 atomic fun ctrl IPv6(x) = 0;
-atomic ctrl IPv6_unassigned = 0;
-ctrl Sensors = 0;
-atomic fun ctrl Date(x) = 0;
-atomic fun ctrl Temperature(x) = 0;
-atomic fun ctrl Humidity(x) = 0;
-atomic fun ctrl Light_level(x) = 0;
-atomic fun ctrl Pressure(x) = 0;
-atomic fun ctrl Energy_consumed(x) = 0;
-atomic fun ctrl Energy_generated(x) = 0;
-atomic fun ctrl Battery_state(x) = 0;
-atomic ctrl Battery_depleted = 0;
-atomic fun ctrl Max_battery(x) = 0;
+atomic ctrl T = 0;
+atomic ctrl H = 0;
+atomic ctrl V = 0;
+atomic ctrl P = 0;
+atomic ctrl W = 0;
 
+# Topology
+ctrl North = 0;
+ctrl South = 0;
+ctrl Bridge = 0;
+
+# Perspectives
+ctrl PHY = 0;
+ctrl DATA = 0;
+ctrl CONF = 0;
+ctrl SERVICE = 0;
+
+# Current state
+big s0_P = 
+  /l1/l2/l3/l4/l5
+	PHY.(North.(Bridge.(N{c1}.(L.( L_E{l1})))|N_U{c2}.(L.( L_E{l1} | L_E{l2})|A(1))| N_U{c3}.(L.( L_E{l3} | L_E{l5})|A(2))| N_U{c4}.(L.( L_E{l2} | L_E{l3} | L_E{l4})|A(1) |A(2))| N{c5}.(L.( L_E{l4})))|South.(N_U{c6}.(L.( L_E{l5})|A(2))));
+
+big s0_D = DATA.(Conf{c1}.(MAC(a0:3e:fa:45:42:b7) | IPv6(N/A) | P)
+				| Conf{c2}.(MAC(44:78:a4:ad:23:81) | IPv6(N/A) | V)
+				| Conf{c3}.(MAC(22:39:cf:5a:57:03) | IPv6(N/A) | H | V | P)
+				| Conf{c4}.(MAC(b4:6b:36:76:9c:61) | IPv6(N/A) | T | W | P)
+				| Conf{c5}.(MAC(24:bc:db:b8:c3:27) | IPv6(N/A) | H | P)
+				| Conf{c6}.(MAC(9c:29:a7:6c:b0:fc) | IPv6(N/A) | H | P));
+
+big s0_S = SERVICE.(App(1).(A(1))
+				| App(2).(A(2)));
+
+big s0 = 
+  /c1/c2/c3/c4/c5/c6/
+	(s0_P || s0_D || s0_S);

@@ -1,4 +1,3 @@
-
 /**
  * Area
  * Can contain nodes and other Areas
@@ -59,17 +58,22 @@ public class Area {
     public String printArea(){
         String toRet = this.id + ".(";
 
-        if(!this.nodes.isEmpty()){
-            for(int i = 0; i < this.nodes.size(); i++){
-                toRet = toRet + this.nodes.get(i).printAppsAndLinks() + "|";
-            }
-            
-        }
-
         if(this.hasArea()){
             for(int i = 0; i < this.areas.size(); i++){
                 toRet = toRet + this.areas.get(i).printArea() + "|";
             }
+        }
+
+        if(!this.nodes.isEmpty()){
+            for(int i = 0; i < this.nodes.size(); i++){
+                if(i == 0){
+                    toRet = toRet + this.nodes.get(i).printAppsAndLinks() + "|";
+                }
+                else {
+                    toRet = toRet + " " + this.nodes.get(i).printAppsAndLinks() + "|";
+                }
+            }
+            
         }
 
         //Remove the last "|"

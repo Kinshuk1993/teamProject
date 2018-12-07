@@ -11,7 +11,8 @@ import java.util.ArrayList;
 public class Node {
     
     // Privat variables
-    private String id;
+    private String id;              // this is the id the node is known as
+    private String typeId;          // this identifies what kind of node it is (N_U, N)
     private String Mac;             // Mac is needed, works as the ID
     private String ipv6;            // Only when connected to a network
 
@@ -29,13 +30,17 @@ public class Node {
     // Constructors
     public Node(String id){
         this.id = id;
+        this.typeId = "N";
         this.Mac = findMac();
+        this.ipv6 = "N/A";
         this.links = new ArrayList<String>();
         this.applications = new ArrayList<Apps>();
     }
     public Node(){
         this.id = "Failed";
+        this.typeId = "N";
         this.Mac = findMac();
+        this.ipv6 = "N/A";
         this.links = new ArrayList<String>();
         this.applications = new ArrayList<Apps>();
     }
@@ -60,31 +65,33 @@ public class Node {
     public String printNodeConf(){
         String toRet = "Conf"+this.id+".(";
 
+        toRet = toRet + "MAC(" + this.getMac() + ") | " + "IPv6("+ this.getIP() + ") |";
+
         if(this.Temperature){
-            toRet = toRet+"T|";
+            toRet = toRet+" T |";
         }
         if(this.Windspeed){
-            toRet = toRet+"W|";
+            toRet = toRet+" W |";
         }
         if(this.Humidity){
-            toRet = toRet+"H|";
+            toRet = toRet+" H |";
         }
         if(this.Vibration){
-            toRet = toRet+"V|";
+            toRet = toRet+" V |";
         }
         if(this.Pressure){
-            toRet = toRet+"P|";
+            toRet = toRet+" P |";
         }
         //Remove the last "|"
-        if(toRet.substring(toRet.length() - 1).equals("|")){
-            toRet = toRet.substring(0,toRet.length()-1);
+        if(toRet.substring(toRet.length() - 2).equals(" |")){
+            toRet = toRet.substring(0,toRet.length()-2);
         }
         toRet = toRet+")";
         return toRet;
     }
     //print Apps and Links
     public String printAppsAndLinks(){
-        String toRet = this.id + ".(";
+        String toRet = this.typeId + this.id + ".(";
 
         if(this.links.isEmpty() && this.applications.isEmpty()){
             return this.id;
@@ -93,11 +100,11 @@ public class Node {
         if(!this.links.isEmpty()){
             toRet = toRet + "L.(";
             for (int i = 0; i < this.links.size();i++){
-                toRet = toRet + "E" + this.links.get(i) + "|";
+                toRet = toRet + " L_E{" + this.links.get(i) + "} |";
             }
             //Remove the last "|"
-            if(toRet.substring(toRet.length() - 1).equals("|")){
-                toRet = toRet.substring(0,toRet.length()-1);
+            if(toRet.substring(toRet.length()-2).equals(" |")){
+                toRet = toRet.substring(0,toRet.length()-2);
             }
             toRet = toRet+")";
         }
@@ -106,10 +113,10 @@ public class Node {
         if(!this.applications.isEmpty()){
             toRet = toRet + "|";
             for (int i = 0; i < this.applications.size(); i++){
-                toRet = toRet + this.applications.get(i).getId() + "|";
+                toRet = toRet + this.applications.get(i).getId() + " |";
             }
-            if(toRet.substring(toRet.length() - 1).equals("|")){
-                toRet = toRet.substring(0,toRet.length()-1);
+            if(toRet.substring(toRet.length() - 2).equals(" |")){
+                toRet = toRet.substring(0,toRet.length()-2);
             }
         }
         
@@ -180,6 +187,7 @@ public class Node {
         this.links.add(newLink);
     }
     public void addApp(Apps newApp){
+        this.typeId = "N_U";
         this.applications.add(newApp);
     }
     // create Mac
