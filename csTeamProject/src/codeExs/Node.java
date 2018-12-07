@@ -1,11 +1,15 @@
-package codeExs;
-
+/**
+ * Node
+ * Nodes, has different configurations.
+ * 
+ * Can contain Apps
+ */
 import java.util.Random;
 import java.util.ArrayList;
 
 public class Node {
     
-    // Private variables
+    // Privat variables
     private String id;
     private String Mac;             // Mac is needed, works as the ID
     private String ipv6;            // Only when connected to a network

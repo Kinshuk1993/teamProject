@@ -1,5 +1,3 @@
-package codeExs;
-
 /** 
  * Controller for Node, Area, Apps
  * Makes sure the interactions between the Node, Area and Apps are done in a correct manner.

@@ -1,5 +1,3 @@
-package codeExs;
-
 /**
  * Area
  * Can contain nodes and other Areas

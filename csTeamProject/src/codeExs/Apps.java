@@ -1,5 +1,3 @@
-package codeExs;
-
 /**
  * Application deployed to individual nodes
  */
