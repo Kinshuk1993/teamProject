@@ -100,23 +100,30 @@ public class Node {
         if(!this.links.isEmpty()){
             toRet = toRet + "L.(";
             for (int i = 0; i < this.links.size();i++){
-                toRet = toRet + " L_E{" + this.links.get(i) + "} |";
+                if(i == this.links.size()-1){
+                    toRet = toRet + " L_E{" + this.links.get(i) + "}";
+                }
+                else if(i == 0 && !(i == this.links.size()-1)){
+                    toRet = toRet + "L_E{" + this.links.get(i) + "} |";
+                }
+                else { 
+                    toRet = toRet + " L_E{" + this.links.get(i) + "} |";
+                }
             }
-            //Remove the last "|"
-            if(toRet.substring(toRet.length()-2).equals(" |")){
-                toRet = toRet.substring(0,toRet.length()-2);
-            }
+
             toRet = toRet+")";
         }
         
 
         if(!this.applications.isEmpty()){
-            toRet = toRet + "|";
+            toRet = toRet + " |";
             for (int i = 0; i < this.applications.size(); i++){
-                toRet = toRet + this.applications.get(i).getId() + " |";
-            }
-            if(toRet.substring(toRet.length() - 2).equals(" |")){
-                toRet = toRet.substring(0,toRet.length()-2);
+                if(i == this.applications.size()-1){
+                    toRet = toRet + " " + this.applications.get(i).getId();
+                }
+                else {
+                    toRet = toRet + " " + this.applications.get(i).getId() + " |";
+                }
             }
         }
         

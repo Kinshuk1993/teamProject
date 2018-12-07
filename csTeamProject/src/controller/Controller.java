@@ -250,11 +250,19 @@ public class Controller{
         String toRet = "";
 
         for(int i = 0; i < this.topLevelAreas.size(); i++){
-            toRet = toRet + this.topLevelAreas.get(i).printArea() + "|";
+            if(i == this.topLevelAreas.size()-1){
+                toRet = toRet + " " + this.topLevelAreas.get(i).printArea();
+            }
+            else if(i == 0 && !(i == this.topLevelAreas.size()-1)){
+                toRet = toRet + this.topLevelAreas.get(i).printArea()+ " |";
+            }
+            else{
+                toRet = toRet + " " + this.topLevelAreas.get(i).printArea()+ " |";
+            }
         }
-        if(toRet.substring(toRet.length() - 1).equals("|")){
-            toRet = toRet.substring(0,toRet.length()-1);
-        }
+        // if(toRet.substring(toRet.length() - 1).equals("|")){
+        //     toRet = toRet.substring(0,toRet.length()-1);
+        // }
 
         return toRet;
     }

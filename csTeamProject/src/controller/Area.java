@@ -60,25 +60,28 @@ public class Area {
 
         if(this.hasArea()){
             for(int i = 0; i < this.areas.size(); i++){
-                toRet = toRet + this.areas.get(i).printArea() + "|";
+                toRet = toRet + this.areas.get(i).printArea() + " | ";
             }
         }
 
         if(!this.nodes.isEmpty()){
             for(int i = 0; i < this.nodes.size(); i++){
                 if(i == 0){
-                    toRet = toRet + this.nodes.get(i).printAppsAndLinks() + "|";
+                    toRet = toRet + this.nodes.get(i).printAppsAndLinks() + " |";
+                }
+                else if(i == this.nodes.size()-1){
+                    toRet = toRet + " " + this.nodes.get(i).printAppsAndLinks();
                 }
                 else {
-                    toRet = toRet + " " + this.nodes.get(i).printAppsAndLinks() + "|";
+                    toRet = toRet + " " + this.nodes.get(i).printAppsAndLinks() + " |";
                 }
             }
             
         }
 
         //Remove the last "|"
-        if(toRet.substring(toRet.length() - 1).equals("|")){
-            toRet = toRet.substring(0,toRet.length()-1);
+        if(toRet.substring(toRet.length() - 2).equals(" |")){
+            toRet = toRet.substring(0,toRet.length()-2);
         }
         // Add closing bracket
         toRet = toRet + ")";
