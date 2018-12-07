@@ -2,7 +2,6 @@
  * Area
  * Can contain nodes and other Areas
  */
-
 import java.util.ArrayList;
 
 public class Area {

@@ -4,7 +4,6 @@
  * Also keeps track of every node, area, app and link
  * 
  */
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
