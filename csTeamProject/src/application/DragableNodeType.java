@@ -4,11 +4,6 @@
  * and open the template in the editor.
  */
 package application;
-
 public enum DragableNodeType {
-
-    Node,
-
-    Area,
-
+	Node, Area,
 }

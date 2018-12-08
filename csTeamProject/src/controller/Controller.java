@@ -348,6 +348,7 @@ public class Controller{
 
     /**
      * loopes through all applications and print them
+     * 
      * @return string of all aps
      */
     private String printApps(){
