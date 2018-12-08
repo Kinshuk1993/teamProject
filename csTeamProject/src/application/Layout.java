@@ -24,6 +24,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+
 public class Layout extends AnchorPane {
 
 	@FXML
@@ -72,13 +73,13 @@ public class Layout extends AnchorPane {
 			textArea.setText(null);
 		});
 		saveButton.setOnAction(e -> {
-//            to be fullfilled
+			//            to be fullfilled
 		});
 		exportButton.setOnAction(e -> {
-//          to be fullfilled
+			//          to be fullfilled
 		});
 		generateButton.setOnAction(e -> {
-//          to be fullfilled
+			//          to be fullfilled
 		});
 		mDragableNodeOver = new DragableNode();
 		mDragableNodeOver.setVisible(false);
@@ -104,20 +105,20 @@ public class Layout extends AnchorPane {
 		buildDragHandlers2();
 	}
 
-//    public void saveButtonClick() {
-//    	
-//    }
-//    
-//    public void exportButtonClick() {
-//    	
-//    }
-//    
-//    public void generateButtonClick() {
-//	
-//    }
-//    public void clearButtonClick() {
-//    	
-//    }
+	//    public void saveButtonClick() {
+	//    	
+	//    }
+	//    
+	//    public void exportButtonClick() {
+	//    	
+	//    }
+	//    
+	//    public void generateButtonClick() {
+	//	
+	//    }
+	//    public void clearButtonClick() {
+	//    	
+	//    }
 	private void buildDragHandlers() {
 		mNodeDragOverRoot = new EventHandler<DragEvent>() {
 
@@ -168,7 +169,7 @@ public class Layout extends AnchorPane {
 				if (container != null) {
 					if (container.getValue("scene_coordinates") != null) {
 						DragableNode nodeDropped = new DragableNode();
-//                        nodeDropped.setType(DragableNodeType.valueOf(container.getValue("type")));
+						//                        nodeDropped.setType(DragableNodeType.valueOf(container.getValue("type")));
 						right_pane.getChildren().add(nodeDropped);
 						Point2D cursorPoint = container.getValue("scene_coordinates");
 						nodeDropped.relocateToPoint(new Point2D(cursorPoint.getX() - 32, cursorPoint.getY() - 32));
@@ -240,7 +241,7 @@ public class Layout extends AnchorPane {
 				if (container != null) {
 					if (container.getValue("scene_coordinates") != null) {
 						DraggableArea areaDropped = new DraggableArea();
-//                        areaDropped.setType(DragableNodeType.valueOf(container.getValue("type")));
+						//                        areaDropped.setType(DragableNodeType.valueOf(container.getValue("type")));
 						right_pane.getChildren().add(areaDropped);
 						Point2D cursorPoint = container.getValue("scene_coordinates");
 						areaDropped.relocateToPoint(new Point2D(cursorPoint.getX(), cursorPoint.getY()));
@@ -295,11 +296,11 @@ public class Layout extends AnchorPane {
 				// get ref to clicked node
 				@SuppressWarnings("unused")
 				DraggableArea area = (DraggableArea) event.getSource();
-//                mDragableNodeOver.setType(area.getType());
+				//                mDragableNodeOver.setType(area.getType());
 				mDragableAreaOver.relocateToPoint(new Point2D(event.getSceneX(), event.getSceneY()));
 				ClipboardContent content = new ClipboardContent();
 				DragableContainer container = new DragableContainer();
-//                container.addData("type", mDragableNodeOver.getType().toString());
+				//                container.addData("type", mDragableNodeOver.getType().toString());
 				content.put(DragableContainer.AddArea, container);
 				mDragableAreaOver.startDragAndDrop(TransferMode.ANY).setContent(content);
 				mDragableAreaOver.setVisible(true);
@@ -308,4 +309,5 @@ public class Layout extends AnchorPane {
 			}
 		});
 	}
+	
 }

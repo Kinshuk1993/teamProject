@@ -1,4 +1,6 @@
 package application;
+import controller.Controller;
+import controller.Main;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -28,6 +30,7 @@ public class javafx extends Application {
 			scene.getStylesheets().add(getClass().getResource("app.css").toExternalForm());
 			// Displaying the contents of the stage
 			window.show();
+			getListOfNodes();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -46,5 +49,11 @@ public class javafx extends Application {
 		Boolean answer = ConfirmBox.display();
 		if (answer)
 			window.close();
+	}
+	
+	public void getListOfNodes() {
+		Main start = new Main();
+		start.generateBigraph();
+		System.out.println(Controller.getNodes());
 	}
 }

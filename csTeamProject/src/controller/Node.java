@@ -1,3 +1,5 @@
+package controller;
+
 /**
  * Node
  * Nodes, has different configurations.

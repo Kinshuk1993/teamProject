@@ -40,7 +40,7 @@ public class ConfirmBox extends BorderPane {
 			answer = false;
 			Stage stage = (Stage) yesButton.getScene().getWindow();
 			stage.close();
-//          Platform.exit();
+			//          Platform.exit();
 		});
 	}
 

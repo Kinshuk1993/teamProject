@@ -1,3 +1,5 @@
+package controller;
+
 /** 
  * Controller for Node, Area, Apps
  * Makes sure the interactions between the Node, Area and Apps are done in a correct manner.
@@ -21,7 +23,7 @@ public class Controller {
 	private ArrayList<Area> topLevelAreas;
 	private ArrayList<Area> innerAreas;
 	// list of Nodes
-	private ArrayList<Node> listOfNodes;
+	private static ArrayList<Node> listOfNodes;
 
 	public Controller() {
 		this.sceneName = "DefaultName";
@@ -30,7 +32,7 @@ public class Controller {
 		this.listOfAreas = new ArrayList<Area>();
 		this.topLevelAreas = new ArrayList<Area>();
 		this.innerAreas = new ArrayList<Area>();
-		this.listOfNodes = new ArrayList<Node>();
+		Controller.listOfNodes = new ArrayList<Node>();
 	}
 
 	public Controller(String name) {
@@ -40,7 +42,7 @@ public class Controller {
 		this.listOfAreas = new ArrayList<Area>();
 		this.topLevelAreas = new ArrayList<Area>();
 		this.innerAreas = new ArrayList<Area>();
-		this.listOfNodes = new ArrayList<Node>();
+		Controller.listOfNodes = new ArrayList<Node>();
 	}
 
 	public String getSceneName() {
@@ -62,8 +64,8 @@ public class Controller {
 	}
 
 	// get list of Nodes
-	public ArrayList<Node> getNodes() {
-		return this.listOfNodes;
+	public static ArrayList<Node> getNodes() {
+		return Controller.listOfNodes;
 	}
 
 	// get list of Areas
@@ -114,7 +116,7 @@ public class Controller {
 		Node newNode = new Node(nodeId);
 		// set nodes configurations
 		newNode.setAllConf(temperature, windspeed, humidity, vibration, pressure);
-		this.listOfNodes.add(newNode);
+		Controller.listOfNodes.add(newNode);
 		if (!appName.isEmpty()) {
 			// find app
 			Apps findApp = findApp(appName);
@@ -177,7 +179,7 @@ public class Controller {
 		// add in config at the end
 		finalFunc = finalFunc + "||";
 		// add configuration of nodes
-		if (!this.listOfNodes.isEmpty()) {
+		if (!Controller.listOfNodes.isEmpty()) {
 			finalFunc = finalFunc + printNodesConf();
 		}
 		// add ending bracket
@@ -188,11 +190,11 @@ public class Controller {
 	// return a string with all Node fonfigurations
 	public String printNodesConf() {
 		String toRet = "(";
-		for (int i = 0; i < this.listOfNodes.size(); i++) {
-			if (i == this.listOfNodes.size() - 1) {
-				toRet = toRet + this.listOfNodes.get(i).printNodeConf();
+		for (int i = 0; i < Controller.listOfNodes.size(); i++) {
+			if (i == Controller.listOfNodes.size() - 1) {
+				toRet = toRet + Controller.listOfNodes.get(i).printNodeConf();
 			} else {
-				toRet = toRet + this.listOfNodes.get(i).printNodeConf() + "\n\t\t\t\t| ";
+				toRet = toRet + Controller.listOfNodes.get(i).printNodeConf() + "\n\t\t\t\t| ";
 			}
 		}
 		toRet = toRet + ")";
@@ -244,8 +246,8 @@ public class Controller {
 
 	private String printNodes() {
 		String toRet = "/";
-		for (int i = 0; i < this.listOfNodes.size(); i++) {
-			toRet = toRet + this.listOfNodes.get(i).getId().substring(1, this.listOfNodes.get(i).getId().length() - 1)
+		for (int i = 0; i < Controller.listOfNodes.size(); i++) {
+			toRet = toRet + Controller.listOfNodes.get(i).getId().substring(1, Controller.listOfNodes.get(i).getId().length() - 1)
 					+ "/";
 		}
 		if (toRet.substring(toRet.length() - 1).equals("|")) {
@@ -300,9 +302,9 @@ public class Controller {
 	private Node findNode(String nodeName) {
 		Node toReturn = new Node();
 		// find Node
-		for (int i = 0; i < this.listOfNodes.size(); i++) {
+		for (int i = 0; i < Controller.listOfNodes.size(); i++) {
 			if (listOfNodes.get(i).getId().equals(nodeName)) {
-				toReturn = this.listOfNodes.get(i);
+				toReturn = Controller.listOfNodes.get(i);
 			}
 		}
 		return toReturn;

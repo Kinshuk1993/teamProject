@@ -1,6 +1,14 @@
+package controller;
 public class Main {
 
 	public static void main(String[] args) {
+		//TO DO: REMOVE AT THE LAST
+//		Main start = new Main();
+//		start.generateBigraph();
+	}
+
+	@SuppressWarnings("unused")
+	public void generateBigraph() {
 		// Create new Scene
 		Controller newScene = new Controller("Ekeberg");
 		// Add top Area

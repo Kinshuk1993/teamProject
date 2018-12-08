@@ -10,7 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.AnchorPane;
 public class DragableNode extends AnchorPane {
-//    @FXML AnchorPane area;
+	//    @FXML AnchorPane area;
 
 	public DragableNode() {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DragableNode.fxml"));

@@ -20,6 +20,7 @@ public class DragableContainer implements Serializable {
 		mDataPairs.add(new Pair<String, Object>(key, value));
 	}
 
+	@SuppressWarnings("unchecked")
 	public <T> T getValue(String key) {
 		for (Pair<String, Object> data : mDataPairs) {
 			if (data.getKey().equals(key))
