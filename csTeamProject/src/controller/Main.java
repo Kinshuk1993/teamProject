@@ -1,12 +1,31 @@
+/** 
+ * University of Glasgow
+ * MSc CS+ Team Project, fall 2018
+ * 
+ * This file is a test file for the Apps, Area, Node, and Controller class
+ * 
+ * All interactions between this class and the individual classes are done through the Controller
+ * 
+ * This test is based on the Example Sensor network [Appendix "something"]
+ * 
+ * Following other test cases has been tested previously:
+ *  1 toplevel area, with 1 inner area and with multiple nodes.
+ *  1 toplevel area, with 1 inner area and with a single node.
+ *  
+ *  1 toplevel area, no inner area and with multiple nodes.
+ *  1 toplevel area, no inner area and with a single node.
+ *  
+ * 
+*/ 
 
 public class Main {
 
     public static void main(String[] args) {
 
-        // Create new Scene
-        Controller newScene = new Controller("Ekeberg");
+        // Create new Scene, this will be the new Controller
+        Controller newScene = new Controller("Scene");
 
-        // Add top Area
+        // Add top areas
         String north = newScene.addTopArea("North");
         String south = newScene.addTopArea("South");
 
@@ -30,8 +49,6 @@ public class Main {
 
         // Node F created
         String nodeF = newScene.addNodeToArea(south, false, false, true, false, true, "");        
-
-
 
         // link nodes together
         String link1 = newScene.addNewLink(nodeA, nodeB);

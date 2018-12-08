@@ -1,6 +1,11 @@
 /**
- * Area
- * Can contain nodes and other Areas
+ * University of Glasgow
+ * MSc CS+ Team Project, fall 2018
+ * 
+ * Area class has an string id.
+ * Area can also contain another area, if it does then the boolean containsArea is set to true;
+ * It can also contain nodes.
+ * 
  */
 import java.util.ArrayList;
 
@@ -14,42 +19,48 @@ public class Area {
     private ArrayList<Node> nodes;
     private ArrayList<Area> areas;
 
-    // Constructors
+    // Default constructor
     public Area(){
         this.id = "DeafaultName";
         this.nodes = new ArrayList<Node>();
         this.areas = new ArrayList<Area>();
     }
+    // Constructor with given name
     public Area(String id){
         this.id = id;
         this.nodes = new ArrayList<Node>();
         this.areas = new ArrayList<Area>();
     }
 
-    // Setter
+    // Sett a new Id
     public void setId(String newId){
         this.id = newId;
     }
     
-    // getters
+    // getId
     public String getId(){
         return this.id;
     }
+    // check if this area contains an area
     public boolean hasArea(){
         return this.containsArea;
     }
+    // get all nodes in this area
     public ArrayList<Node> getNodes(){
         return this.nodes;
     }
+    // get all Areas in this area
     public ArrayList<Area> getAreas(){
         return this.areas;
     }
 
-    // adders
+    // add new node to the area
     public void addNode(Node newNode){
         this.nodes.add(newNode);
     }
+    // add new area to the area
     public void addArea(Area newArea){
+        // set the containsArea boolean to true
         this.containsArea = true;
         this.areas.add(newArea);
     }    
@@ -58,12 +69,14 @@ public class Area {
     public String printArea(){
         String toRet = this.id + ".(";
 
+        // check if this area has an area, if it does then call that areas printArea method to build the string. 
         if(this.hasArea()){
             for(int i = 0; i < this.areas.size(); i++){
                 toRet = toRet + this.areas.get(i).printArea() + " | ";
             }
         }
 
+        // call each node in the list of nodes printAppsAndLinks method to print out all the apps and links for each node.
         if(!this.nodes.isEmpty()){
             for(int i = 0; i < this.nodes.size(); i++){
                 if(i == 0){

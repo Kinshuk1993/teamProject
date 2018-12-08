@@ -1,7 +1,9 @@
 /** 
- * Controller for Node, Area, Apps
- * Makes sure the interactions between the Node, Area and Apps are done in a correct manner.
- * Also keeps track of every node, area, app and link
+ * University of Glasgow
+ * MSc CS+ Team Project, fall 2018
+ * 
+ * Controller for the mathmatical backend of a bigraph application
+ * Works as an overlay to the Apps, Area, and Node class to makes sure each interaction is correctly done.
  * 
  */
 import java.io.BufferedWriter;
@@ -11,24 +13,21 @@ import java.util.ArrayList;
 
 public class Controller{
 
-    //name of scene
+    //name of scene, the controller is the base scene where everything happens
     private String sceneName;
 
     //list of links
     private ArrayList<String> listOfLinks;
-
     //list of application
     private ArrayList<Apps> listOfApps;
-
     //list of Areas
-    private ArrayList<Area> listOfAreas;
-    private ArrayList<Area> topLevelAreas;
-    private ArrayList<Area> innerAreas;
-
+    private ArrayList<Area> listOfAreas;        //all areas
+    private ArrayList<Area> topLevelAreas;      //aras on the scene
+    private ArrayList<Area> innerAreas;         //areas withing another area
     //list of Nodes
     private ArrayList<Node> listOfNodes;
 
-
+    // constructor
     public Controller(){
         this.sceneName = "DefaultName";
         this.listOfLinks = new ArrayList<String>();
@@ -38,6 +37,7 @@ public class Controller{
         this.innerAreas = new ArrayList<Area>();
         this.listOfNodes = new ArrayList<Node>();
     }
+    // named constructor (prefferd)
     public Controller(String name){
         this.sceneName = name;
         this.listOfLinks = new ArrayList<String>();
@@ -48,9 +48,11 @@ public class Controller{
         this.listOfNodes = new ArrayList<Node>();
     }
 
+    // get the name of the scene
     public String getSceneName(){
         return this.sceneName;
     }
+    // rename the scene
     public void setSceneName(String newName){
         this.sceneName = newName;
     }
@@ -81,8 +83,14 @@ public class Controller{
     }
 
     // ---------------- Area ----------------------------
-
-    // Add top level Area
+    /**
+     * Add top level Area
+     * takes the name of the new area, creates an area and then add it to
+     * the topLevelAras list and the listOfAreas.
+     *  
+     * @param name
+     * @return newArea.getId()
+     */
     public String addTopArea(String name){
         Area newArea = new Area(name);
         this.listOfAreas.add(newArea);
@@ -91,7 +99,16 @@ public class Controller{
         return newArea.getId();
 
     }
-    // Add inner Area
+    /**
+     * Add inner area
+     * takes the name of the newArea and the area it is places inside
+     * finds the parent area in the list of parents, and then creates a newArea
+     * then add the newArea to the parent.
+     * 
+     * @param parent
+     * @param newId
+     * @return newAra.getId()
+     */ 
     public String addInnerArea(String parent, String newId){
         // find the parent Area
         Area parentArea = findArea(parent);
@@ -108,6 +125,19 @@ public class Controller{
     // ---------------- Node ----------------------------
 
     // Add new node
+    /**
+     * Takes the name of the area the node is placed in to find the area in the list.
+     * takes the paramaters of each configuration a node can have.
+     * 
+     * @param areaName
+     * @param temperature
+     * @param windspeed
+     * @param humidity
+     * @param vibration
+     * @param pressure
+     * @param appName
+     * @return the id of the node
+     */
     public String addNodeToArea(String areaName, boolean temperature, boolean windspeed, boolean humidity, boolean vibration, boolean pressure, String appName){
         // find the area
         Area areaToAddTo = findArea(areaName); 
@@ -136,6 +166,17 @@ public class Controller{
 
     }
     // change config of node
+    /**
+     * takes in the name of a node and finds it in the list of nodes.
+     * then we cange the configurations based on the given paramaters.
+     * 
+     * @param nodeName
+     * @param temperature
+     * @param windspeed
+     * @param humidity
+     * @param vibration
+     * @param pressure
+     */
     public void addConfigToNode(String nodeName, boolean temperature, boolean windspeed, boolean humidity, boolean vibration, boolean pressure){
         // find node
         Node newNode = findNode(nodeName);
@@ -143,7 +184,13 @@ public class Controller{
         newNode.setAllConf(temperature, windspeed, humidity, vibration, pressure);
         
     }
-    // Add app to node
+    
+    /**
+     * Takes node id and appName and finds both of them in their lists, before adding the app to the node
+     * 
+     * @param appName
+     * @param nodeId
+     */
     public void addAppToNode(String appName, String nodeId){
         Node findNode = findNode(nodeId);
         Apps findApp = findApp(appName);
@@ -153,6 +200,12 @@ public class Controller{
 
 
     // ---------------- Apps ----------------------------
+    /**
+     * takes the name of the application you want to create, generate and automatic id and creates the new application.
+     *  
+     * @param appName
+     * @return generated appID
+     */
     public String newApp(String appName){
         String appID = "A(" + (this.listOfApps.size()+1)+")";
         Apps  newApp = new Apps(appName, appID);
@@ -162,9 +215,17 @@ public class Controller{
     }
 
 
-
     // ---------------- Links ----------------------------
     // add new link
+    /**
+     * takes the names of the nodes to be connected and find them in the list of nodes
+     * adds the link to the two nodes
+     * generate the linkId
+     * 
+     * @param firstNodeName
+     * @param secondNodeName
+     * @return linkId
+     */
     public String addNewLink(String firstNodeName, String secondNodeName){
         // create new link
         String linkName = "l"+(this.listOfLinks.size()+1);
@@ -184,23 +245,26 @@ public class Controller{
 
     
     // ---------------- Print out ----------------------------
+    /**
+     * Put together a string that represents the bigrap algebraic expression
+     * @return bigraph expression
+     */
     public String exportBigraph(){
 
         // set up the function
         String finalFunc = "";
 
-        // add links
+        // add links in the beginning
         finalFunc = finalFunc+printLinks();
         finalFunc = finalFunc+"(";
 
-        // print areas and contained nodes
+        // print the areas and the nodes within them
         finalFunc = finalFunc + printAreas();
 
-        // add in config at the end
+        // prepare to show configs
         finalFunc = finalFunc + "||";
         
         // add configuration of nodes
-        
         if(!this.listOfNodes.isEmpty()){
             finalFunc = finalFunc + printNodesConf();
         }
@@ -212,6 +276,11 @@ public class Controller{
     }
 
     // return a string with all Node fonfigurations
+    /**
+     * loopes through the list of nodes and print the configurations of each node
+     * 
+     * @return string with nodeconfigurations
+     */
     public String printNodesConf(){
         String toRet = "(";
 
@@ -230,6 +299,10 @@ public class Controller{
     }  
 
     // print out link expression
+    /**
+     * loops through the list of links and print out each one
+     * @return /l1/ln... and so fort
+     */
     private String printLinks(){
         String toReturn = "/";
 
@@ -246,6 +319,12 @@ public class Controller{
     
 
     // print out Areas
+    /**
+     * loops through the list of top level areas and calls the printArea Function from each top area
+     * this nestes through all areas in the scene. By the recursive printArea function in the area class.
+     * 
+     * @return string with all area and node information
+     */
     private String printAreas(){
         String toRet = "";
 
@@ -267,6 +346,10 @@ public class Controller{
         return toRet;
     }
 
+    /**
+     * loopes through all applications and print them
+     * @return string of all aps
+     */
     private String printApps(){
         String toRet = "(";
 
@@ -285,6 +368,11 @@ public class Controller{
 
     }
 
+    /**
+     * print each id of every node in this scene
+     * 
+     * @return /c1/c2... etc
+     */
     private String printNodes(){
         String toRet = "/";
 
@@ -302,9 +390,15 @@ public class Controller{
 
     // ---------------- Export BIG file ----------------------------
 
+    /**
+     * This method writs out a model.big file.
+     * When called it builds a string by calling the print functions above.
+     * Then writes the string to the model.bif file.
+     */
     public void exportBIG(){
 
         try {
+            // creates the writer
             BufferedWriter writer = new BufferedWriter(new FileWriter("model.big"));
 
             // Everything that is unchangable in the bigfile
@@ -314,11 +408,12 @@ public class Controller{
             toWrite = toWrite + "# Node configuration\nctrl Conf = 1;\n\n";
             toWrite = toWrite + "# Node configuration values\natomic fun ctrl MAC(x) = 0;\natomic fun ctrl IPv6(x) = 0;\natomic ctrl T = 0;\natomic ctrl H = 0;\natomic ctrl V = 0;\natomic ctrl P = 0;\natomic ctrl W = 0;\n\n";
 
-            // Structures that change
+            // All the areas in this scene
             toWrite = toWrite + "# Topology\n";
             for(int i = 0; i < this.listOfAreas.size();i++){
                 toWrite = toWrite +"ctrl " + this.listOfAreas.get(i).getId() + " = 0;\n";
             }
+            // Adds the different perspectives (unchangable)
             toWrite = toWrite + "\n# Perspectives\nctrl PHY = 0;\nctrl DATA = 0;\nctrl CONF = 0;\nctrl SERVICE = 0;\n\n";
 
             // write PHYSICAL State
@@ -340,11 +435,12 @@ public class Controller{
             // Write out the file
             writer.write(toWrite);
 
-
+            // flush and close the writer
             writer.flush();
             writer.close();
 
         } catch (IOException e){
+            // catch possibe IOException
             e.printStackTrace();
         }
 
@@ -352,6 +448,7 @@ public class Controller{
 
 
     // ---------------- Private helpers ----------------------------
+    // These helpers are for internal use to find the Node, Area, and App based on a given name.
 
     // find node in list of nodes
     private Node findNode(String nodeName){

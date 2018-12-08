@@ -1,9 +1,15 @@
 
 /**
- * Node
- * Nodes, has different configurations.
+ * University of Glasgow
+ * MSc CS+ Team Project, fall 2018
  * 
- * Can contain Apps
+ * Node class, has different sensor configurations, represented as booleans
+ * can also be linked to other nodes, done by adding the link to the linklist
+ * can also contain Applications, done by adding the app to teh applist.
+ * 
+ * N_U = Node in Use, a node is in use if it has an application
+ * N = Idle node
+ * 
  */
 import java.util.Random;
 import java.util.ArrayList;
@@ -12,7 +18,7 @@ public class Node {
     
     // Privat variables
     private String id;              // this is the id the node is known as
-    private String typeId;          // this identifies what kind of node it is (N_U, N)
+    private String typeId;          // this identifies what kind of node it is
     private String Mac;             // Mac is needed, works as the ID
     private String ipv6;            // Only when connected to a network
 
@@ -56,12 +62,12 @@ public class Node {
         return ipv6;
     }
 
-    // DONT USE THIS
+    // getNode prints the node with a mac addres and each configuration
     public String getNode(){
         return "Node: "+ Mac + "\nTemperature: " + String.valueOf(Temperature) + ", Windspeed: " + String.valueOf(Windspeed) + ", Humidity: " + String.valueOf(Humidity) + ", Vibration: " + String.valueOf(Vibration) + ", Pressure: " + String.valueOf(Pressure);
     }
     
-    // print the configurations
+    // print the configurations for use in Bigraph or BIG files
     public String printNodeConf(){
         String toRet = "Conf"+this.id+".(";
 
@@ -89,7 +95,14 @@ public class Node {
         toRet = toRet+")";
         return toRet;
     }
+
     //print Apps and Links
+    /**
+     * Print the Node type and each link and app this node has
+     * exs: N_U{c1}.(L.(L_E{l1} | L_E{l2}) | A(1))
+     * 
+     * @return string with apps and links
+     */
     public String printAppsAndLinks(){
         String toRet = this.typeId + this.id + ".(";
 
@@ -110,13 +123,13 @@ public class Node {
                     toRet = toRet + " L_E{" + this.links.get(i) + "} |";
                 }
             }
-
+            
             toRet = toRet+")";
+            toRet = toRet + " |";
         }
         
 
         if(!this.applications.isEmpty()){
-            toRet = toRet + " |";
             for (int i = 0; i < this.applications.size(); i++){
                 if(i == this.applications.size()-1){
                     toRet = toRet + " " + this.applications.get(i).getId();
@@ -180,7 +193,7 @@ public class Node {
     public void setPressure(boolean pressure){
         this.Pressure = pressure;
     }
-    // set all configs
+    // set all configs in one
     public void setAllConf(boolean temperature, boolean windspeed, boolean humidity, boolean vibration, boolean pressure){
         this.Temperature = temperature;
         this.Windspeed = windspeed;
@@ -189,14 +202,16 @@ public class Node {
         this.Pressure = pressure;
     }
 
-    // Addres
+    // Add link to list of links
     public void addLink(String newLink){
         this.links.add(newLink);
     }
+    // Add app to list of apps
     public void addApp(Apps newApp){
         this.typeId = "N_U";
         this.applications.add(newApp);
     }
+
     // create Mac
     private String findMac(){
 
