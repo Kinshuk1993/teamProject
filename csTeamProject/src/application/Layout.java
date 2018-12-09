@@ -24,9 +24,9 @@ import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-
 public class Layout extends BorderPane {
-	@FXML 
+
+	@FXML
 	BorderPane border_pane;
 	@FXML
 	SplitPane base_pane;
@@ -76,22 +76,22 @@ public class Layout extends BorderPane {
 			textArea.setText(null);
 		});
 		saveButton.setOnAction(e -> {
-			//            to be fullfilled
+			// to be fullfilled
 		});
 		exportButton.setOnAction(e -> {
-			//          to be fullfilled
+			// to be fullfilled
 		});
 		generateButton.setOnAction(e -> {
-			//          to be fullfilled
+			// to be fullfilled
 		});
-		//set the short hand event handler for create application button
+		// set the short hand event handler for create application button
 		createAppButton.setOnAction(event -> {
-			//exception handling
+			// exception handling
 			try {
-				//open create a new application dialog
+				// open create a new application dialog
 				new AddApplicationLoader();
 			} catch (Exception error) {
-				//print the stack trace in case of error
+				// print the stack trace in case of error
 				error.printStackTrace();
 			}
 		});
@@ -119,20 +119,20 @@ public class Layout extends BorderPane {
 		buildDragHandlers2();
 	}
 
-	//    public void saveButtonClick() {
-	//    	
-	//    }
-	//    
-	//    public void exportButtonClick() {
-	//    	
-	//    }
-	//    
-	//    public void generateButtonClick() {
-	//	
-	//    }
-	//    public void clearButtonClick() {
-	//    	
-	//    }
+	// public void saveButtonClick() {
+	//
+	// }
+	//
+	// public void exportButtonClick() {
+	//
+	// }
+	//
+	// public void generateButtonClick() {
+	//
+	// }
+	// public void clearButtonClick() {
+	//
+	// }
 	private void buildDragHandlers() {
 		mNodeDragOverRoot = new EventHandler<DragEvent>() {
 
@@ -174,141 +174,111 @@ public class Layout extends BorderPane {
 			@Override
 			public void handle(DragEvent event) {
 				right_pane.removeEventHandler(DragEvent.DRAG_OVER, mNodeDragOverRightPane);
-                right_pane.removeEventHandler(DragEvent.DRAG_DROPPED, mNodeDragDropped);
-                base_pane.removeEventHandler(DragEvent.DRAG_OVER, mNodeDragOverRoot);
-                mDragableNodeOver.setVisible(false);
-                DragableContainer container = (DragableContainer) event.getDragboard().getContent(DragableContainer.AddNode);                          
-                if (container != null){
-                	System.out.println(container.getData().toString());
-                    if (container.getValue("scene_coordinates") != null){                     
-                        DragableNode nodeDropped = new DragableNode();
+				right_pane.removeEventHandler(DragEvent.DRAG_DROPPED, mNodeDragDropped);
+				base_pane.removeEventHandler(DragEvent.DRAG_OVER, mNodeDragOverRoot);
+				mDragableNodeOver.setVisible(false);
+				DragableContainer container = (DragableContainer) event.getDragboard()
+						.getContent(DragableContainer.AddNode);
+				if (container != null) {
+					System.out.println(container.getData().toString());
+					if (container.getValue("scene_coordinates") != null) {
+						DragableNode nodeDropped = new DragableNode();
 //                        nodeDropped.setType(DragableNodeType.valueOf(container.getValue("type")));
-                        right_pane.getChildren().add(nodeDropped);
-                        Point2D cursorPoint = container.getValue("scene_coordinates");
-                       nodeDropped.relocateToPoint(new Point2D(cursorPoint.getX(), cursorPoint.getY()));                      
-                        try{
-                        	
-                        	Stage nodeWindow = new Stage();                			
-                			BorderPane Pane = new BorderPane();               			   
-                			Scene nodeScene = new Scene(Pane, 400, 400);               			
-                			nodeWindow.setTitle("node Settings");              			
-                			nodeWindow.setScene(nodeScene);              			
-                			nodeWindow.show();               			
-                			nodeProperty node_setting = new nodeProperty();              			
-                			Pane.setCenter(node_setting);            			             			               			
+						right_pane.getChildren().add(nodeDropped);
+						Point2D cursorPoint = container.getValue("scene_coordinates");
+						nodeDropped.relocateToPoint(new Point2D(cursorPoint.getX(), cursorPoint.getY()));
+						try {
+							Stage nodeWindow = new Stage();
+							BorderPane Pane = new BorderPane();
+							Scene nodeScene = new Scene(Pane, 400, 400);
+							nodeWindow.setTitle("node Settings");
+							nodeWindow.setScene(nodeScene);
+							nodeWindow.show();
+							nodeProperty node_setting = new nodeProperty();
+							Pane.setCenter(node_setting);
 //                			node_setting.getvalue(nodeDropped);
-                			
 //                			System.out.println(nodeDropped.Windspeed);
 //                			System.out.println(nodeDropped.Temperature);
 //                			System.out.println(nodeDropped.Humidity);
 //                			System.out.println(nodeDropped.Vibration);
 //                			System.out.println(nodeDropped.Pressure);                			              		                			                			               			               			
-                        } catch(Exception e){
-                            e.printStackTrace();
-                        }
-                    }                                     
-                }
-				
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				}
 				right_pane.removeEventHandler(DragEvent.DRAG_OVER, mAreaDragOverRightPane);
-            	right_pane.removeEventHandler(DragEvent.DRAG_DROPPED, mAreaDragDropped);
-                base_pane.removeEventHandler(DragEvent.DRAG_OVER, mAreaDragOverRoot);
-                mDragableAreaOver.setVisible(false);
-                DragableContainer2 container2 = (DragableContainer2) event.getDragboard().getContent(DragableContainer2.AddArea);               
-                               
-                if (container2 != null){               	
-                	System.out.println(container2.getData().toString());
-                    if (container2.getValue("scene_coordinates") != null){                       
-                        DraggableArea areaDropped = new DraggableArea();
+				right_pane.removeEventHandler(DragEvent.DRAG_DROPPED, mAreaDragDropped);
+				base_pane.removeEventHandler(DragEvent.DRAG_OVER, mAreaDragOverRoot);
+				mDragableAreaOver.setVisible(false);
+				DragableContainer2 container2 = (DragableContainer2) event.getDragboard()
+						.getContent(DragableContainer2.AddArea);
+				if (container2 != null) {
+					System.out.println(container2.getData().toString());
+					if (container2.getValue("scene_coordinates") != null) {
+						DraggableArea areaDropped = new DraggableArea();
 //                        areaDropped.setType(DragableNodeType.valueOf(container.getValue("type")));
-                        right_pane.getChildren().add(areaDropped);
-                        Point2D cursorPoint = container2.getValue("scene_coordinates");
-                        areaDropped.relocateToPoint(new Point2D(cursorPoint.getX(), cursorPoint.getY()));                       
-                        try{                       	
-                        	Stage areaWindow = new Stage();                			
-                			BorderPane Pane = new BorderPane();                			   
-                			Scene areaScene = new Scene(Pane, 250, 100);                			
-                			areaWindow.setTitle("area Settings");                			
-                			areaWindow.setScene(areaScene);                			
-                			areaWindow.show();                			
-                			areaSetting area_setting = new areaSetting();          			                 			
-                			Pane.setCenter(area_setting);                			
-                			DragResizeMod.makeResizable(areaDropped.rectangle, null);                			
+						right_pane.getChildren().add(areaDropped);
+						Point2D cursorPoint = container2.getValue("scene_coordinates");
+						areaDropped.relocateToPoint(new Point2D(cursorPoint.getX(), cursorPoint.getY()));
+						try {
+							Stage areaWindow = new Stage();
+							BorderPane Pane = new BorderPane();
+							Scene areaScene = new Scene(Pane, 250, 100);
+							areaWindow.setTitle("area Settings");
+							areaWindow.setScene(areaScene);
+							areaWindow.show();
+							areaSetting area_setting = new areaSetting();
+							Pane.setCenter(area_setting);
+							DragResizeMod.makeResizable(areaDropped.rectangle, null);
 //                			area_setting.getname(areaDropped);                			
 //                			System.out.println(areaDropped.name);               			               			
-                        } catch(Exception e){
-                            e.printStackTrace();
-                        }
-                    }                                        
-                }				
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				}
 				event.consume();
-			}						
+			}
 		});
 	}
 
 	private void buildDragHandlers2() {
-mAreaDragOverRoot = new EventHandler<DragEvent>() {
-            
-            @Override
+		mAreaDragOverRoot = new EventHandler<DragEvent>() {
 
-            public void handle(DragEvent event) {
-                
-                Point2D p = right_pane.sceneToLocal(event.getSceneX(), event.getSceneY());
+			@Override
+			public void handle(DragEvent event) {
+				Point2D p = right_pane.sceneToLocal(event.getSceneX(), event.getSceneY());
+				if (!right_pane.boundsInLocalProperty().get().contains(p)) {
+					event.acceptTransferModes(TransferMode.ANY);
+					mDragableAreaOver.relocateToPoint(new Point2D(event.getSceneX(), event.getSceneY()));
+					return;
+				}
+				event.consume();
+			}
+		};
+		mAreaDragOverRightPane = new EventHandler<DragEvent>() {
 
-                if (!right_pane.boundsInLocalProperty().get().contains(p)){
+			@Override
+			public void handle(DragEvent event) {
+				event.acceptTransferModes(TransferMode.ANY);
+				mDragableAreaOver.relocateToPoint(new Point2D(event.getSceneX(), event.getSceneY()));
+				event.consume();
+			}
+		};
+		mAreaDragDropped = new EventHandler<DragEvent>() {
 
-                    event.acceptTransferModes(TransferMode.ANY);
-
-                    mDragableAreaOver.relocateToPoint(new Point2D(event.getSceneX(), event.getSceneY()));
-
-                    return;
-
-                }
-
-                event.consume();
-
-            }
-
-        };
-
-
-        mAreaDragOverRightPane = new EventHandler<DragEvent>() {
-
-            @Override
-
-            public void handle(DragEvent event) {
-                
-                event.acceptTransferModes(TransferMode.ANY);
-
-               mDragableAreaOver.relocateToPoint(new Point2D(event.getSceneX(), event.getSceneY()));
-
-                event.consume();
-
-            }
-
-        };
-
-        mAreaDragDropped = new EventHandler<DragEvent>() {
-
-            @Override
-
-            public void handle(DragEvent event) {
-                
-                DragableContainer2 container2 = (DragableContainer2) event.getDragboard().getContent(DragableContainer2.AddArea);
-
-                container2.addData("scene_coordinates", new Point2D(event.getSceneX(), event.getSceneY()));
-
-                ClipboardContent content2 = new ClipboardContent();
-
-                content2.put(DragableContainer2.AddArea, container2);
-
-                event.getDragboard().setContent(content2);
-
-                event.setDropCompleted(true);
-                
-            }
-
-        };
-		
+			@Override
+			public void handle(DragEvent event) {
+				DragableContainer2 container2 = (DragableContainer2) event.getDragboard()
+						.getContent(DragableContainer2.AddArea);
+				container2.addData("scene_coordinates", new Point2D(event.getSceneX(), event.getSceneY()));
+				ClipboardContent content2 = new ClipboardContent();
+				content2.put(DragableContainer2.AddArea, container2);
+				event.getDragboard().setContent(content2);
+				event.setDropCompleted(true);
+			}
+		};
 	}
 
 	private void addDragDetection(DragableNode dragableNode) {
@@ -334,48 +304,28 @@ mAreaDragOverRoot = new EventHandler<DragEvent>() {
 	}
 
 	private void addDragDetection(DraggableArea draggableArea) {
-		draggableArea.setOnDragDetected(new EventHandler <MouseEvent>(){
+		draggableArea.setOnDragDetected(new EventHandler<MouseEvent>() {
 
-            @Override
-
-            public void handle(MouseEvent event) {
-
-            	base_pane.setOnDragOver(mAreaDragOverRoot);
-
-            	right_pane.setOnDragOver(mAreaDragOverRightPane);
-
-            	right_pane.setOnDragDropped(mAreaDragDropped);
-
-                //get ref to clicked node
-
-            	DraggableArea area = (DraggableArea) event.getSource();
-
-                //drag baby
-
+			@Override
+			public void handle(MouseEvent event) {
+				base_pane.setOnDragOver(mAreaDragOverRoot);
+				right_pane.setOnDragOver(mAreaDragOverRightPane);
+				right_pane.setOnDragDropped(mAreaDragDropped);
+				// get ref to clicked node
+				@SuppressWarnings("unused")
+				DraggableArea area = (DraggableArea) event.getSource();
+				// drag baby
 //                mDragableNodeOver.setType(area.getType());
-
-                mDragableAreaOver.relocateToPoint(new Point2D (event.getSceneX(),event.getSceneY()));
-
-                ClipboardContent content2 = new ClipboardContent();
-
-                DragableContainer2 container2 = new DragableContainer2();
-
+				mDragableAreaOver.relocateToPoint(new Point2D(event.getSceneX(), event.getSceneY()));
+				ClipboardContent content2 = new ClipboardContent();
+				DragableContainer2 container2 = new DragableContainer2();
 //                container.addData("type", mDragableNodeOver.getType().toString());
-
-                content2.put(DragableContainer2.AddArea, container2);
-
-                mDragableAreaOver.startDragAndDrop (TransferMode.ANY).setContent(content2);
-
-                mDragableAreaOver.setVisible(true);
-
-                mDragableAreaOver.setMouseTransparent(true);
-
-                event.consume();
-
-            }
-
-        });
-
-    }
-	
+				content2.put(DragableContainer2.AddArea, container2);
+				mDragableAreaOver.startDragAndDrop(TransferMode.ANY).setContent(content2);
+				mDragableAreaOver.setVisible(true);
+				mDragableAreaOver.setMouseTransparent(true);
+				event.consume();
+			}
+		});
+	}
 }

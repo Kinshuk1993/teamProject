@@ -37,6 +37,7 @@ public class AddApplicationController {
 	 */
 	@FXML
 	private void initialize(){
+		nodeList.getItems().add("Select");
 		//if no nodes present till now, do not populate the node list
 		if (Controller.getNodes()!=null) {
 			//print the each Node id
@@ -47,8 +48,14 @@ public class AddApplicationController {
 			}
 			//select the first item to display in the dropdown by default
 			nodeList.getSelectionModel().selectFirst();	
-		} else {
-//			nodeList.
+		} else { //if no nodes are present
+			//disable the drop down and the add node to app button
+			nodeList.setDisable(true);
+			addNodeToAppButton.setDisable(true);
+			//change the label accordingly
+			dynamicNodeListLabel.setText("No nodes are available, but you may create an App");
+			//wrap the text of label
+			dynamicNodeListLabel.setWrapText(true);
 		}
 	}
 }

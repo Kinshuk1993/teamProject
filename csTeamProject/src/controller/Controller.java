@@ -140,7 +140,7 @@ public class Controller{
      * @param appName
      * @return the id of the node
      */
-    public String addNodeToArea(String areaName, boolean temperature, boolean windspeed, boolean humidity, boolean vibration, boolean pressure, String appName){
+    public String addNodeToArea(String areaName, boolean temperature, boolean windspeed, boolean humidity, boolean vibration, boolean pressure){
         // find the area
         Area areaToAddTo = findArea(areaName); 
 
@@ -152,13 +152,6 @@ public class Controller{
         newNode.setAllConf(temperature, windspeed, humidity, vibration, pressure);
 
         Controller.listOfNodes.add(newNode);
-
-        if(!appName.isEmpty()){
-            // find app
-            Apps findApp = findApp(appName);
-            // add app to node
-            newNode.addApp(findApp);
-        }
         
         // add node to area
         areaToAddTo.addNode(newNode);
@@ -453,7 +446,7 @@ public class Controller{
     // These helpers are for internal use to find the Node, Area, and App based on a given name.
 
     // find node in list of nodes
-    private Node findNode(String nodeName){
+    public Node findNode(String nodeName){
         Node toReturn = new Node();
         // find Node
         for(int i = 0; i < Controller.listOfNodes.size(); i++){

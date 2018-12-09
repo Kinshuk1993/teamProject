@@ -22,7 +22,8 @@ package controller;
 
 public class test {
 
-    public static void main(String[] args) {
+    @SuppressWarnings("unused")
+	public static void main(String[] args) {
     	// Create new Scene, this will be the new Controller
         Controller newScene = new Controller("Scene");
 
@@ -34,29 +35,29 @@ public class test {
         String bridge = newScene.addInnerArea(north, "Bridge");
 
         // Node A created
-        String node1 = newScene.addNodeToArea(bridge, false, false, false, false, true, "");
+        String node1 = newScene.addNodeToArea(bridge, false, false, false, false, true);
 
         // Node B created
-        String node2 = newScene.addNodeToArea(north, false, false, false, true, false, "");
+        String node2 = newScene.addNodeToArea(north, false, false, false, true, false);
 
         // Node C created
-        String node3 = newScene.addNodeToArea(north, false, false, true, true, true, "");
+        String node3 = newScene.addNodeToArea(north, false, false, true, true, true);
 
         // Node D created
-        String node4 = newScene.addNodeToArea(north, true, true, false, false, true, "");
+        String node4 = newScene.addNodeToArea(north, true, true, false, false, true);
 
         // Node E created
-        String node5 = newScene.addNodeToArea(north, false, false, true, false, true, "");        
+        String node5 = newScene.addNodeToArea(north, false, false, true, false, true);        
 
         // Node F created
-        String node6 = newScene.addNodeToArea(south, false, false, true, false, true, "");        
+//        String node6 = newScene.addNodeToArea(south, false, false, true, false, true);        
 
         // link nodes together
         String link1 = newScene.addNewLink(node1, node2);
         String link2 = newScene.addNewLink(node2, node4);
         String link3 = newScene.addNewLink(node4, node3);
         String link4 = newScene.addNewLink(node4, node5);
-        String link5 = newScene.addNewLink(node3, node6);
+//        String link5 = newScene.addNewLink(node3, node6);
 
         // Create applications
         String app1 = newScene.newApp("App1");
@@ -68,7 +69,7 @@ public class test {
 
         newScene.addAppToNode(app2, node3);
         newScene.addAppToNode(app2, node4);
-        newScene.addAppToNode(app2, node6);
+//        newScene.addAppToNode(app2, node6);
 
         // Get the bigraph Expression
         String exp = newScene.exportBigraph();

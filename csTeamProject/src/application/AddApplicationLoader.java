@@ -23,7 +23,10 @@ public class AddApplicationLoader {
 	
 	public AddApplicationLoader() throws Exception {
 		//test code to create a list of nodes and a bigraph finally
-//		new test();
+		//TEST string array
+		String[] toppings = new String[20];
+		//TEST to check the nodeList functionality
+		test.main(toppings);
 		//load the FXML file
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AddApplication.fxml"));
 		//create a parent root for the new view
