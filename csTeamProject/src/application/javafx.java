@@ -6,6 +6,8 @@ import controller.Main;
 import controller.Node;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 public class javafx extends Application {
@@ -30,30 +32,37 @@ public class javafx extends Application {
 			});
 			// Adding the scene to Stage
 			window.setScene(scene);
-			scene.getStylesheets().add(getClass().getResource("app.css").toExternalForm());
+			scene.getStylesheets().add(getClass().getResource("/fxml/app.css").toExternalForm());
 			// Displaying the contents of the stage
 			window.show();
-			getListOfNodes();
+//			TO-DO: DO NOT DELETE
+//			getListOfNodes();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		borderPane.setCenter(new Layout());
 	}
 
-	private void closeProgram() {
+	public void closeProgram() {
 		Stage newWindow = new Stage();
 		BorderPane newPane = new BorderPane();
 		Scene newScene = new Scene(newPane, 200, 100);
-		newWindow.setTitle("Warning");
+		//stop user from accessing any other dialog box other than the current one
+		newWindow.initModality(Modality.APPLICATION_MODAL);
+//		remove minimize and maximize button
+        newWindow.resizableProperty().setValue(Boolean.FALSE);
+        newWindow.getIcons().add(new Image(getClass().getResource("/resources/close-icon.png").toExternalForm()));
+		newWindow.setTitle("Close Confirmation");
 		newWindow.setScene(newScene);
-		newWindow.show();
+		newWindow.show();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 		ConfirmBox confirmbox = new ConfirmBox();
 		newPane.setCenter(confirmbox);
 		Boolean answer = ConfirmBox.display();
-		if (answer)
+		if (answer) {
 			window.close();
+		}
 	}
-	
+
 	/**
 	 * Function to get the list of all the nodes
 	 * from the backend
@@ -65,7 +74,6 @@ public class javafx extends Application {
 		for (Node eachNode : Controller.getNodes()) {
 			//print the node id trimmed of the first and last character as the node id format is {a}
 			System.out.println(eachNode.getId().substring(1, eachNode.getId().length()-1));
-		}
-		
+		}	
 	}
 }

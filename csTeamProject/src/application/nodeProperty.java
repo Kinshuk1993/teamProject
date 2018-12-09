@@ -14,7 +14,7 @@ public class nodeProperty extends BorderPane {
 	Button saveAppButton;
 
 	public nodeProperty() {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("nodeProperty.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/nodeProperty.fxml"));
 		fxmlLoader.setRoot(this);
 		fxmlLoader.setController(this);
 		try {

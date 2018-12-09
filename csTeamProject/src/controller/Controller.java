@@ -212,7 +212,6 @@ public class Controller{
         String appID = "A(" + (this.listOfApps.size()+1)+")";
         Apps  newApp = new Apps(appName, appID);
         this.listOfApps.add(newApp);
-
         return appID;
     }
 

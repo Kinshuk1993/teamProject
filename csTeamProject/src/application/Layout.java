@@ -45,6 +45,8 @@ public class Layout extends AnchorPane {
 	TextArea textArea;
 	@FXML
 	TitledPane configBox;
+	@FXML
+	Button createAppButton;
 	private DragableNode mDragableNodeOver = null;
 	private DraggableArea mDragableAreaOver = null;
 	private EventHandler<DragEvent> mNodeDragOverRoot = null;
@@ -56,7 +58,7 @@ public class Layout extends AnchorPane {
 
 	public Layout() throws Exception {
 		FXMLLoader fxmlLoader = new FXMLLoader();
-		URL location = getClass().getResource("Layout.fxml");
+		URL location = getClass().getResource("/fxml/Layout.fxml");
 		fxmlLoader.setRoot(this);
 		fxmlLoader.setLocation(location);
 		fxmlLoader.setController(this);
@@ -80,6 +82,17 @@ public class Layout extends AnchorPane {
 		});
 		generateButton.setOnAction(e -> {
 			//          to be fullfilled
+		});
+		//set the short hand event handler for create application button
+		createAppButton.setOnAction(event -> {
+			//exception handling
+			try {
+				//open create a new application dialog
+				new AddApplication();
+			} catch (Exception error) {
+				//print the stack trace in case of error
+				error.printStackTrace();
+			}
 		});
 		mDragableNodeOver = new DragableNode();
 		mDragableNodeOver.setVisible(false);

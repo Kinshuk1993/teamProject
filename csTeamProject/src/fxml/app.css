@@ -1,0 +1,7 @@
+.dragablenode {
+    -fx-background-radius: 15.0;
+}
+
+.label{	
+	-fx-font-size: 12.0;
+}

@@ -20,7 +20,7 @@ public class ConfirmBox extends BorderPane {
 	Button noButton;
 
 	public ConfirmBox() {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ConfirmBox.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ConfirmBox.fxml"));
 		fxmlLoader.setRoot(this);
 		fxmlLoader.setController(this);
 		try {
@@ -40,7 +40,6 @@ public class ConfirmBox extends BorderPane {
 			answer = false;
 			Stage stage = (Stage) yesButton.getScene().getWindow();
 			stage.close();
-			//          Platform.exit();
 		});
 	}
 

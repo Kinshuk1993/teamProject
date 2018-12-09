@@ -8,7 +8,7 @@ public class DraggableArea extends AnchorPane {
 
 	//    @FXML AnchorPane area;
 	public DraggableArea() {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DraggableArea.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/DraggableArea.fxml"));
 		fxmlLoader.setRoot(this);
 		fxmlLoader.setController(this);
 		try {
