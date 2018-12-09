@@ -1,8 +1,10 @@
+package controller;
+
 /** 
  * University of Glasgow
  * MSc CS+ Team Project, fall 2018
  * 
- * Controller for the mathmatical backend of a bigraph application
+ * Controller for the mathematical backend of a bigraph application
  * Works as an overlay to the Apps, Area, and Node class to makes sure each interaction is correctly done.
  * 
  */
@@ -22,10 +24,10 @@ public class Controller{
     private ArrayList<Apps> listOfApps;
     //list of Areas
     private ArrayList<Area> listOfAreas;        //all areas
-    private ArrayList<Area> topLevelAreas;      //aras on the scene
-    private ArrayList<Area> innerAreas;         //areas withing another area
+    private ArrayList<Area> topLevelAreas;      //areas on the scene
+    private ArrayList<Area> innerAreas;         //areas within another area
     //list of Nodes
-    private ArrayList<Node> listOfNodes;
+    private static ArrayList<Node> listOfNodes;
 
     // constructor
     public Controller(){
@@ -35,9 +37,9 @@ public class Controller{
         this.listOfAreas = new ArrayList<Area>();
         this.topLevelAreas = new ArrayList<Area>();
         this.innerAreas = new ArrayList<Area>();
-        this.listOfNodes = new ArrayList<Node>();
+        Controller.listOfNodes = new ArrayList<Node>();
     }
-    // named constructor (prefferd)
+    // named constructor (preferred)
     public Controller(String name){
         this.sceneName = name;
         this.listOfLinks = new ArrayList<String>();
@@ -45,7 +47,7 @@ public class Controller{
         this.listOfAreas = new ArrayList<Area>();
         this.topLevelAreas = new ArrayList<Area>();
         this.innerAreas = new ArrayList<Area>();
-        this.listOfNodes = new ArrayList<Node>();
+        Controller.listOfNodes = new ArrayList<Node>();
     }
 
     // get the name of the scene
@@ -66,8 +68,8 @@ public class Controller{
         return this.listOfLinks;
     }
     // get list of Nodes
-    public ArrayList<Node> getNodes(){
-        return this.listOfNodes;
+    public static ArrayList<Node> getNodes(){
+        return Controller.listOfNodes;
     }
     // get list of Areas
     public ArrayList<Area> getAreas(){
@@ -149,7 +151,7 @@ public class Controller{
         // set nodes configurations
         newNode.setAllConf(temperature, windspeed, humidity, vibration, pressure);
 
-        this.listOfNodes.add(newNode);
+        Controller.listOfNodes.add(newNode);
 
         if(!appName.isEmpty()){
             // find app
@@ -265,7 +267,7 @@ public class Controller{
         finalFunc = finalFunc + "||";
         
         // add configuration of nodes
-        if(!this.listOfNodes.isEmpty()){
+        if(!Controller.listOfNodes.isEmpty()){
             finalFunc = finalFunc + printNodesConf();
         }
         
@@ -284,12 +286,12 @@ public class Controller{
     public String printNodesConf(){
         String toRet = "(";
 
-        for (int i = 0; i < this.listOfNodes.size(); i++){
-            if (i == this.listOfNodes.size()-1){
-                toRet = toRet + this.listOfNodes.get(i).printNodeConf();    
+        for (int i = 0; i < Controller.listOfNodes.size(); i++){
+            if (i == Controller.listOfNodes.size()-1){
+                toRet = toRet + Controller.listOfNodes.get(i).printNodeConf();    
             }
             else{
-                toRet = toRet + this.listOfNodes.get(i).printNodeConf() + "\n\t\t\t\t| ";
+                toRet = toRet + Controller.listOfNodes.get(i).printNodeConf() + "\n\t\t\t\t| ";
             }
         }
 
@@ -377,8 +379,8 @@ public class Controller{
     private String printNodes(){
         String toRet = "/";
 
-        for(int i = 0; i < this.listOfNodes.size();i++){
-            toRet = toRet + this.listOfNodes.get(i).getId().substring(1, this.listOfNodes.get(i).getId().length()-1) + "/";
+        for(int i = 0; i < Controller.listOfNodes.size();i++){
+            toRet = toRet + Controller.listOfNodes.get(i).getId().substring(1, Controller.listOfNodes.get(i).getId().length()-1) + "/";
         }
         if(toRet.substring(toRet.length() - 1).equals("|")){
             toRet = toRet.substring(0,toRet.length()-1);
@@ -455,9 +457,9 @@ public class Controller{
     private Node findNode(String nodeName){
         Node toReturn = new Node();
         // find Node
-        for(int i = 0; i < this.listOfNodes.size(); i++){
+        for(int i = 0; i < Controller.listOfNodes.size(); i++){
             if(listOfNodes.get(i).getId().equals(nodeName)){
-                toReturn = this.listOfNodes.get(i);
+                toReturn = Controller.listOfNodes.get(i);
             }
         }
 

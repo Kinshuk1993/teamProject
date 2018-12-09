@@ -1,3 +1,5 @@
+package controller;
+
 /** 
  * University of Glasgow
  * MSc CS+ Team Project, fall 2018
@@ -9,8 +11,8 @@
  * This test is based on the Example Sensor network [Appendix "something"]
  * 
  * Following other test cases has been tested previously:
- *  1 toplevel area, with 1 inner area and with multiple nodes.
- *  1 toplevel area, with 1 inner area and with a single node.
+ *  1 Top Level area, with 1 inner area and with multiple nodes.
+ *  1 Top Level area, with 1 inner area and with a single node.
  *  
  *  1 toplevel area, no inner area and with multiple nodes.
  *  1 toplevel area, no inner area and with a single node.
@@ -21,8 +23,14 @@
 public class Main {
 
     public static void main(String[] args) {
-
-        // Create new Scene, this will be the new Controller
+    	//Done so as to check the working of the backend functionality
+    	Main start = new Main();
+    	start.generateBigraph();
+    }
+    
+    @SuppressWarnings("unused")
+	public void generateBigraph() {
+    	// Create new Scene, this will be the new Controller
         Controller newScene = new Controller("Scene");
 
         // Add top areas
@@ -76,7 +84,6 @@ public class Main {
         newScene.exportBIG();
         // Print the bigraph
         System.out.println(exp);
-
     }
 
 }

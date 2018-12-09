@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Signature
 
 # Node types
@@ -51,63 +50,4 @@ big s0_S = SERVICE.(App(1).(A(1))
 
 big s0 = 
   /c1/c2/c3/c4/c5/c6/
-=======
-# Signature
-
-# Node types
-ctrl N = 1;                 # Idle node
-ctrl N_U = 1;               # Node in use
-atomic ctrl N_F = 1;        # Node with failure
-ctrl L = 0;                 # Links
-atomic ctrl L_E = 1;        # Link end
-
-fun ctrl App(x) = 0;        # Application
-atomic fun ctrl A(x) = 0;   # Application token
-
-# Node configuration
-ctrl Conf = 1;
-
-# Node configuration values
-atomic fun ctrl MAC(x) = 0;
-atomic fun ctrl IPv6(x) = 0;
-atomic ctrl T = 0;
-atomic ctrl H = 0;
-atomic ctrl V = 0;
-atomic ctrl P = 0;
-atomic ctrl W = 0;
-
-# Topology
-ctrl North = 0;
-ctrl South = 0;
-ctrl Bridge = 0;
-
-# Perspectives
-ctrl PHY = 0;
-ctrl DATA = 0;
-ctrl CONF = 0;
-ctrl SERVICE = 0;
-
-# Current state
-big s0_P = 
-  /l1/l2/l3/l4/l5
-	PHY.(North.(Bridge.(N{c1}.(L.( L_E{l1}))) 
-						| N_U{c2}.(L.(L_E{l1} | L_E{l2}) | A(1)) 
-						| N_U{c3}.(L.(L_E{l3} | L_E{l5}) | A(2)) 
-						| N_U{c4}.(L.(L_E{l2} | L_E{l3} | L_E{l4}) | A(1) | A(2)) 
-						| N{c5}.(L.( L_E{l4}))) 
-				| South.(N_U{c6}.(L.( L_E{l5}) | A(2))));
-
-big s0_D = DATA.(Conf{c1}.(MAC(48:e1:a4:3c:ba:15) | IPv6(N/A) | P)
-				| Conf{c2}.(MAC(54:09:2f:3d:aa:89) | IPv6(N/A) | V)
-				| Conf{c3}.(MAC(ca:fb:ff:06:08:1f) | IPv6(N/A) | H | V | P)
-				| Conf{c4}.(MAC(a4:5a:7e:b7:9a:e1) | IPv6(N/A) | T | W | P)
-				| Conf{c5}.(MAC(fe:0b:35:49:45:41) | IPv6(N/A) | H | P)
-				| Conf{c6}.(MAC(4a:24:af:de:ec:ed) | IPv6(N/A) | H | P));
-
-big s0_S = SERVICE.(App(1).(A(1))
-				| App(2).(A(2)));
-
-big s0 = 
-  /c1/c2/c3/c4/c5/c6/
->>>>>>> 31a3d3d86be8d4052db69df9fa1dbc88a3a1f53a
 	(s0_P || s0_D || s0_S);

@@ -1,3 +1,4 @@
+package controller;
 
 /**
  * University of Glasgow
@@ -19,7 +20,7 @@ public class Node {
     // Privat variables
     private String id;              // this is the id the node is known as
     private String typeId;          // this identifies what kind of node it is
-    private String Mac;             // Mac is needed, works as the ID
+    private String Mac;             // MAC is needed, works as the ID
     private String ipv6;            // Only when connected to a network
 
     // These are indicators for what kind of data this node can provide
