@@ -37,13 +37,18 @@ public class AddApplicationController {
 	 */
 	@FXML
 	private void initialize(){
-		//print the each Node id
-		for (Node eachNode : Controller.getNodes()) {
-			//add the node id trimmed of the first and last character as the node id format is {a}
-			//to the drop down item
-			nodeList.getItems().add(eachNode.getId().substring(1, eachNode.getId().length()-1));
+		//if no nodes present till now, do not populate the node list
+		if (Controller.getNodes()!=null) {
+			//print the each Node id
+			for (Node eachNode : Controller.getNodes()) {
+				//add the node id trimmed of the first and last character as the node id format is {a}
+				//to the drop down item
+				nodeList.getItems().add(eachNode.getId().substring(1, eachNode.getId().length()-1));
+			}
+			//select the first item to display in the dropdown by default
+			nodeList.getSelectionModel().selectFirst();	
+		} else {
+//			nodeList.
 		}
-		//select the first item to display in the dropdown by default
-		nodeList.getSelectionModel().selectFirst();
 	}
 }

@@ -11,19 +11,19 @@
  */
 package application;
 
+import controller.test;
 //import packages
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import controller.Main;
 
 public class AddApplicationLoader {
 	
 	public AddApplicationLoader() throws Exception {
 		//test code to create a list of nodes and a bigraph finally
-		new Main().generateBigraph();
+//		new test();
 		//load the FXML file
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AddApplication.fxml"));
 		//create a parent root for the new view

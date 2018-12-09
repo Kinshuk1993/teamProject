@@ -1,9 +1,6 @@
 package application;
 
 //import custom and existing files and packages
-import controller.Controller;
-import controller.Main;
-import controller.Node;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
