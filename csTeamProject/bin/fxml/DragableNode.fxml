@@ -11,6 +11,6 @@
 
 <fx:root fx:id="root_pane" prefHeight="20.0" prefWidth="20.0" stylesheets="@app.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Circle fill="WHITE" layoutX="16.0" layoutY="12.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+      <Circle fx:id="circle" fill="WHITE" layoutX="16.0" layoutY="12.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
    </children>
 </fx:root>
