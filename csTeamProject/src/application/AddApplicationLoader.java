@@ -1,24 +1,29 @@
+/** 
+ * University of Glasgow
+ * MSc CS+ Team Project, fall 2018
+ * 
+ * Class to handle the opening of the dialog box for creating application - FXML Loader
+ * 
+ */
+
 /**
  * package declaration
  */
 package application;
 
+//import packages
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import controller.Main;
 
-/** 
- * University of Glasgow
- * MSc CS+ Team Project, fall 2018
- * 
- * Class to handle the opening of the dialog box for creating application
- * 
- */
-public class AddApplication {
+public class AddApplicationLoader {
 	
-	public AddApplication() throws Exception {
+	public AddApplicationLoader() throws Exception {
+		//test code to create a list of nodes and a bigraph finally
+		new Main().generateBigraph();
 		//load the FXML file
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AddApplication.fxml"));
 		//create a parent root for the new view
