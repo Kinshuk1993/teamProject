@@ -20,16 +20,9 @@ package controller;
  * 
 */ 
 
-public class Main {
+public class test {
 
     public static void main(String[] args) {
-    	//Done so as to check the working of the backend functionality
-    	Main start = new Main();
-    	start.generateBigraph();
-    }
-    
-    @SuppressWarnings("unused")
-	public void generateBigraph() {
     	// Create new Scene, this will be the new Controller
         Controller newScene = new Controller("Scene");
 
@@ -85,5 +78,6 @@ public class Main {
         // Print the bigraph
         System.out.println(exp);
     }
+    
 
 }
