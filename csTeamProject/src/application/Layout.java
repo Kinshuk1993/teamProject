@@ -89,7 +89,7 @@ public class Layout extends BorderPane {
 			//exception handling
 			try {
 				//open create a new application dialog
-				new AddApplication();
+				new AddApplicationLoader();
 			} catch (Exception error) {
 				//print the stack trace in case of error
 				error.printStackTrace();
