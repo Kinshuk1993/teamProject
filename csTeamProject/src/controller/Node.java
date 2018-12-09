@@ -6,7 +6,7 @@ package controller;
  * 
  * Node class, has different sensor configurations, represented as booleans
  * can also be linked to other nodes, done by adding the link to the linklist
- * can also contain Applications, done by adding the app to teh applist.
+ * can also contain Applications, done by adding the app to the applist.
  * 
  * N_U = Node in Use, a node is in use if it has an application
  * N = Idle node

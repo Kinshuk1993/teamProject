@@ -115,7 +115,7 @@ public class Controller{
         // find the parent Area
         Area parentArea = findArea(parent);
 
-        // add new area to parent ara
+        // add new area to parent area
         Area newArea = new Area(newId);
         parentArea.addArea(newArea);
         this.listOfAreas.add(newArea);
