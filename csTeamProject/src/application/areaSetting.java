@@ -33,13 +33,4 @@ public class areaSetting  extends BorderPane {
 	  @FXML	  
 	  public void initialize() {		  
 	  }
-//	  @FXML
-//	  private void saveButton1Action(ActionEvent event) {
-//		  name = areaName.getText();  
-//		  
-//	  }
-//	  public void getname(DraggableArea areaDropped) {
-//		  areaDropped.name = name ;
-//		  System.out.println(areaDropped.name);
-//	  }
 }

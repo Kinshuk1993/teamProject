@@ -216,6 +216,18 @@ public class Layout extends BorderPane {
 						right_pane.getChildren().add(nodeDropped);
 						Point2D cursorPoint = container.getValue("scene_coordinates");
 						nodeDropped.relocateToPoint(new Point2D(cursorPoint.getX(), cursorPoint.getY()));
+						boolean nodeAccept = false;
+						for(int i = 0; i < AllAreasCreated.size(); i++ ) {    
+            				if(nodeDropped.circle.getLayoutX() - nodeDropped.circle.getRadius() > AllAreasCreated.get(i).rectangle.getLayoutX() &&
+            						nodeDropped.circle.getLayoutX() + nodeDropped.circle.getRadius() < AllAreasCreated.get(i).rectangle.getLayoutX() + AllAreasCreated.get(i).areaWidth() &&
+            						nodeDropped.circle.getLayoutY() - nodeDropped.circle.getRadius() > AllAreasCreated.get(i).rectangle.getLayoutY() &&
+            						nodeDropped.circle.getLayoutY() + nodeDropped.circle.getRadius() < AllAreasCreated.get(i).rectangle.getLayoutY() + AllAreasCreated.get(i).areaHeight()
+            					) {
+            					nodeAccept = true;
+            					break;
+            					}
+            				}
+						if(nodeAccept) {
 						try {
 							Stage nodeWindow = new Stage();
 							BorderPane Pane = new BorderPane();
@@ -276,10 +288,22 @@ public class Layout extends BorderPane {
                         					break;
                         				}
                         			}
-                    			}
+                    			}                    			
                 			});
 						} catch (Exception e) {
 							e.printStackTrace();
+						}
+						}
+						else {
+							Stage nodePositionErrorBox = new Stage();
+							BorderPane errorPane = new BorderPane();
+							Scene nodePositionErrorScene = new Scene(errorPane, 300, 100);
+							nodePositionErrorBox.setTitle("Node Position Error ");
+							nodePositionErrorBox.setScene(nodePositionErrorScene);
+							nodePositionErrorBox.show();
+							nodePositionError node_position_error = new nodePositionError();
+							errorPane.setCenter(node_position_error); 
+							right_pane.getChildren().remove(nodeDropped);
 						}
 					}
 				}
