@@ -1,4 +1,7 @@
 /application/
 /controller/
 /fxml/
+<<<<<<< HEAD
 /resources/
+=======
+>>>>>>> add changes to area/node icon; add changes to nodeProperty nox; pass typed name to dragged area

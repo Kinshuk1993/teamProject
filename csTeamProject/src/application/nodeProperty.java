@@ -18,8 +18,6 @@ public class nodeProperty extends BorderPane  {
 	Boolean wind_speed_value;
 	Boolean temperature_value;
 	Boolean humidity_value;
-	Boolean app1_value;
-	Boolean app2_value;
 	Boolean vibration_value;
 	Boolean pressure_value;
 	
@@ -32,8 +30,8 @@ public class nodeProperty extends BorderPane  {
     @FXML CheckBox humidity;    
     @FXML CheckBox vibration;    
     @FXML CheckBox pressure;    
-    @FXML CheckBox app1;    
-    @FXML CheckBox app2;
+//    @FXML CheckBox app1;    
+//    @FXML CheckBox app2;
     
     
 	 public nodeProperty() {
@@ -53,14 +51,14 @@ public class nodeProperty extends BorderPane  {
 	  @FXML	  
 	  public void initialize() {	  
 	  }	  
-	  public void getvalue(DragableNode nodeDropped) {
-		  nodeDropped.Windspeed = wind_speed_value ;
-		  nodeDropped.Temperature = temperature_value ;
-		  nodeDropped.Humidity = humidity_value ;
-		  nodeDropped.Vibration = vibration_value ;
-		  nodeDropped.Pressure = pressure_value ;
-		  
-	  }	  
+//	  public void getvalue(DragableNode nodeDropped) {
+//		  nodeDropped.Windspeed = wind_speed_value ;
+//		  nodeDropped.Temperature = temperature_value ;
+//		  nodeDropped.Humidity = humidity_value ;
+//		  nodeDropped.Vibration = vibration_value ;
+//		  nodeDropped.Pressure = pressure_value ;
+//		  
+//	  }	  
 	  @FXML	  
 	  private void handleButton1Action(ActionEvent event) {	      
 	      if(windSpeed.isSelected()) {
@@ -90,16 +88,6 @@ public class nodeProperty extends BorderPane  {
 			  pressure_value = true;
 		  }
 		  else pressure_value = false;
-		  
-		  
-		  if(app1.isSelected()) {
-			  app1_value = true;
-		  }
-		  else app1_value = false;
-		  
-		  if(app2.isSelected()) {
-			  app2_value = true;
-		  }
-		  else app2_value = false;	         
+       
 	  }	  	  	  
 }

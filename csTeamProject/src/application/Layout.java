@@ -6,6 +6,12 @@
 package application;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+
+import controller.Area;
+import controller.Node;
+import controller.Apps;
+import controller.Controller;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -56,6 +62,7 @@ public class Layout extends BorderPane {
 	private EventHandler<DragEvent> mAreaDragDropped = null;
 	private EventHandler<DragEvent> mNodeDragOverRightPane = null;
 	private EventHandler<DragEvent> mAreaDragOverRightPane = null;
+	private ArrayList<DraggableArea> AllAreasCreated;        //all areas created on the right_pane
 
 	public Layout() throws Exception {
 		FXMLLoader fxmlLoader = new FXMLLoader();
@@ -72,6 +79,9 @@ public class Layout extends BorderPane {
 
 	@FXML
 	private void initialize() {
+		// Create new Scene, this will be the new Controller
+        Controller newScene = new Controller("Scene");
+        
 		clearButton.setOnAction(e -> {
 			textArea.setText(null);
 		});
@@ -96,6 +106,7 @@ public class Layout extends BorderPane {
 			}
 		});
 		mDragableNodeOver = new DragableNode();
+		mDragableNodeOver.id = "mDragableNodeOver";
 		mDragableNodeOver.setVisible(false);
 		mDragableNodeOver.setOpacity(0.65);
 		getChildren().add(mDragableNodeOver);
@@ -112,6 +123,7 @@ public class Layout extends BorderPane {
 		left_pane.getChildren().add(area);
 		left_pane.getChildren().add(nodeLabel);
 		DragableNode node = new DragableNode();
+		node.id = "icon";
 		addDragDetection(node);
 		left_pane.getChildren().add(node);
 		left_pane.getChildren().add(linkLabel);
@@ -184,29 +196,25 @@ public class Layout extends BorderPane {
 					if (container.getValue("scene_coordinates") != null) {
 						DragableNode nodeDropped = new DragableNode();
 //                        nodeDropped.setType(DragableNodeType.valueOf(container.getValue("type")));
+
 						right_pane.getChildren().add(nodeDropped);
 						Point2D cursorPoint = container.getValue("scene_coordinates");
 						nodeDropped.relocateToPoint(new Point2D(cursorPoint.getX(), cursorPoint.getY()));
 						try {
 							Stage nodeWindow = new Stage();
 							BorderPane Pane = new BorderPane();
-							Scene nodeScene = new Scene(Pane, 400, 400);
+							Scene nodeScene = new Scene(Pane, 400, 250);
 							nodeWindow.setTitle("node Settings");
 							nodeWindow.setScene(nodeScene);
 							nodeWindow.show();
 							nodeProperty node_setting = new nodeProperty();
-							Pane.setCenter(node_setting);
-//                			node_setting.getvalue(nodeDropped);
-//                			System.out.println(nodeDropped.Windspeed);
-//                			System.out.println(nodeDropped.Temperature);
-//                			System.out.println(nodeDropped.Humidity);
-//                			System.out.println(nodeDropped.Vibration);
-//                			System.out.println(nodeDropped.Pressure);                			              		                			                			               			               			
+							Pane.setCenter(node_setting);                         			              		                			                			               			               			
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
 					}
 				}
+      
 				right_pane.removeEventHandler(DragEvent.DRAG_OVER, mAreaDragOverRightPane);
 				right_pane.removeEventHandler(DragEvent.DRAG_DROPPED, mAreaDragDropped);
 				base_pane.removeEventHandler(DragEvent.DRAG_OVER, mAreaDragOverRoot);
@@ -231,6 +239,11 @@ public class Layout extends BorderPane {
 							areaSetting area_setting = new areaSetting();
 							Pane.setCenter(area_setting);
 							DragResizeMod.makeResizable(areaDropped.rectangle, null);
+							area_setting.saveButton.setOnAction(e -> {
+                				areaDropped.name = area_setting.areaName.getText();
+                				System.out.println(areaDropped.name);
+                			});
+//                			AllAreasCreated.add(areaDropped);
 //                			area_setting.getname(areaDropped);                			
 //                			System.out.println(areaDropped.name);               			               			
 						} catch (Exception e) {
@@ -238,6 +251,7 @@ public class Layout extends BorderPane {
 						}
 					}
 				}
+
 				event.consume();
 			}
 		});

@@ -1,7 +1,8 @@
 package application;
 
 import java.io.IOException;
-
+import controller.Controller;
+import controller.Area;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,7 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-public class areaSetting extends BorderPane {
+public class areaSetting  extends BorderPane {
 	String name;
 	@FXML BorderPane root_pane;
 	@FXML Button saveButton;
@@ -32,12 +33,13 @@ public class areaSetting extends BorderPane {
 	  @FXML	  
 	  public void initialize() {		  
 	  }
-	  @FXML
-	  private void saveButton1Action(ActionEvent event) {
-		  name = areaName.getText();  
-	  }
-	  public void getname(DraggableArea areaDropped) {
-		  areaDropped.name = name ;
+//	  @FXML
+//	  private void saveButton1Action(ActionEvent event) {
+//		  name = areaName.getText();  
+//		  
+//	  }
+//	  public void getname(DraggableArea areaDropped) {
+//		  areaDropped.name = name ;
 //		  System.out.println(areaDropped.name);
-	  }
+//	  }
 }

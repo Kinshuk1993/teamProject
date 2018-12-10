@@ -7,23 +7,20 @@ package application;
 
 import java.io.IOException;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
 
 import javafx.geometry.Point2D;
-
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 
-public class DragableNode extends AnchorPane{
+public class DragableNode extends Circle{
 	public String id;
-	public boolean Temperature;
-	public boolean Windspeed;
-	public boolean Humidity;
-	public boolean Vibration;
-	public boolean Pressure;
 	@FXML public Circle circle;
+	private EventHandler mNodePressed = null;
   
 	public DragableNode() {
         FXMLLoader fxmlLoader = new FXMLLoader(
@@ -41,9 +38,19 @@ public class DragableNode extends AnchorPane{
     }
 
     @FXML
-    public void initialize() { }
+    public void initialize() { 
+    	MousePressedHandler();
+    }
     public void relocateToPoint(Point2D p){
         Point2D localCoordinates = getParent().sceneToLocal(p);
         relocate( (int) (localCoordinates.getX() - (getBoundsInLocal().getWidth()/2)), (int) (localCoordinates.getY() - (getBoundsInLocal().getHeight()/2)));
+    }
+    private void MousePressedHandler(){
+    	mNodePressed = new EventHandler<MouseDragEvent>() {    		
+    		@Override    		
+    		public void handle(MouseDragEvent event) {    
+    			
+    		}    		
+    	};    	
     }
   }

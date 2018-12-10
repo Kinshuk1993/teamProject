@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
-public class DraggableArea extends AnchorPane {
+public class DraggableArea extends Rectangle {
 	public String name ;
     @FXML public Rectangle rectangle;
 	//    @FXML AnchorPane area;
@@ -28,5 +28,8 @@ public class DraggableArea extends AnchorPane {
 		Point2D localCoordinates = getParent().sceneToLocal(p);
 		relocate((int) (localCoordinates.getX() - (getBoundsInLocal().getWidth() / 2)),
 				(int) (localCoordinates.getY() - (getBoundsInLocal().getHeight() / 2)));
+	}
+	public void nodeCoordinateX() {
+//		Point2D localCoordinates = rectangle.sceneToLocal();
 	}
 }
