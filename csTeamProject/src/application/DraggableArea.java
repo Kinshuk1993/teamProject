@@ -2,6 +2,7 @@ package application;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
@@ -29,7 +30,24 @@ public class DraggableArea extends Rectangle {
 		relocate((int) (localCoordinates.getX() - (getBoundsInLocal().getWidth() / 2)),
 				(int) (localCoordinates.getY() - (getBoundsInLocal().getHeight() / 2)));
 	}
-	public void nodeCoordinateX() {
-//		Point2D localCoordinates = rectangle.sceneToLocal();
+//	public int areaCoordinateX() {
+//		Bounds bounds= rectangle.getBoundsInLocal();
+//        int x = (int) bounds.getMinX();
+//        return x;       
+//	}
+//	public int areaCoordinateY() {
+//		Bounds bounds= rectangle.getBoundsInLocal();
+//        int y = (int) bounds.getMinY();
+//        return y;
+//	}
+	public int areaWidth() {
+		Bounds bounds= rectangle.getBoundsInLocal();
+		int width = (int) bounds.getWidth();
+        return width;
+	}
+	public int areaHeight() {
+		Bounds bounds= rectangle.getBoundsInLocal();
+		 int height = (int) bounds.getHeight();
+        return height;
 	}
 }

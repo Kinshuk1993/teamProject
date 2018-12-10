@@ -61,33 +61,7 @@ public class nodeProperty extends BorderPane  {
 //	  }	  
 	  @FXML	  
 	  private void handleButton1Action(ActionEvent event) {	      
-	      if(windSpeed.isSelected()) {
-			  wind_speed_value = true;
-		  }
-		  else wind_speed_value = false;
-		  
-		  
-		  if(temperature.isSelected()) {
-			  temperature_value = true;
-		  }
-		  else temperature_value = false;
-		  
-		  
-		  if(humidity.isSelected()) {
-			  humidity_value = true;
-		  }
-		  else humidity_value = false;
-		  
-		  if(vibration.isSelected()) {
-			  vibration_value = true;
-		  }
-		  else vibration_value = false;
-		  
-		  
-		  if(pressure.isSelected()) {
-			  pressure_value = true;
-		  }
-		  else pressure_value = false;
+	      
        
 	  }	  	  	  
 }

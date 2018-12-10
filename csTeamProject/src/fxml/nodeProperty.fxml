@@ -14,8 +14,8 @@
             <HBox />
             <Label text="Properties" />
             <Line endX="250.0" startX="-100.0" />
-            <CheckBox fx:id="windSpeed" mnemonicParsing="false" text="Wind speed" />
-            <CheckBox fx:id="temperature" layoutX="10.0" layoutY="28.0" mnemonicParsing="false" text="Temperature" />
+            <CheckBox fx:id="windSpeed" mnemonicParsing="false" text="Temperature" />
+            <CheckBox fx:id="temperature" layoutX="10.0" layoutY="28.0" mnemonicParsing="false" text="Wind speed" />
             <CheckBox fx:id="humidity" layoutX="10.0" layoutY="45.0" mnemonicParsing="false" text="Humidity" />
             <CheckBox fx:id="vibration" layoutX="10.0" layoutY="62.0" mnemonicParsing="false" text="Vibration" />
             <CheckBox fx:id="pressure" layoutX="10.0" layoutY="79.0" mnemonicParsing="false" text="Pressure" />

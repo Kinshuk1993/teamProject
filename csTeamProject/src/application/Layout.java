@@ -63,6 +63,19 @@ public class Layout extends BorderPane {
 	private EventHandler<DragEvent> mNodeDragOverRightPane = null;
 	private EventHandler<DragEvent> mAreaDragOverRightPane = null;
 	private ArrayList<DraggableArea> AllAreasCreated;        //all areas created on the right_pane
+	private ArrayList<DraggableArea> TopAreasCreated;        //all top-level areas created on the right_pane
+	private ArrayList<DraggableArea> InnerAreasCreated;        //all inner areas created on the right_pane
+	private ArrayList<DragableNode> AllNodesCreated;        //all inner areas created on the right_pane
+	
+	Boolean wind_speed_value;
+	Boolean temperature_value;
+	Boolean humidity_value;
+	Boolean vibration_value;
+	Boolean pressure_value;
+    
+	
+	// Create new Scene, this will be the new Controller
+	Controller newScene = new Controller("Scene");
 
 	public Layout() throws Exception {
 		FXMLLoader fxmlLoader = new FXMLLoader();
@@ -78,10 +91,13 @@ public class Layout extends BorderPane {
 	}
 
 	@FXML
-	private void initialize() {
-		// Create new Scene, this will be the new Controller
-        Controller newScene = new Controller("Scene");
-        
+	private void initialize() {        
+		this.AllAreasCreated = new ArrayList<DraggableArea>();
+		this.TopAreasCreated = new ArrayList<DraggableArea>();
+		this.InnerAreasCreated = new ArrayList<DraggableArea>();
+		this.AllNodesCreated = new ArrayList<DragableNode>();
+		
+		
 		clearButton.setOnAction(e -> {
 			textArea.setText(null);
 		});
@@ -208,7 +224,60 @@ public class Layout extends BorderPane {
 							nodeWindow.setScene(nodeScene);
 							nodeWindow.show();
 							nodeProperty node_setting = new nodeProperty();
-							Pane.setCenter(node_setting);                         			              		                			                			               			               			
+							Pane.setCenter(node_setting); 
+							node_setting.saveButton.setOnAction(e -> {
+								AllNodesCreated.add(nodeDropped);
+								if(node_setting.windSpeed.isSelected()) {
+									  wind_speed_value = true;
+								  }
+								  else wind_speed_value = false;		  		  
+								  if(node_setting.temperature.isSelected()) {
+									  temperature_value = true;
+								  }
+								  else temperature_value = false;		  		  
+								  if(node_setting.humidity.isSelected()) {
+									  humidity_value = true;
+								  }
+								  else humidity_value = false;		  
+								  if(node_setting.vibration.isSelected()) {
+									  vibration_value = true;
+								  }
+								  else vibration_value = false;		  		  
+								  if(node_setting.pressure.isSelected()) {
+									  pressure_value = true;
+								  }
+								  else pressure_value = false;
+								  System.out.println(temperature_value + " "+ wind_speed_value+ " "+ humidity_value+ " "+ vibration_value+ " "+ pressure_value);
+								boolean findParent = false;							
+                    			for(int i = 0; i < InnerAreasCreated.size(); i++ ) {    
+                    				if(nodeDropped.circle.getLayoutX() - nodeDropped.circle.getRadius() > InnerAreasCreated.get(i).rectangle.getLayoutX() &&
+                    						nodeDropped.circle.getLayoutX() + nodeDropped.circle.getRadius() < InnerAreasCreated.get(i).rectangle.getLayoutX() + InnerAreasCreated.get(i).areaWidth() &&
+                    						nodeDropped.circle.getLayoutY() - nodeDropped.circle.getRadius() > InnerAreasCreated.get(i).rectangle.getLayoutY() &&
+                    						nodeDropped.circle.getLayoutY() + nodeDropped.circle.getRadius() < InnerAreasCreated.get(i).rectangle.getLayoutY() + InnerAreasCreated.get(i).areaHeight()
+                    					) {             				                    					
+                    					nodeDropped.id = newScene.addNodeToArea(InnerAreasCreated.get(i).name, temperature_value, wind_speed_value, humidity_value, vibration_value, pressure_value);
+                    					System.out.println("node created: " + nodeDropped.id);
+                    					findParent = true;
+                    					System.out.println("Parent area :"+InnerAreasCreated.get(i).name);
+                    					break;
+                    				}
+                    			}
+                    			if(!findParent) {
+                    				for(int i = 0; i < TopAreasCreated.size(); i++ ) {                      				
+                    					if(nodeDropped.circle.getLayoutX() - nodeDropped.circle.getRadius() > TopAreasCreated.get(i).rectangle.getLayoutX() &&
+                        						nodeDropped.circle.getLayoutX() + nodeDropped.circle.getRadius() < TopAreasCreated.get(i).rectangle.getLayoutX() + TopAreasCreated.get(i).areaWidth() &&
+                        						nodeDropped.circle.getLayoutY() - nodeDropped.circle.getRadius() > TopAreasCreated.get(i).rectangle.getLayoutY() &&
+                        						nodeDropped.circle.getLayoutY() + nodeDropped.circle.getRadius() < TopAreasCreated.get(i).rectangle.getLayoutY() + TopAreasCreated.get(i).areaHeight()
+                        					) {              				
+                    						nodeDropped.id = newScene.addNodeToArea(TopAreasCreated.get(i).name, temperature_value, wind_speed_value, humidity_value, vibration_value, pressure_value);
+                        					System.out.println("node created: " + nodeDropped.id);
+                        					findParent = true;
+                        					System.out.println("Parent area :"+TopAreasCreated.get(i).name);
+                        					break;
+                        				}
+                        			}
+                    			}
+                			});
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -240,12 +309,50 @@ public class Layout extends BorderPane {
 							Pane.setCenter(area_setting);
 							DragResizeMod.makeResizable(areaDropped.rectangle, null);
 							area_setting.saveButton.setOnAction(e -> {
-                				areaDropped.name = area_setting.areaName.getText();
-                				System.out.println(areaDropped.name);
-                			});
-//                			AllAreasCreated.add(areaDropped);
-//                			area_setting.getname(areaDropped);                			
-//                			System.out.println(areaDropped.name);               			               			
+                				areaDropped.name = area_setting.areaName.getText();                				
+                				AllAreasCreated.add(areaDropped);
+                    			boolean isInnerarea = false;
+                    			boolean findParent = false;
+//                    			System.out.println(areaDropped.getLayoutX());
+//                				System.out.println(areaDropped.getLayoutY());
+                    			for(int i = 0; i < InnerAreasCreated.size(); i++ ) {                    				
+                    				if(areaDropped.getLayoutX() > InnerAreasCreated.get(i).rectangle.getLayoutX() &&
+                    					areaDropped.getLayoutX() + areaDropped.areaWidth() < InnerAreasCreated.get(i).rectangle.getLayoutX() + InnerAreasCreated.get(i).areaWidth() &&
+                    					areaDropped.getLayoutY() > InnerAreasCreated.get(i).rectangle.getLayoutY() &&
+                    					areaDropped.getLayoutY() + areaDropped.areaHeight() < InnerAreasCreated.get(i).rectangle.getLayoutY() + InnerAreasCreated.get(i).areaHeight()
+                    					) {             				
+                    					InnerAreasCreated.add(areaDropped);
+                    					newScene.addInnerArea(InnerAreasCreated.get(i).name, areaDropped.name);
+                    					System.out.println("inner area created: " + areaDropped.name);
+                    					isInnerarea = true;
+                    					findParent = true;
+                    					System.out.println("Parent area :"+InnerAreasCreated.get(i).name);
+                    					break;
+                    				}
+                    			}
+                    			if(!findParent) {
+                    				for(int i = 0; i < TopAreasCreated.size(); i++ ) {                      				
+                        				if(areaDropped.getLayoutX() > TopAreasCreated.get(i).rectangle.getLayoutX() &&
+                        					areaDropped.getLayoutX() + areaDropped.areaWidth() < TopAreasCreated.get(i).rectangle.getLayoutX() + TopAreasCreated.get(i).areaWidth() &&
+                        					areaDropped.getLayoutY() > TopAreasCreated.get(i).rectangle.getLayoutY() &&
+                        					areaDropped.getLayoutY() + areaDropped.areaHeight() < TopAreasCreated.get(i).rectangle.getLayoutY() + TopAreasCreated.get(i).areaHeight()
+                        					) {             				
+                        					InnerAreasCreated.add(areaDropped);
+                        					newScene.addInnerArea(AllAreasCreated.get(i).name, areaDropped.name);
+                        					System.out.println("inner area created : " + areaDropped.name);
+                        					isInnerarea = true;
+                        					findParent = true;
+                        					System.out.println("Parent area :"+TopAreasCreated.get(i).name);
+                        					break;
+                        				}
+                        			}
+                    			}
+                    			if(!isInnerarea) {
+                    				TopAreasCreated.add(areaDropped);
+                    				newScene.addTopArea(areaDropped.name);
+                    				System.out.println("top level area created: " + areaDropped.name);
+                    			}
+                			});							                			           			               			
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
