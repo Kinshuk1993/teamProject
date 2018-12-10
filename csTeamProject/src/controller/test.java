@@ -60,15 +60,15 @@ public class test {
 //        String link5 = newScene.addNewLink(node3, node6);
 
         // Create applications
-        String app1 = newScene.newApp("App1");
-        String app2 = newScene.newApp("App2");
+        String app1 = Controller.newApp("App1");
+        String app2 = Controller.newApp("App2");
         
         // add applications to nodes
-        newScene.addAppToNode(app1, node2);
-        newScene.addAppToNode(app1, node4);
+        Controller.addAppToNode(app1, node2);
+        Controller.addAppToNode(app1, node4);
 
-        newScene.addAppToNode(app2, node3);
-        newScene.addAppToNode(app2, node4);
+        Controller.addAppToNode(app2, node3);
+        Controller.addAppToNode(app2, node4);
 //        newScene.addAppToNode(app2, node6);
 
         // Get the bigraph Expression

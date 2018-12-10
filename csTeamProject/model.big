@@ -38,11 +38,11 @@ big s0_P =
   /l1/l2/l3/l4
 	PHY.(North.(Bridge.(N{c1}.(L.( L_E{l1}) |)) | N_U{c2}.(L.(L_E{l1} | L_E{l2}) | A(1)) | N_U{c3}.(L.( L_E{l3}) | A(2)) | N_U{c4}.(L.(L_E{l2} | L_E{l3} | L_E{l4}) | A(1) | A(2)) | N{c5}.(L.( L_E{l4}) |)) | South.());
 
-big s0_D = DATA.(Conf{c1}.(MAC(14:94:3d:7b:33:9a) | IPv6(N/A) | P)
-				| Conf{c2}.(MAC(4e:41:0e:63:88:ab) | IPv6(N/A) | V)
-				| Conf{c3}.(MAC(be:60:88:a7:72:96) | IPv6(N/A) | H | V | P)
-				| Conf{c4}.(MAC(ca:f1:a9:88:25:9f) | IPv6(N/A) | T | W | P)
-				| Conf{c5}.(MAC(4e:ec:1f:d2:d1:2c) | IPv6(N/A) | H | P));
+big s0_D = DATA.(Conf{c1}.(MAC(d4:34:8d:1a:9a:98) | IPv6(N/A) | P)
+				| Conf{c2}.(MAC(60:97:f0:cc:43:2f) | IPv6(N/A) | V)
+				| Conf{c3}.(MAC(74:94:f4:1c:a5:38) | IPv6(N/A) | H | V | P)
+				| Conf{c4}.(MAC(e4:d6:64:74:86:d8) | IPv6(N/A) | T | W | P)
+				| Conf{c5}.(MAC(70:b9:1e:28:94:b3) | IPv6(N/A) | H | P));
 
 big s0_S = SERVICE.(App(1).(A(1))
 				| App(2).(A(2)));

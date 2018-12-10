@@ -21,7 +21,7 @@ public class Controller{
     //list of links
     private ArrayList<String> listOfLinks;
     //list of application
-    private ArrayList<Apps> listOfApps;
+    private static ArrayList<Apps> listOfApps = new ArrayList<Apps>();
     //list of Areas
     private ArrayList<Area> listOfAreas;        //all areas
     private ArrayList<Area> topLevelAreas;      //areas on the scene
@@ -33,7 +33,7 @@ public class Controller{
     public Controller(){
         this.sceneName = "DefaultName";
         this.listOfLinks = new ArrayList<String>();
-        this.listOfApps = new ArrayList<Apps>();
+        Controller.listOfApps = new ArrayList<Apps>();
         this.listOfAreas = new ArrayList<Area>();
         this.topLevelAreas = new ArrayList<Area>();
         this.innerAreas = new ArrayList<Area>();
@@ -43,7 +43,7 @@ public class Controller{
     public Controller(String name){
         this.sceneName = name;
         this.listOfLinks = new ArrayList<String>();
-        this.listOfApps = new ArrayList<Apps>();
+        Controller.listOfApps = new ArrayList<Apps>();
         this.listOfAreas = new ArrayList<Area>();
         this.topLevelAreas = new ArrayList<Area>();
         this.innerAreas = new ArrayList<Area>();
@@ -60,8 +60,8 @@ public class Controller{
     }
 
     // get list of Apps 
-    public  ArrayList<Apps> getApps(){
-        return this.listOfApps;
+    public static ArrayList<Apps> getApps(){
+        return Controller.listOfApps;
     }
     // get list of Links
     public  ArrayList<String> getLinks(){
@@ -186,7 +186,7 @@ public class Controller{
      * @param appName
      * @param nodeId
      */
-    public void addAppToNode(String appName, String nodeId){
+    public static void addAppToNode(String appName, String nodeId){
         Node findNode = findNode(nodeId);
         Apps findApp = findApp(appName);
 
@@ -201,10 +201,10 @@ public class Controller{
      * @param appName
      * @return generated appID
      */
-    public String newApp(String appName){
-        String appID = "A(" + (this.listOfApps.size()+1)+")";
+    public static String newApp(String appName){
+        String appID = "A(" + (Controller.listOfApps.size()+1)+")";
         Apps  newApp = new Apps(appName, appID);
-        this.listOfApps.add(newApp);
+        Controller.listOfApps.add(newApp);
         return appID;
     }
 
@@ -348,12 +348,12 @@ public class Controller{
     private String printApps(){
         String toRet = "(";
 
-        for(int i = 0; i < this.listOfApps.size();i++){
-            if(i == this.listOfApps.size()-1){
-                toRet = toRet + "App(" + (i+1) + ")." + "(" + this.listOfApps.get(i).getId() + ")";
+        for(int i = 0; i < Controller.listOfApps.size();i++){
+            if(i == Controller.listOfApps.size()-1){
+                toRet = toRet + "App(" + (i+1) + ")." + "(" + Controller.listOfApps.get(i).getId() + ")";
             }
             else{
-                toRet = toRet + "App(" + (i+1) + ")." + "(" + this.listOfApps.get(i).getId() + ")" + "\n\t\t\t\t| ";
+                toRet = toRet + "App(" + (i+1) + ")." + "(" + Controller.listOfApps.get(i).getId() + ")" + "\n\t\t\t\t| ";
             }
         }
 
@@ -446,7 +446,7 @@ public class Controller{
     // These helpers are for internal use to find the Node, Area, and App based on a given name.
 
     // find node in list of nodes
-    public Node findNode(String nodeName){
+    public static Node findNode(String nodeName){
         Node toReturn = new Node();
         // find Node
         for(int i = 0; i < Controller.listOfNodes.size(); i++){
@@ -454,7 +454,6 @@ public class Controller{
                 toReturn = Controller.listOfNodes.get(i);
             }
         }
-
         return toReturn;
     }
 
@@ -467,20 +466,18 @@ public class Controller{
                 toReturn = this.listOfAreas.get(i);
             }
         }
-
         return toReturn;
     }
 
     // find app in list of apps
-    private Apps findApp(String appName){
+    private static Apps findApp(String appName){
         Apps toReturn = new Apps();
         // find App
-        for(int i = 0; i < this.listOfApps.size(); i++){
+        for(int i = 0; i < Controller.listOfApps.size(); i++){
             if(listOfApps.get(i).getId().equals(appName)){
-                toReturn = this.listOfApps.get(i);
+                toReturn = Controller.listOfApps.get(i);
             }
         }
-
         return toReturn;
     }
 

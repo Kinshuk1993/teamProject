@@ -11,11 +11,11 @@
  */
 package application;
 
-import controller.test;
 //import packages
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -23,16 +23,13 @@ public class AddApplicationLoader {
 	
 	public AddApplicationLoader() throws Exception {
 		//test code to create a list of nodes and a bigraph finally
-		//TEST string array
-		String[] toppings = new String[20];
-		//TEST to check the nodeList functionality
-		test.main(toppings);
 		//load the FXML file
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AddApplication.fxml"));
 		//create a parent root for the new view
         Parent createApplicationParent = (Parent) fxmlLoader.load();
         //create a new stage for create application
         Stage createApplicationStage = new Stage();
+        createApplicationStage.getIcons().add(new Image(getClass().getResource("/resources/create-app-icon.png").toExternalForm()));
         //block using of any other window of current application
         createApplicationStage.initModality(Modality.APPLICATION_MODAL);
         //remove minimize and maximize button

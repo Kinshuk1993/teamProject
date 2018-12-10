@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
+//import controller.test;
 
 public class javafx extends Application {
 
@@ -33,6 +34,10 @@ public class javafx extends Application {
 			scene.getStylesheets().add(getClass().getResource("/fxml/app.css").toExternalForm());
 			// Displaying the contents of the stage
 			window.show();
+//			//TEST string array
+//			String[] toppings = new String[20];
+//			//TEST to check the nodeList functionality
+//			test.main(toppings);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
