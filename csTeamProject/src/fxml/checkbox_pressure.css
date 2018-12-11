@@ -1,0 +1,7 @@
+.check-box{
+    -fx-text-fill: #000000;
+}
+
+.check-box .box{
+    -fx-background-color:#f26650;
+}

@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.scene.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 
-<fx:root fx:id="border_pane" stylesheets="@app.css" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="border_pane" stylesheets="@app.css" type="BorderPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -47,9 +52,12 @@
    <right>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <TitledPane fx:id="configBox" animated="false" text="Configuration">
+            <TitledPane fx:id="configBox" animated="false" text="Node Configuration">
               <content>
-                <AnchorPane fx:id="configPane" prefHeight="219.0" prefWidth="160.0" />
+                <AnchorPane>
+                     <children>
+                        <VBox fx:id="configPane" prefHeight="200.0" prefWidth="100.0" />
+                     </children></AnchorPane>
               </content>
             </TitledPane>
             <TitledPane fx:id="applicationsList" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">

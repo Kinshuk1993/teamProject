@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Text?>
+
+<fx:root id="configboxframe" fx:id="root_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="371.0" prefWidth="205.0" type="AnchorPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <CheckBox fx:id="Sensor_windspeed" layoutX="23.0" layoutY="94.0" mnemonicParsing="false" onAction="#SensorCheckEvent" prefHeight="27.0" prefWidth="160.0" stylesheets="@checkbox_wind.css" text="  Wind Speed" />
+      <CheckBox fx:id="Sensor_temperature" layoutX="23.0" layoutY="119.0" mnemonicParsing="false" onAction="#SensorCheckEvent" prefHeight="27.0" prefWidth="160.0" stylesheets="@checkbox_temp.css" text="  Temperature" />
+      <CheckBox fx:id="Sensor_humidity" layoutX="23.0" layoutY="144.0" mnemonicParsing="false" onAction="#SensorCheckEvent" prefHeight="27.0" prefWidth="160.0" stylesheets="@checkbox_humidity.css" text="  Humidity" />
+      <CheckBox fx:id="Sensor_virbration" layoutX="23.0" layoutY="169.0" mnemonicParsing="false" onAction="#SensorCheckEvent" prefHeight="27.0" prefWidth="160.0" stylesheets="@checkbox_virbration.css" text="  Virbration" />
+      <CheckBox fx:id="Sensor_pressure" layoutX="23.0" layoutY="194.0" mnemonicParsing="false" onAction="#SensorCheckEvent" prefHeight="27.0" prefWidth="160.0" stylesheets="@checkbox_pressure.css" text="  Pressure" />
+      <Text layoutX="23.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MAC:" wrappingWidth="46.08984375" />
+      <Text layoutX="23.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IPV6:" />
+      <SplitMenuButton layoutX="96.0" layoutY="260.0" mnemonicParsing="false" text="Add">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </SplitMenuButton>
+      <Text fx:id="MACID" layoutX="65.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:8e:c4:u8:b7:hg" />
+      <Text fx:id="IPV6ID" layoutX="65.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N/A" />
+      <Text layoutX="16.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID" />
+      <Text layoutX="16.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sensor" />
+      <Text layoutX="16.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="APP" />
+      <Line endX="80.0" layoutX="108.0" layoutY="22.0" startX="-100.0" stroke="#00000096" />
+      <Line endX="80.0" layoutX="108.0" layoutY="248.0" startX="-100.0" stroke="#00000096" />
+      <Line endX="80.0" layoutX="108.0" layoutY="90.0" startX="-100.0" stroke="#00000096" />
+      <Text layoutX="36.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="app1, app2, app3, app4, app5" wrappingWidth="46.08984268797212" />
+   </children>
+   <cursor>
+      <Cursor fx:constant="DEFAULT" />
+   </cursor>
+</fx:root>
