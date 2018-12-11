@@ -7,12 +7,7 @@ package application;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-
-import controller.Area;
-import controller.Node;
-import controller.Apps;
 import controller.Controller;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -56,6 +51,8 @@ public class Layout extends BorderPane {
 	TitledPane configBox;
 	@FXML
 	Button createAppButton;
+	@FXML
+	VBox vBoxForAreaNames;
 	private DragableNode mDragableNodeOver = null;
 	private DraggableArea mDragableAreaOver = null;
 	private EventHandler<DragEvent> mNodeDragOverRoot = null;
@@ -93,7 +90,8 @@ public class Layout extends BorderPane {
 	}
 
 	@FXML
-	private void initialize() {        
+	private void initialize() {
+		
 		this.AllAreasCreated = new ArrayList<DraggableArea>();
 		this.TopAreasCreated = new ArrayList<DraggableArea>();
 		this.InnerAreasCreated = new ArrayList<DraggableArea>();
@@ -117,7 +115,7 @@ public class Layout extends BorderPane {
 			// exception handling
 			try {
 				// open create a new application dialog
-				new AddApplicationLoader();
+				new AddApplicationLoader(vBoxForAreaNames);
 			} catch (Exception error) {
 				// print the stack trace in case of error
 				error.printStackTrace();

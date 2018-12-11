@@ -11,8 +11,8 @@
  */
 package application;
 
-import java.util.ArrayList;
 //import packages
+import java.util.ArrayList;
 import controller.Controller;
 import controller.Node;
 import javafx.beans.binding.BooleanBinding;
@@ -76,6 +76,8 @@ public class AddApplicationController {
 			//create app without any node in it
 			createAppButton.setOnAction(clickEvent -> {
 				Controller.newApp(appName.getText());
+				//update the application list in the application tab with the new application created
+				AddApplicationLoader.updateApplicationList();
 				//get current stage
 				Stage stage = (Stage) createAppButton.getScene().getWindow();
 				//close the current window
@@ -116,6 +118,8 @@ public class AddApplicationController {
 						Controller.addAppToNode(appId, "{"+eachSelectedNode+"}");
 					}
 				}
+				//update the application list in the application tab with the new application created
+				AddApplicationLoader.updateApplicationList();
 				//get current window
 				Stage stage = (Stage) createAppButton.getScene().getWindow();
 				//close the current window
@@ -129,6 +133,5 @@ public class AddApplicationController {
 				stage.close();
 			});
 		}
-		
 	}
 }

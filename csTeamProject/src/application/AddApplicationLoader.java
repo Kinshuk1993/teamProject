@@ -11,17 +11,24 @@
  */
 package application;
 
+import controller.Apps;
+import controller.Controller;
 //import packages
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class AddApplicationLoader {
 	
-	public AddApplicationLoader() throws Exception {
+	static VBox appLoaderVBox;
+	
+	public AddApplicationLoader(VBox vBoxForAreaNames) throws Exception {
+		appLoaderVBox = vBoxForAreaNames;
 		//test code to create a list of nodes and a bigraph finally
 		//load the FXML file
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AddApplication.fxml"));
@@ -47,5 +54,24 @@ public class AddApplicationLoader {
 //			//manually handle the close window event
 //			new javafx().closeProgram();
 //		});
+	}
+	
+	/**
+	 * Function to print all the applications in the application
+	 */
+	public static void updateApplicationList() {
+		//coutner
+		int i = 0;
+		//clear contents before writing again
+		appLoaderVBox.getChildren().clear();
+		//loop through all available applications
+		for (Apps eachApp: Controller.getApps()) {
+			//get the label for the string ready
+			String temp = ++i + ". " + eachApp.getName();
+			//create a label
+			Label eachAppNameLabel = new Label(temp);
+			//add the label to the vertical box
+			appLoaderVBox.getChildren().add(eachAppNameLabel);
+		}
 	}
 }
