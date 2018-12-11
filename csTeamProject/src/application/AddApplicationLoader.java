@@ -29,7 +29,6 @@ public class AddApplicationLoader {
 	
 	public AddApplicationLoader(VBox vBoxForAreaNames) throws Exception {
 		appLoaderVBox = vBoxForAreaNames;
-		//test code to create a list of nodes and a bigraph finally
 		//load the FXML file
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AddApplication.fxml"));
 		//create a parent root for the new view

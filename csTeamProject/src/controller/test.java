@@ -50,14 +50,14 @@ public class test {
         String node5 = newScene.addNodeToArea(north, false, false, true, false, true);        
 
         // Node F created
-//        String node6 = newScene.addNodeToArea(south, false, false, true, false, true);        
+        String node6 = newScene.addNodeToArea(south, false, false, true, false, true);        
 
         // link nodes together
-        String link1 = newScene.addNewLink(node1, node2);
-        String link2 = newScene.addNewLink(node2, node4);
-        String link3 = newScene.addNewLink(node4, node3);
-        String link4 = newScene.addNewLink(node4, node5);
-//        String link5 = newScene.addNewLink(node3, node6);
+        String link1 = Controller.addNewLink(node1, node2);
+        String link2 = Controller.addNewLink(node2, node4);
+        String link3 = Controller.addNewLink(node4, node3);
+        String link4 = Controller.addNewLink(node4, node5);
+        String link5 = Controller.addNewLink(node3, node6);
 
         // Create applications
         String app1 = Controller.newApp("App1");
@@ -69,7 +69,7 @@ public class test {
 
         Controller.addAppToNode(app2, node3);
         Controller.addAppToNode(app2, node4);
-//        newScene.addAppToNode(app2, node6);
+        Controller.addAppToNode(app2, node6);
 
         // Get the bigraph Expression
         String exp = newScene.exportBigraph();

@@ -4,59 +4,63 @@
  * and open the template in the editor.
  */
 package application;
-
 import java.io.IOException;
-
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-
 import javafx.fxml.FXMLLoader;
-
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseDragEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
+public class DragableNode extends Circle {
 
-public class DragableNode extends Circle{
 	public String id;
-	@FXML public Circle circle;
+	@FXML
+	public Circle circle;
 	@SuppressWarnings("unused")
 	private EventHandler<MouseDragEvent> mNodePressed = null;
-  
+
 	public DragableNode() {
-        FXMLLoader fxmlLoader = new FXMLLoader(
-            getClass().getResource("/fxml/DragableNode.fxml")
-        );
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/DragableNode.fxml"));
+		fxmlLoader.setRoot(this);
+		fxmlLoader.setController(this);
+		try {
+			fxmlLoader.load();
+		} catch (IOException exception) {
+			throw new RuntimeException(exception);
+		}
+	}
 
-        try {
-            fxmlLoader.load();
+	@FXML
+	public void initialize() {
+		MousePressedHandler();
+	}
 
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
-    }
+	public void relocateToPoint(Point2D p) {
+		Point2D localCoordinates = getParent().sceneToLocal(p);
+		relocate((int) (localCoordinates.getX() - (getBoundsInLocal().getWidth() / 2)),
+				(int) (localCoordinates.getY() - (getBoundsInLocal().getHeight() / 2)));
+	}
 
-    @FXML
-    public void initialize() { 
-    	MousePressedHandler();
-    }
-    public void relocateToPoint(Point2D p){
-        Point2D localCoordinates = getParent().sceneToLocal(p);
-        relocate( (int) (localCoordinates.getX() - (getBoundsInLocal().getWidth()/2)), (int) (localCoordinates.getY() - (getBoundsInLocal().getHeight()/2)));
-    }
-    private void MousePressedHandler(){
-    	mNodePressed = new EventHandler<MouseDragEvent>() {    		
-    		@Override    		
-    		public void handle(MouseDragEvent event) {}    		
-    	};    	
-    }
-    
-    /**
-     * Function to handle the click event of the node
-     */
-    public void nodeClicked() {
-//    	System.out.println(id);
-    }
-  }
+	private void MousePressedHandler() {
+		mNodePressed = new EventHandler<MouseDragEvent>() {
+
+			@Override
+			public void handle(MouseDragEvent event) {
+			}
+		};
+	}
+
+	/**
+	 * Function to handle the click event of the node
+	 */
+	public void nodeClicked() {
+		// handle exception
+		try {
+			// load the link Node FXML passing the current id as parameter
+			new LinkNodeLoader(id);
+		} catch (Exception e) { // handle any error/exception
+			// print the error / exception in console
+			e.printStackTrace();
+		}
+	}
+}

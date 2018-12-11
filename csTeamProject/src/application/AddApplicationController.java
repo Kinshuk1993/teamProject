@@ -41,12 +41,6 @@ public class AddApplicationController {
 	 */
 	@FXML
 	private void initialize(){
-		//Print the each node's application name
-//		for (Node eachNode: Controller.getNodes()) {
-//			for (int i=0;i<eachNode.getApps().size();i++) {
-//				System.out.println(eachNode.getId() + "-->" + eachNode.getApps().get(i).getName());
-//			}
-//		}
 		//using boolean binding to bind the text field value containing the app name and create app button
 		//to enable/disable the button
 		BooleanBinding bindNameTextFieldToButton = new BooleanBinding() {
@@ -65,6 +59,7 @@ public class AddApplicationController {
 		//add a default value to the drop down list
 		nodeList.getItems().add("Select");
 		//if no nodes are present in the scene
+		//if no nodes present till now, do not populate the node list
 		if (Controller.getNodes()==null || Controller.getNodes().size()==0) {
 			//disable the drop down and the add node to app button
 			nodeList.setDisable(true);
@@ -78,13 +73,16 @@ public class AddApplicationController {
 				Controller.newApp(appName.getText());
 				//update the application list in the application tab with the new application created
 				AddApplicationLoader.updateApplicationList();
-				//get current stage
-				Stage stage = (Stage) createAppButton.getScene().getWindow();
-				//close the current window
-				stage.close();
+				//close the current dialog box
+				closeDialog();
 			});
-		} else { //if no nodes present till now, do not populate the node list
-			//print the each Node id
+			//action on the cancel button
+			cancelCreateAppButton.setOnAction(cancelEvent -> {
+				//close the current dialog box
+				closeDialog();
+			});
+		} else {
+			//populate the drop down list with all available nodes
 			for (Node eachNode : Controller.getNodes()) {
 				//add the node id trimmed of the first and last character as the node id format is {a}
 				//to the drop down item
@@ -120,18 +118,24 @@ public class AddApplicationController {
 				}
 				//update the application list in the application tab with the new application created
 				AddApplicationLoader.updateApplicationList();
-				//get current window
-				Stage stage = (Stage) createAppButton.getScene().getWindow();
-				//close the current window
-				stage.close();
+				//close the current dialog box
+				closeDialog();
 			});
 			//action on the cancel button
 			cancelCreateAppButton.setOnAction(cancelEvent -> {
-				//get current window
-				Stage stage = (Stage) createAppButton.getScene().getWindow();
-				//close the current window
-				stage.close();
+				//close the current dialog box
+				closeDialog();
 			});
 		}
+	}
+	
+	/**
+	 * Function to close the current dialog
+	 */
+	public void closeDialog() {
+		//get current window
+		Stage stage = (Stage) createAppButton.getScene().getWindow();
+		//close the current window
+		stage.close();
 	}
 }

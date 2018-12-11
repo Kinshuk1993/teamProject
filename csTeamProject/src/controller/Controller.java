@@ -19,7 +19,7 @@ public class Controller{
     private String sceneName;
 
     //list of links
-    private ArrayList<String> listOfLinks;
+    private static ArrayList<String> listOfLinks = new ArrayList<>();
     //list of application
     private static ArrayList<Apps> listOfApps = new ArrayList<Apps>();
     //list of Areas
@@ -32,7 +32,7 @@ public class Controller{
     // constructor
     public Controller(){
         this.sceneName = "DefaultName";
-        this.listOfLinks = new ArrayList<String>();
+        Controller.listOfLinks = new ArrayList<String>();
         Controller.listOfApps = new ArrayList<Apps>();
         this.listOfAreas = new ArrayList<Area>();
         this.topLevelAreas = new ArrayList<Area>();
@@ -42,7 +42,7 @@ public class Controller{
     // named constructor (preferred)
     public Controller(String name){
         this.sceneName = name;
-        this.listOfLinks = new ArrayList<String>();
+        Controller.listOfLinks = new ArrayList<String>();
         Controller.listOfApps = new ArrayList<Apps>();
         this.listOfAreas = new ArrayList<Area>();
         this.topLevelAreas = new ArrayList<Area>();
@@ -64,8 +64,8 @@ public class Controller{
         return Controller.listOfApps;
     }
     // get list of Links
-    public  ArrayList<String> getLinks(){
-        return this.listOfLinks;
+    public static ArrayList<String> getLinks(){
+        return Controller.listOfLinks;
     }
     // get list of Nodes
     public static ArrayList<Node> getNodes(){
@@ -220,10 +220,10 @@ public class Controller{
      * @param secondNodeName
      * @return linkId
      */
-    public String addNewLink(String firstNodeName, String secondNodeName){
+    public static String addNewLink(String firstNodeName, String secondNodeName){
         // create new link
-        String linkName = "l"+(this.listOfLinks.size()+1);
-        this.listOfLinks.add(linkName);
+        String linkName = "l"+(Controller.listOfLinks.size()+1);
+        Controller.listOfLinks.add(linkName);
 
         // find the nodes   
         Node firstNode = findNode(firstNodeName);
@@ -300,8 +300,8 @@ public class Controller{
     private String printLinks(){
         String toReturn = "/";
 
-        for(int i = 0; i < this.listOfLinks.size(); i++){
-            toReturn = toReturn + this.listOfLinks.get(i) + "/";
+        for(int i = 0; i < Controller.listOfLinks.size(); i++){
+            toReturn = toReturn + Controller.listOfLinks.get(i) + "/";
         }
 
         if(toReturn.substring(toReturn.length() - 1).equals("/")){

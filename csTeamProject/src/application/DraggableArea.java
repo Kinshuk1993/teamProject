@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 public class DraggableArea extends Rectangle {
 	public String name ;

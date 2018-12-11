@@ -3,13 +3,10 @@ package application;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
-import javafx.application.Application;
 import javafx.event.ActionEvent; 
  
 
@@ -29,9 +26,7 @@ public class nodeProperty extends BorderPane  {
     @FXML CheckBox temperature;    
     @FXML CheckBox humidity;    
     @FXML CheckBox vibration;    
-    @FXML CheckBox pressure;    
-//    @FXML CheckBox app1;    
-//    @FXML CheckBox app2;
+    @FXML CheckBox pressure;
     
     
 	 public nodeProperty() {

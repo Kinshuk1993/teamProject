@@ -3,22 +3,10 @@ package application;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
-import javafx.application.Application; 
-import javafx.scene.Parent;
 import javafx.scene.text.*;
-import javafx.stage.Stage;
 import javafx.event.ActionEvent; 
-import java.io.IOException;
-import javafx.application.Platform;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Label;
-import controller.Node;
 
 public class nodeConfigBox extends AnchorPane {
 			

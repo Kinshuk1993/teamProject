@@ -30,7 +30,8 @@ public class DragableContainer2 implements Serializable{
 
     }
 
-    public <T> T getValue(String key){
+    @SuppressWarnings("unchecked")
+	public <T> T getValue(String key){
 
         for (Pair<String, Object> data: mDataPairs) {
 
