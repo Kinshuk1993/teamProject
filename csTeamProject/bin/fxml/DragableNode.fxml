@@ -10,4 +10,4 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<fx:root fx:id="circle" fill="WHITE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" type="Circle" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<fx:root fx:id="circle" fill="WHITE" onMouseClicked="#nodeClicked" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" type="Circle" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />

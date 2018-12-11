@@ -20,7 +20,8 @@ import javafx.scene.shape.Circle;
 public class DragableNode extends Circle{
 	public String id;
 	@FXML public Circle circle;
-	private EventHandler mNodePressed = null;
+	@SuppressWarnings("unused")
+	private EventHandler<MouseDragEvent> mNodePressed = null;
   
 	public DragableNode() {
         FXMLLoader fxmlLoader = new FXMLLoader(
@@ -48,9 +49,14 @@ public class DragableNode extends Circle{
     private void MousePressedHandler(){
     	mNodePressed = new EventHandler<MouseDragEvent>() {    		
     		@Override    		
-    		public void handle(MouseDragEvent event) {    
-    			
-    		}    		
+    		public void handle(MouseDragEvent event) {}    		
     	};    	
+    }
+    
+    /**
+     * Function to handle the click event of the node
+     */
+    public void nodeClicked() {
+//    	System.out.println(id);
     }
   }
