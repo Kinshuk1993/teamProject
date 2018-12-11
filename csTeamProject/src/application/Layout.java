@@ -12,6 +12,7 @@ import controller.Area;
 import controller.Node;
 import controller.Apps;
 import controller.Controller;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +22,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -120,6 +122,21 @@ public class Layout extends BorderPane {
 				// print the stack trace in case of error
 				error.printStackTrace();
 			}
+		});
+		// Create operator
+		AnimatedZoomOperator zoomOperator = new AnimatedZoomOperator();
+
+		// Listen to scroll events 
+		right_pane.setOnScroll(new EventHandler<ScrollEvent>() {
+		    @Override
+		    public void handle(ScrollEvent event) {
+		        double zoomFactor = 1.5;
+		        if (event.getDeltaY() <= 0) {
+		            // zoom out
+		            zoomFactor = 1 / zoomFactor;
+		        }
+		        zoomOperator.zoom(right_pane, zoomFactor, event.getSceneX(), event.getSceneY());
+		    }
 		});
 		mDragableNodeOver = new DragableNode();
 		mDragableNodeOver.id = "mDragableNodeOver";
@@ -238,7 +255,6 @@ public class Layout extends BorderPane {
 							nodeProperty node_setting = new nodeProperty();
 							Pane.setCenter(node_setting); 
 							node_setting.saveButton.setOnAction(e -> {
-								AllNodesCreated.add(nodeDropped);
 								if(node_setting.windSpeed.isSelected()) {
 									  wind_speed_value = true;
 								  }
@@ -260,6 +276,8 @@ public class Layout extends BorderPane {
 								  }
 								  else pressure_value = false;
 								  System.out.println(temperature_value + " "+ wind_speed_value+ " "+ humidity_value+ " "+ vibration_value+ " "+ pressure_value);
+								
+								  AllNodesCreated.add(nodeDropped);
 								boolean findParent = false;							
                     			for(int i = 0; i < InnerAreasCreated.size(); i++ ) {    
                     				if(nodeDropped.circle.getLayoutX() - nodeDropped.circle.getRadius() > InnerAreasCreated.get(i).rectangle.getLayoutX() &&
@@ -289,7 +307,9 @@ public class Layout extends BorderPane {
                         				}
                         			}
                     			}                    			
-                			});
+                    			nodeWindow.close();
+							});
+							
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -376,7 +396,8 @@ public class Layout extends BorderPane {
                     				newScene.addTopArea(areaDropped.name);
                     				System.out.println("top level area created: " + areaDropped.name);
                     			}
-                			});							                			           			               			
+                    			areaWindow.close();
+                			});	
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
