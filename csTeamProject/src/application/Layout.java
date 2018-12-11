@@ -242,6 +242,7 @@ public class Layout extends BorderPane {
 								break;
 							}
 						}
+						System.out.println(nodeAccept);
 						if (nodeAccept) {
 							try {
 								Stage nodeWindow = new Stage();
@@ -334,7 +335,7 @@ public class Layout extends BorderPane {
 							nodePositionErrorBox.setScene(nodePositionErrorScene);
 							nodePositionErrorBox.show();
 							nodePositionError node_position_error = new nodePositionError();
-							errorPane.setCenter(node_position_error);
+							errorPane.setCenter(node_position_error);							
 							right_pane.getChildren().remove(nodeDropped);
 						}
 					}
