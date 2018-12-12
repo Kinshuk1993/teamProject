@@ -9,13 +9,17 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseDragEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
-public class DragableNode extends Circle {
+public class DragableNode extends AnchorPane {
 
 	public String id;
 	@FXML
 	public Circle circle;
+	@FXML
+	public Label label;
 	@SuppressWarnings("unused")
 	private EventHandler<MouseDragEvent> mNodePressed = null;
 

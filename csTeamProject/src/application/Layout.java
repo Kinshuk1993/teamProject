@@ -215,16 +215,16 @@ public class Layout extends BorderPane {
 						nodeDropped.relocateToPoint(new Point2D(cursorPoint.getX(), cursorPoint.getY()));
 						boolean nodeAccept = false;
 						for (int i = 0; i < AllAreasCreated.size(); i++) {
-							if (nodeDropped.circle.getLayoutX()
-									- nodeDropped.circle.getRadius() > AllAreasCreated.get(i).rectangle.getLayoutX()
-									&& nodeDropped.circle.getLayoutX()
-											+ nodeDropped.circle.getRadius() < AllAreasCreated.get(i).rectangle
+							if (nodeDropped.getLayoutX()
+									 > AllAreasCreated.get(i).rectangle.getLayoutX()
+									&& nodeDropped.getLayoutX()
+											+ nodeDropped.circle.getRadius() * 2 < AllAreasCreated.get(i).rectangle
 													.getLayoutX() + AllAreasCreated.get(i).areaWidth()
-									&& nodeDropped.circle.getLayoutY()
-											- nodeDropped.circle.getRadius() > AllAreasCreated.get(i).rectangle
+									&& nodeDropped.getLayoutY()
+											 > AllAreasCreated.get(i).rectangle
 													.getLayoutY()
-									&& nodeDropped.circle.getLayoutY() + nodeDropped.circle
-											.getRadius() < AllAreasCreated.get(i).rectangle.getLayoutY()
+									&& nodeDropped.getLayoutY() + nodeDropped.circle
+											.getRadius() * 2 < AllAreasCreated.get(i).rectangle.getLayoutY()
 													+ AllAreasCreated.get(i).areaHeight()) {
 								nodeAccept = true;
 								break;
@@ -276,16 +276,15 @@ public class Layout extends BorderPane {
 									AllNodesCreated.add(nodeDropped);
 									boolean findParent = false;
 									for (int i = 0; i < InnerAreasCreated.size(); i++) {
-										if (nodeDropped.circle.getLayoutX()
-												- nodeDropped.circle.getRadius() > InnerAreasCreated.get(i).rectangle
+										if (nodeDropped.getLayoutX()
+												 > InnerAreasCreated.get(i).rectangle
 														.getLayoutX()
-												&& nodeDropped.circle.getLayoutX() + nodeDropped.circle
-														.getRadius() < InnerAreasCreated.get(i).rectangle.getLayoutX()
+												&& nodeDropped.getLayoutX() + nodeDropped.circle
+														.getRadius() *2  < InnerAreasCreated.get(i).rectangle.getLayoutX()
 																+ InnerAreasCreated.get(i).areaWidth()
-												&& nodeDropped.circle.getLayoutY() - nodeDropped.circle
-														.getRadius() > InnerAreasCreated.get(i).rectangle.getLayoutY()
-												&& nodeDropped.circle.getLayoutY() + nodeDropped.circle
-														.getRadius() < InnerAreasCreated.get(i).rectangle.getLayoutY()
+												&& nodeDropped.getLayoutY() > InnerAreasCreated.get(i).rectangle.getLayoutY()
+												&& nodeDropped.getLayoutY() + nodeDropped.circle
+														.getRadius() *2 < InnerAreasCreated.get(i).rectangle.getLayoutY()
 																+ InnerAreasCreated.get(i).areaHeight()) {
 											nodeDropped.id = newScene.addNodeToArea(InnerAreasCreated.get(i).name,
 													temperature_value, wind_speed_value, humidity_value,
@@ -298,16 +297,15 @@ public class Layout extends BorderPane {
 									}
 									if (!findParent) {
 										for (int i = 0; i < TopAreasCreated.size(); i++) {
-											if (nodeDropped.circle.getLayoutX()
-													- nodeDropped.circle.getRadius() > TopAreasCreated.get(i).rectangle
+											if (nodeDropped.getLayoutX()
+													 > TopAreasCreated.get(i).rectangle
 															.getLayoutX()
-													&& nodeDropped.circle.getLayoutX() + nodeDropped.circle
-															.getRadius() < TopAreasCreated.get(i).rectangle.getLayoutX()
+													&& nodeDropped.getLayoutX() + nodeDropped.circle
+															.getRadius() *2 < TopAreasCreated.get(i).rectangle.getLayoutX()
 																	+ TopAreasCreated.get(i).areaWidth()
-													&& nodeDropped.circle.getLayoutY() - nodeDropped.circle
-															.getRadius() > TopAreasCreated.get(i).rectangle.getLayoutY()
-													&& nodeDropped.circle.getLayoutY() + nodeDropped.circle
-															.getRadius() < TopAreasCreated.get(i).rectangle.getLayoutY()
+													&& nodeDropped.getLayoutY() > TopAreasCreated.get(i).rectangle.getLayoutY()
+													&& nodeDropped.getLayoutY() + nodeDropped.circle
+															.getRadius() *2 < TopAreasCreated.get(i).rectangle.getLayoutY()
 																	+ TopAreasCreated.get(i).areaHeight()) {
 												nodeDropped.id = newScene.addNodeToArea(TopAreasCreated.get(i).name,
 														temperature_value, wind_speed_value, humidity_value,
@@ -319,6 +317,8 @@ public class Layout extends BorderPane {
 											}
 										}
 									}
+									nodeDropped.label.setText(nodeDropped.id.substring(1, nodeDropped.id.length()-1));
+									System.out.println(nodeDropped.label.getText());
 									nodeWindow.close();
 								});
 							} catch (Exception e) {
