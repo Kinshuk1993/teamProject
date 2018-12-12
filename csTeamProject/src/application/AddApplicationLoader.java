@@ -17,13 +17,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 public class AddApplicationLoader {
@@ -31,6 +27,7 @@ public class AddApplicationLoader {
 	static VBox appLoaderVBox;
 
 	public AddApplicationLoader(VBox vBoxForAreaNames) throws Exception {
+		// setting the vertical box to local static variable
 		appLoaderVBox = vBoxForAreaNames;
 		// load the FXML file
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AddApplication.fxml"));
@@ -50,14 +47,6 @@ public class AddApplicationLoader {
 		createApplicationStage.setScene(new Scene(createApplicationParent));
 		// make visible the current stage
 		createApplicationStage.show();
-		// check before closing the program - COMMENTING OUT AS THIS CLOSES THE WHOLE
-		// APPLICATION
-//        createApplicationStage.setOnCloseRequest(e -> {
-//        	//take away java's control of close event
-//			e.consume();
-//			//manually handle the close window event
-//			new javafx().closeProgram();
-//		});
 	}
 
 	/**
@@ -71,30 +60,35 @@ public class AddApplicationLoader {
 		// loop through all available applications
 		for (Apps eachApp : Controller.getApps()) {
 			// get the label for the string ready
-			String temp = ++i + ". " + eachApp.getName();
+			String eachNewAppName = ++i + ". " + eachApp.getName();
 			// create a label
-			Label eachAppNameLabel = new Label(temp);
+			TextField eachAppNameText = new TextField(eachNewAppName);
 			// set the padding for each label
-			eachAppNameLabel.setPadding(new Insets(5, 0, 0, 11));
-			// set a random color to the
-			eachAppNameLabel.setTextFill(AddApplicationLoader.generateRandomColor());
-			// set the font of label to Arial with size 25
-			eachAppNameLabel.setFont(Font.font("Arial", FontWeight.BOLD, 25));
-			// wrap the text in case the application name is long
-			eachAppNameLabel.setWrapText(true);
+			eachAppNameText.setPadding(new Insets(5, 0, 0, 11));
+			// set a random color to the application names, set font size, weight,
+			// background color and opacity: INLINE
+			eachAppNameText.setStyle("-fx-text-fill: " + AddApplicationLoader.generateRandomColor()
+					+ "; -fx-font-size: 16px; -fx-font-weight: bold; -fx-opacity: 1; -fx-background-color: transparent;");
+			// make the text field disabled
+			eachAppNameText.setDisable(true);
 			// add the label to the vertical box
-			appLoaderVBox.getChildren().add(eachAppNameLabel);
+			appLoaderVBox.getChildren().add(eachAppNameText);
 		}
 	}
 
 	/**
 	 * Function to get random colors every time for every application
 	 */
-	public static Paint generateRandomColor() {
+	public static String generateRandomColor() {
+		// generate a random number
 		Random randomNum = new Random();
+		// get 2 random numbers - for R, G, and B
 		int r = randomNum.nextInt(255);
 		int g = randomNum.nextInt(255);
 		int b = randomNum.nextInt(255);
-		return Color.rgb(r, g, b);
+		// format the hex code of the color
+		String hex = String.format("#%02x%02x%02x", r, g, b);
+		// return the color hex code
+		return hex;
 	}
 }

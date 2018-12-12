@@ -30,7 +30,7 @@ public class javafx extends Application {
 			// Adding the scene to Stage
 			javafx.window.setScene(scene);
 			scene.getStylesheets().add(getClass().getResource("/fxml/app.css").toExternalForm());
-			//open the application in maximized mode
+			// open the application in maximized mode
 			javafx.window.setMaximized(true);
 			// Displaying the contents of the stage
 			javafx.window.show();

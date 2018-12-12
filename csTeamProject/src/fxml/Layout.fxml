@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -20,7 +28,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<fx:root fx:id="border_pane" stylesheets="@app.css" type="BorderPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="border_pane" stylesheets="@app.css" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -99,10 +107,13 @@
                   </Button>
                </graphic>
                <content>
-                  <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                  <ScrollPane pannable="true" prefHeight="200.0" prefWidth="200.0">
                      <content>
                         <VBox fx:id="vBoxForAreaNames" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" />
-                     </content></ScrollPane>
+                     </content>
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></ScrollPane>
                </content>
             </TitledPane>
          </children>
@@ -124,7 +135,7 @@
    <center>
       <SplitPane fx:id="base_pane" dividerPositions="0.2" BorderPane.alignment="CENTER">
         <items>
-            <ScrollPane fitToHeight="true" prefViewportHeight="384.0" prefViewportWidth="169.0" vbarPolicy="NEVER">
+            <ScrollPane fitToHeight="true" prefViewportHeight="384.0" prefViewportWidth="169.0">
                <content>
                   <VBox fx:id="left_pane" spacing="10.0">
                      <padding>

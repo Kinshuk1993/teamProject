@@ -17,7 +17,7 @@
             </Label>
             <HBox spacing="10.0">
                <children>
-                  <TextField fx:id="areaName" />
+                  <TextField fx:id="areaName" promptText="Enter the area name" />
                   <Button fx:id="saveButton" mnemonicParsing="false" text="save" />
                </children>
                <VBox.margin>
