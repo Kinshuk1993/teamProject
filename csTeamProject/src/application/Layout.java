@@ -21,6 +21,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
@@ -235,9 +236,18 @@ public class Layout extends BorderPane {
 								Stage nodeWindow = new Stage();
 								BorderPane Pane = new BorderPane();
 								Scene nodeScene = new Scene(Pane, 400, 250);
+								// block using of any other window of current application
+								nodeWindow.initModality(Modality.APPLICATION_MODAL);
+								//disable resizing of the area setting dialog box
+								nodeWindow.resizableProperty().setValue(Boolean.FALSE);
 								nodeWindow.setTitle("node Settings");
 								nodeWindow.setScene(nodeScene);
 								nodeWindow.show();
+								//set action on close request of node setting window
+								nodeWindow.setOnCloseRequest(closeEventOnNodeWindow -> {
+									// take away java's control of close event and don't exit
+									closeEventOnNodeWindow.consume();
+								});
 								nodeProperty node_setting = new nodeProperty();
 								Pane.setCenter(node_setting);
 								node_setting.saveButton.setOnAction(e -> {
@@ -345,9 +355,18 @@ public class Layout extends BorderPane {
 							Stage areaWindow = new Stage();
 							BorderPane Pane = new BorderPane();
 							Scene areaScene = new Scene(Pane, 250, 100);
-							areaWindow.setTitle("area Settings");
+							// block using of any other window of current application
+							areaWindow.initModality(Modality.APPLICATION_MODAL);
+							//disable resizing of the area setting dialog box
+							areaWindow.resizableProperty().setValue(Boolean.FALSE);
+							areaWindow.setTitle("Area Settings");
 							areaWindow.setScene(areaScene);
 							areaWindow.show();
+							//set action on close request of area setting window
+							areaWindow.setOnCloseRequest(closeEventOnAreaWindow -> {
+								// take away java's control of close event and don't exit
+								closeEventOnAreaWindow.consume();
+							});
 							areaSetting area_setting = new areaSetting();
 							Pane.setCenter(area_setting);
 							DragResizeMod.makeResizable(areaDropped.rectangle, null);

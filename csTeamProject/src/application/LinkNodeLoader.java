@@ -35,8 +35,9 @@ public class LinkNodeLoader {
 		linkNodeStage.initModality(Modality.APPLICATION_MODAL);
 		// remove minimize and maximize button
 		linkNodeStage.resizableProperty().setValue(Boolean.FALSE);
-		// set the title of the stage
-		linkNodeStage.setTitle("Create Node Link");
+		// set the title of the stage with the current node name
+		linkNodeStage.setTitle("Create Node Link for " + LinkNodeLoader.currentNodeID.substring(1,
+				LinkNodeLoader.currentNodeID.length() - 1));
 		// set the scene of the window
 		linkNodeStage.setScene(new Scene(linkNodeParent));
 		// make visible the current stage
