@@ -41,8 +41,8 @@ public class Layout extends BorderPane {
 	Button generateAlgebraicExpression, clearAlgebraicExpression, exportBigFile, newNetworkButton;
 	@FXML
 	TextArea algebraicExpressionDisplay;
-	@FXML
-	VBox configPane;
+//	@FXML
+	
 	@FXML
 	Button createAppButton;
 	@FXML
@@ -155,8 +155,8 @@ public class Layout extends BorderPane {
 				zoomOperator.zoom(right_pane, zoomFactor, event.getSceneX(), event.getSceneY());
 			}
 		});
-		nodeConfigBox nodeCFGbox = new nodeConfigBox();
-		configPane.getChildren().addAll(nodeCFGbox);
+
+
 		mDragableNodeOver = new DragableNode();
 		mDragableNodeOver.id = "mDragableNodeOver";
 		mDragableNodeOver.setVisible(false);

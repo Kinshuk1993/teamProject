@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TitledPane?>
@@ -20,8 +17,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Text?>
 
-<fx:root fx:id="border_pane" stylesheets="@app.css" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="border_pane" stylesheets="@app.css" type="BorderPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -59,12 +58,34 @@
       <VBox BorderPane.alignment="CENTER">
          <children>
             <TitledPane fx:id="configBox" animated="false" text="Node Configuration">
-              <content>
-                <AnchorPane>
+               <content>
+                  <AnchorPane fx:id="configPane" prefHeight="300.0" prefWidth="200.0">
                      <children>
-                        <VBox fx:id="configPane" prefHeight="200.0" prefWidth="100.0" />
-                     </children></AnchorPane>
-              </content>
+                        <Text layoutX="8.0" layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID" />
+                        <Line endX="100.0" layoutX="100.0" layoutY="17.0" startX="-100.0" />
+                        <Text layoutX="21.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MAC : " />
+                        <Text fx:id="MACID" layoutX="72.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8e:e8:u9:6b:3d:n4" />
+                        <Text layoutX="21.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IPV6 : " />
+                        <Text fx:id="IPV6ID" layoutX="72.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N/A" />
+                        <Text layoutX="8.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Senesor" />
+                        <Line endX="100.0" layoutX="100.0" layoutY="77.0" startX="-100.0" />
+                        <CheckBox fx:id="Sensor_windspeed" layoutX="33.0" layoutY="81.0" mnemonicParsing="false" stylesheets="@checkbox_wind.css" text="Wind Speed" />
+                        <CheckBox fx:id="Sensor_temperature" layoutX="33.0" layoutY="101.0" mnemonicParsing="false" stylesheets="@checkbox_temp.css" text="Temperature" />
+                        <CheckBox fx:id="Sensor_humidity" layoutX="33.0" layoutY="121.0" mnemonicParsing="false" stylesheets="@checkbox_humidity.css" text="Humidity" />
+                        <CheckBox fx:id="Sensor_virbration" layoutX="33.0" layoutY="141.0" mnemonicParsing="false" stylesheets="@checkbox_virbration.css" text="Virbration" />
+                        <CheckBox fx:id="Sensor_pressure" layoutX="33.0" layoutY="161.0" mnemonicParsing="false" stylesheets="@checkbox_pressure.css" text="Pressure" />
+                        <Text layoutX="8.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="APP" />
+                        <Line endX="100.0" layoutX="100.0" layoutY="205.0" startX="-100.0" />
+                        <Text fx:id="AppsList" layoutX="33.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="App1, App2, App3, App4, App5" wrappingWidth="45.52587890625" />
+                        <SplitMenuButton fx:id="AddAppbtn" layoutX="95.0" layoutY="212.0" mnemonicParsing="false" text="Add/Delete">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Action 1" />
+                              <MenuItem mnemonicParsing="false" text="Action 2" />
+                           </items>
+                        </SplitMenuButton>
+                     </children>
+                  </AnchorPane>
+               </content>
             </TitledPane>
             <TitledPane fx:id="applicationsList" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                <graphic>
