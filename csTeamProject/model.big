@@ -33,15 +33,15 @@ ctrl SERVICE = 0;
 
 # Current state
 big s0_P = 
-  /l1/l2
-	PHY.( area1.(N{c1}.(L.(L_E{l1} | L_E{l2}) |) | N{c2}.(L.( L_E{l2}) |) | N{c3}.(L.( L_E{l1}) |)));
+  /l1
+	PHY.( area1.(N_U{c1}.(L.( L_E{l1}) | A(2)) | N_U{c2}.(L.( L_E{l1}) | A(1))));
 
-big s0_D = DATA.(Conf{c1}.(MAC(80:b8:60:3c:d5:63) | IPv6(N/A) | T | V)
-				| Conf{c2}.(MAC(38:7c:c5:99:c6:3c) | IPv6(N/A) | H | V)
-				| Conf{c3}.(MAC(9e:b5:f2:c8:e6:30) | IPv6(N/A) | W));
+big s0_D = DATA.(Conf{c1}.(MAC(10:f6:04:d6:99:4e) | IPv6(N/A) | T)
+				| Conf{c2}.(MAC(5a:9e:75:7e:e5:ba) | IPv6(N/A) | H));
 
-big s0_S = SERVICE.();
+big s0_S = SERVICE.(App(1).(A(1))
+				| App(2).(A(2)));
 
 big s0 = 
-  /c1/c2/c3/
+  /c1/c2/
 	(s0_P || s0_D || s0_S);
