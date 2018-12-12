@@ -117,7 +117,7 @@ public class Layout extends BorderPane {
 				error.printStackTrace();
 			}
 		});
-		//event handler for the new network button - create a new FULL SCREEN WINDOW
+		// event handler for the new network button - create a new FULL SCREEN WINDOW
 		newNetworkButton.setOnAction(newProjectEvent -> {
 			BorderPane borderPane = new BorderPane();
 			try {
@@ -131,7 +131,7 @@ public class Layout extends BorderPane {
 				// Adding the scene to Stage
 				javafx.window.setScene(scene);
 				scene.getStylesheets().add(getClass().getResource("/fxml/app.css").toExternalForm());
-				//open the application in maximized mode
+				// open the application in maximized mode
 				javafx.window.setFullScreen(true);
 				// Displaying the contents of the stage
 				javafx.window.show();
@@ -139,7 +139,6 @@ public class Layout extends BorderPane {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
 		});
 		// Create operator
 		AnimatedZoomOperator zoomOperator = new AnimatedZoomOperator();
@@ -239,22 +238,18 @@ public class Layout extends BorderPane {
 						nodeDropped.relocateToPoint(new Point2D(cursorPoint.getX(), cursorPoint.getY()));
 						boolean nodeAccept = false;
 						for (int i = 0; i < AllAreasCreated.size(); i++) {
-							if (nodeDropped.getLayoutX()
-									 > AllAreasCreated.get(i).rectangle.getLayoutX()
-									&& nodeDropped.getLayoutX()
-											+ nodeDropped.circle.getRadius() * 2 < AllAreasCreated.get(i).rectangle
-													.getLayoutX() + AllAreasCreated.get(i).areaWidth()
-									&& nodeDropped.getLayoutY()
-											 > AllAreasCreated.get(i).rectangle
-													.getLayoutY()
-									&& nodeDropped.getLayoutY() + nodeDropped.circle
-											.getRadius() * 2 < AllAreasCreated.get(i).rectangle.getLayoutY()
+							if (nodeDropped.getLayoutX() > AllAreasCreated.get(i).rectangle.getLayoutX()
+									&& nodeDropped.getLayoutX() + nodeDropped.circle.getRadius()
+											* 2 < AllAreasCreated.get(i).rectangle.getLayoutX()
+													+ AllAreasCreated.get(i).areaWidth()
+									&& nodeDropped.getLayoutY() > AllAreasCreated.get(i).rectangle.getLayoutY()
+									&& nodeDropped.getLayoutY() + nodeDropped.circle.getRadius()
+											* 2 < AllAreasCreated.get(i).rectangle.getLayoutY()
 													+ AllAreasCreated.get(i).areaHeight()) {
 								nodeAccept = true;
 								break;
 							}
 						}
-//						System.out.println(nodeAccept);
 						if (nodeAccept) {
 							try {
 								Stage nodeWindow = new Stage();
@@ -262,12 +257,12 @@ public class Layout extends BorderPane {
 								Scene nodeScene = new Scene(Pane, 400, 250);
 								// block using of any other window of current application
 								nodeWindow.initModality(Modality.APPLICATION_MODAL);
-								//disable resizing of the area setting dialog box
+								// disable resizing of the area setting dialog box
 								nodeWindow.resizableProperty().setValue(Boolean.FALSE);
 								nodeWindow.setTitle("node Settings");
 								nodeWindow.setScene(nodeScene);
 								nodeWindow.show();
-								//set action on close request of node setting window
+								// set action on close request of node setting window
 								nodeWindow.setOnCloseRequest(closeEventOnNodeWindow -> {
 									// take away java's control of close event and don't exit
 									closeEventOnNodeWindow.consume();
@@ -295,54 +290,45 @@ public class Layout extends BorderPane {
 										pressure_value = true;
 									} else
 										pressure_value = false;
-//									System.out.println(temperature_value + " " + wind_speed_value + " " + humidity_value
-//											+ " " + vibration_value + " " + pressure_value);
 									AllNodesCreated.add(nodeDropped);
 									boolean findParent = false;
 									for (int i = 0; i < InnerAreasCreated.size(); i++) {
-										if (nodeDropped.getLayoutX()
-												 > InnerAreasCreated.get(i).rectangle
-														.getLayoutX()
-												&& nodeDropped.getLayoutX() + nodeDropped.circle
-														.getRadius() *2  < InnerAreasCreated.get(i).rectangle.getLayoutX()
+										if (nodeDropped.getLayoutX() > InnerAreasCreated.get(i).rectangle.getLayoutX()
+												&& nodeDropped.getLayoutX() + nodeDropped.circle.getRadius()
+														* 2 < InnerAreasCreated.get(i).rectangle.getLayoutX()
 																+ InnerAreasCreated.get(i).areaWidth()
-												&& nodeDropped.getLayoutY() > InnerAreasCreated.get(i).rectangle.getLayoutY()
-												&& nodeDropped.getLayoutY() + nodeDropped.circle
-														.getRadius() *2 < InnerAreasCreated.get(i).rectangle.getLayoutY()
+												&& nodeDropped.getLayoutY() > InnerAreasCreated.get(i).rectangle
+														.getLayoutY()
+												&& nodeDropped.getLayoutY() + nodeDropped.circle.getRadius()
+														* 2 < InnerAreasCreated.get(i).rectangle.getLayoutY()
 																+ InnerAreasCreated.get(i).areaHeight()) {
 											nodeDropped.id = newScene.addNodeToArea(InnerAreasCreated.get(i).name,
 													temperature_value, wind_speed_value, humidity_value,
 													vibration_value, pressure_value);
-//											System.out.println("node created: " + nodeDropped.id);
 											findParent = true;
-//											System.out.println("Parent area :" + InnerAreasCreated.get(i).name);
 											break;
 										}
 									}
 									if (!findParent) {
 										for (int i = 0; i < TopAreasCreated.size(); i++) {
-											if (nodeDropped.getLayoutX()
-													 > TopAreasCreated.get(i).rectangle
-															.getLayoutX()
-													&& nodeDropped.getLayoutX() + nodeDropped.circle
-															.getRadius() *2 < TopAreasCreated.get(i).rectangle.getLayoutX()
+											if (nodeDropped.getLayoutX() > TopAreasCreated.get(i).rectangle.getLayoutX()
+													&& nodeDropped.getLayoutX() + nodeDropped.circle.getRadius()
+															* 2 < TopAreasCreated.get(i).rectangle.getLayoutX()
 																	+ TopAreasCreated.get(i).areaWidth()
-													&& nodeDropped.getLayoutY() > TopAreasCreated.get(i).rectangle.getLayoutY()
-													&& nodeDropped.getLayoutY() + nodeDropped.circle
-															.getRadius() *2 < TopAreasCreated.get(i).rectangle.getLayoutY()
+													&& nodeDropped.getLayoutY() > TopAreasCreated.get(i).rectangle
+															.getLayoutY()
+													&& nodeDropped.getLayoutY() + nodeDropped.circle.getRadius()
+															* 2 < TopAreasCreated.get(i).rectangle.getLayoutY()
 																	+ TopAreasCreated.get(i).areaHeight()) {
 												nodeDropped.id = newScene.addNodeToArea(TopAreasCreated.get(i).name,
 														temperature_value, wind_speed_value, humidity_value,
 														vibration_value, pressure_value);
-//												System.out.println("node created: " + nodeDropped.id);
 												findParent = true;
-//												System.out.println("Parent area :" + TopAreasCreated.get(i).name);
 												break;
 											}
 										}
 									}
-									nodeDropped.label.setText(nodeDropped.id.substring(1, nodeDropped.id.length()-1));
-									System.out.println(nodeDropped.label.getText());
+									nodeDropped.label.setText(nodeDropped.id.substring(1, nodeDropped.id.length() - 1));
 									nodeWindow.close();
 								});
 							} catch (Exception e) {
@@ -368,10 +354,8 @@ public class Layout extends BorderPane {
 				DragableContainer2 container2 = (DragableContainer2) event.getDragboard()
 						.getContent(DragableContainer2.AddArea);
 				if (container2 != null) {
-//					System.out.println(container2.getData().toString());
 					if (container2.getValue("scene_coordinates") != null) {
 						DraggableArea areaDropped = new DraggableArea();
-//                        areaDropped.setType(DragableNodeType.valueOf(container.getValue("type")));
 						right_pane.getChildren().add(areaDropped);
 						Point2D cursorPoint = container2.getValue("scene_coordinates");
 						areaDropped.relocateToPoint(new Point2D(cursorPoint.getX(), cursorPoint.getY()));
@@ -381,12 +365,12 @@ public class Layout extends BorderPane {
 							Scene areaScene = new Scene(Pane, 250, 100);
 							// block using of any other window of current application
 							areaWindow.initModality(Modality.APPLICATION_MODAL);
-							//disable resizing of the area setting dialog box
+							// disable resizing of the area setting dialog box
 							areaWindow.resizableProperty().setValue(Boolean.FALSE);
 							areaWindow.setTitle("Area Settings");
 							areaWindow.setScene(areaScene);
 							areaWindow.show();
-							//set action on close request of area setting window
+							// set action on close request of area setting window
 							areaWindow.setOnCloseRequest(closeEventOnAreaWindow -> {
 								// take away java's control of close event and don't exit
 								closeEventOnAreaWindow.consume();
@@ -399,8 +383,6 @@ public class Layout extends BorderPane {
 								AllAreasCreated.add(areaDropped);
 								boolean isInnerarea = false;
 								boolean findParent = false;
-//                    			System.out.println(areaDropped.getLayoutX());
-//                				System.out.println(areaDropped.getLayoutY());
 								for (int i = 0; i < InnerAreasCreated.size(); i++) {
 									if (areaDropped.getLayoutX() > InnerAreasCreated.get(i).rectangle.getLayoutX()
 											&& areaDropped.getLayoutX() + areaDropped
@@ -413,10 +395,8 @@ public class Layout extends BorderPane {
 															+ InnerAreasCreated.get(i).areaHeight()) {
 										InnerAreasCreated.add(areaDropped);
 										newScene.addInnerArea(InnerAreasCreated.get(i).name, areaDropped.name);
-//										System.out.println("inner area created: " + areaDropped.name);
 										isInnerarea = true;
 										findParent = true;
-//										System.out.println("Parent area :" + InnerAreasCreated.get(i).name);
 										break;
 									}
 								}
@@ -433,10 +413,8 @@ public class Layout extends BorderPane {
 																+ TopAreasCreated.get(i).areaHeight()) {
 											InnerAreasCreated.add(areaDropped);
 											newScene.addInnerArea(AllAreasCreated.get(i).name, areaDropped.name);
-//											System.out.println("inner area created : " + areaDropped.name);
 											isInnerarea = true;
 											findParent = true;
-//											System.out.println("Parent area :" + TopAreasCreated.get(i).name);
 											break;
 										}
 									}
@@ -444,7 +422,6 @@ public class Layout extends BorderPane {
 								if (!isInnerarea) {
 									TopAreasCreated.add(areaDropped);
 									newScene.addTopArea(areaDropped.name);
-//									System.out.println("top level area created: " + areaDropped.name);
 								}
 								areaWindow.close();
 							});
