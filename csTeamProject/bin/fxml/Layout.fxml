@@ -46,9 +46,10 @@
             </MenuBar>
             <ToolBar>
               <items>
-                  <Button fx:id="generateAlgebraicExpression" mnemonicParsing="false" text="Generate" />
-                  <Button fx:id="exportBigFile" mnemonicParsing="false" text="Export" />
-                  <Button fx:id="clearAlgebraicExpression" mnemonicParsing="false" text="Clear" />
+                  <Button fx:id="generateAlgebraicExpression" mnemonicParsing="false" text="Generate the Algebraic Expression" />
+                  <Button fx:id="exportBigFile" mnemonicParsing="false" text="Export to BIG File" />
+                  <Button fx:id="clearAlgebraicExpression" mnemonicParsing="false" text="Clear Algebraic Expression" />
+                  <Button fx:id="newNetworkButton" mnemonicParsing="false" text="Create a new Project" />
               </items>
             </ToolBar>
          </children>

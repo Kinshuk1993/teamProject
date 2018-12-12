@@ -38,7 +38,7 @@ public class Layout extends BorderPane {
 	@FXML
 	VBox left_pane;
 	@FXML
-	Button generateAlgebraicExpression, clearAlgebraicExpression, exportBigFile;
+	Button generateAlgebraicExpression, clearAlgebraicExpression, exportBigFile, newNetworkButton;
 	@FXML
 	TextArea algebraicExpressionDisplay;
 	@FXML
@@ -116,6 +116,30 @@ public class Layout extends BorderPane {
 				// print the stack trace in case of error
 				error.printStackTrace();
 			}
+		});
+		//event handler for the new network button - create a new FULL SCREEN WINDOW
+		newNetworkButton.setOnAction(newProjectEvent -> {
+			BorderPane borderPane = new BorderPane();
+			try {
+				Scene scene = new Scene(borderPane, 640, 480);
+				// Setting the title to Stage.
+				javafx.window.setTitle("Project");
+				javafx.window.setOnCloseRequest(e -> {
+					e.consume();
+					new javafx().closeProgram();
+				});
+				// Adding the scene to Stage
+				javafx.window.setScene(scene);
+				scene.getStylesheets().add(getClass().getResource("/fxml/app.css").toExternalForm());
+				//open the application in maximized mode
+				javafx.window.setFullScreen(true);
+				// Displaying the contents of the stage
+				javafx.window.show();
+				borderPane.setCenter(new Layout());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		});
 		// Create operator
 		AnimatedZoomOperator zoomOperator = new AnimatedZoomOperator();

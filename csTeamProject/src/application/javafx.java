@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 //import controller.test;
 public class javafx extends Application {
 
-	Stage window;
+	static Stage window;
 
 	public static void main(String args[]) {
 		launch(args);
@@ -17,21 +17,23 @@ public class javafx extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		window = primaryStage;
+		javafx.window = primaryStage;
 		BorderPane borderPane = new BorderPane();
 		try {
 			Scene scene = new Scene(borderPane, 640, 480);
 			// Setting the title to Stage.
-			window.setTitle("Project");
-			window.setOnCloseRequest(e -> {
+			javafx.window.setTitle("Project");
+			javafx.window.setOnCloseRequest(e -> {
 				e.consume();
 				closeProgram();
 			});
 			// Adding the scene to Stage
-			window.setScene(scene);
+			javafx.window.setScene(scene);
 			scene.getStylesheets().add(getClass().getResource("/fxml/app.css").toExternalForm());
+			//open the application in maximized mode
+			javafx.window.setMaximized(true);
 			// Displaying the contents of the stage
-			window.show();
+			javafx.window.show();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
