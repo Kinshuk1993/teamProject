@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<SplitPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="132.0" prefWidth="443.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LinkNodeController">
+<SplitPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="170.0" prefWidth="507.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LinkNodeController">
    <items>
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" SplitPane.resizableWithParent="false">
          <children>
-            <GridPane prefHeight="121.0" prefWidth="443.0">
+            <GridPane prefHeight="158.0" prefWidth="507.0">
                <children>
                   <ChoiceBox fx:id="nodeListForLink" prefHeight="31.0" prefWidth="112.0" GridPane.columnIndex="1">
                      <GridPane.margin>
@@ -26,7 +26,7 @@
                         <Insets right="5.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button fx:id="cancelButtonForLink" alignment="CENTER" mnemonicParsing="false" text="Cancel" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+                  <Button fx:id="cancelButtonForLink" alignment="CENTER" mnemonicParsing="false" text="Cancel" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
                      <padding>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </padding>
@@ -34,7 +34,7 @@
                         <Insets left="10.0" top="5.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button fx:id="createNodeLink" alignment="CENTER" mnemonicParsing="false" text="Create Link" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                  <Button fx:id="createNodeLink" alignment="CENTER" mnemonicParsing="false" text="Create Link" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                      <padding>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </padding>
@@ -47,12 +47,22 @@
                         <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="Selected Nodes to link to:" GridPane.rowIndex="1">
+                  <Label text="Selected Nodes to link to:" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="dynamicNodeLinkLabel" text="No Nodes selected" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Label fx:id="dynamicNodeLinkLabel" text="No Nodes selected" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets left="5.0" top="-5.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label text="Existing links of current Node:" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="existingLinks" text="No Nodes Linked" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="5.0" top="-5.0" />
                      </GridPane.margin>
@@ -64,6 +74,7 @@
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="51.0" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" />
                   <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" />
                   <RowConstraints maxHeight="44.0" minHeight="10.0" prefHeight="30.0" />
                </rowConstraints>

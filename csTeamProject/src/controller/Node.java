@@ -30,9 +30,10 @@ public class Node {
     private boolean Vibration;
     private boolean Pressure;
 
-    // List containing links and applications
+    // List containing links, applications and nodes it is currently linked to
     private ArrayList<String> links;
     private ArrayList<Apps> applications;
+    private ArrayList<String> nodesLinkedTo;
 
     // Constructors
     public Node(String id){
@@ -42,6 +43,7 @@ public class Node {
         this.ipv6 = "N/A";
         this.links = new ArrayList<String>();
         this.applications = new ArrayList<Apps>();
+        this.nodesLinkedTo = new ArrayList<String>();
     }
     public Node(){
         this.id = "Failed";
@@ -50,6 +52,7 @@ public class Node {
         this.ipv6 = "N/A";
         this.links = new ArrayList<String>();
         this.applications = new ArrayList<Apps>();
+        this.nodesLinkedTo = new ArrayList<String>();
     }
 
     // Getters
@@ -62,8 +65,17 @@ public class Node {
     public String getIP(){
         return ipv6;
     }
+    
+    //getters for nodes linked to
+    public ArrayList<String> getNodesLinkedTo(){
+        return this.nodesLinkedTo;
+    }
+    //setter for nodes linked to
+    public void setNodesLinkedTo(String nodeId){
+        this.nodesLinkedTo.add(nodeId.substring(1, nodeId.toString().length()-1));
+    }
 
-    // getNode prints the node with a mac addres and each configuration
+    // getNode prints the node with a MAC address and each configuration
     public String getNode(){
         return "Node: "+ Mac + "\nTemperature: " + String.valueOf(Temperature) + ", Windspeed: " + String.valueOf(Windspeed) + ", Humidity: " + String.valueOf(Humidity) + ", Vibration: " + String.valueOf(Vibration) + ", Pressure: " + String.valueOf(Pressure);
     }

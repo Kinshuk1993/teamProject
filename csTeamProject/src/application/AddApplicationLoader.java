@@ -11,15 +11,21 @@
  */
 package application;
 
+//import packages
+import java.util.Random;
 import controller.Apps;
 import controller.Controller;
-//import packages
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -59,7 +65,7 @@ public class AddApplicationLoader {
 	 * Function to print all the applications in the application
 	 */
 	public static void updateApplicationList() {
-		//coutner
+		//counter variable
 		int i = 0;
 		//clear contents before writing again
 		appLoaderVBox.getChildren().clear();
@@ -69,8 +75,28 @@ public class AddApplicationLoader {
 			String temp = ++i + ". " + eachApp.getName();
 			//create a label
 			Label eachAppNameLabel = new Label(temp);
+			//set the padding for each label
+			eachAppNameLabel.setPadding(new Insets(5, 0, 0, 11));
+			//set a random color to the 
+			eachAppNameLabel.setTextFill(AddApplicationLoader.generateRandomColor());
+			//set the font of label to Arial with size 25
+			eachAppNameLabel.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+			//wrap the text in case the application name is long
+			eachAppNameLabel.setWrapText(true);
 			//add the label to the vertical box
 			appLoaderVBox.getChildren().add(eachAppNameLabel);
 		}
 	}
+	
+	/**
+	 * Function to get random colors every time
+	 * for every application
+	 */
+	public static Paint generateRandomColor() {
+        Random randomNum = new Random();
+        int r = randomNum.nextInt(255);
+        int g = randomNum.nextInt(255);
+        int b = randomNum.nextInt(255);
+        return Color.rgb(r, g, b);
+    }
 }

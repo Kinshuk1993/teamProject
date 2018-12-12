@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -87,13 +88,16 @@
       </VBox>
    </right>
    <bottom>
-      <TextArea fx:id="textArea" BorderPane.alignment="CENTER">
+      <TextArea id="algebraicExpression" fx:id="textArea" editable="false" promptText="The Algebraic Expression generated will be displayed here." wrapText="true" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
          <padding>
             <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
          </padding>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
       </TextArea>
    </bottom>
    <center>

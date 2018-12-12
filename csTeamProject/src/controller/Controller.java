@@ -221,6 +221,7 @@ public class Controller{
      * @return linkId
      */
     public static String addNewLink(String firstNodeName, String secondNodeName){
+    	System.out.println(firstNodeName + "->" + secondNodeName);
         // create new link
         String linkName = "l"+(Controller.listOfLinks.size()+1);
         Controller.listOfLinks.add(linkName);
@@ -230,7 +231,9 @@ public class Controller{
         Node secondNode = findNode(secondNodeName);
 
         firstNode.addLink(linkName);
+        firstNode.setNodesLinkedTo(secondNodeName);
         secondNode.addLink(linkName);
+        secondNode.setNodesLinkedTo(firstNodeName);
 
         return linkName;
 
