@@ -5,7 +5,7 @@ package controller;
  * MSc CS+ Team Project, fall 2018
  * 
  * Skeleton for an application class.
- * has an id, and the name of the App
+ * can have an id and a given name
  */
 
 public class Apps{

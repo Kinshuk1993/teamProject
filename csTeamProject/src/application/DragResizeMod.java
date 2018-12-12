@@ -27,7 +27,7 @@ import javafx.scene.shape.Rectangle;
  * 2) make changes to the node
  * (this class will not change anything in node coordinates)
  *
- * There is defaultListener and it works only with Canvas nad Rectangle
+ * There is defaultListener and it works only with Canvas and Rectangle
  */
 
 public class DragResizeMod {

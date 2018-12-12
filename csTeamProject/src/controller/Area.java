@@ -4,7 +4,7 @@ package controller;
  * University of Glasgow
  * MSc CS+ Team Project, fall 2018
  * 
- * Area class has an string id.
+ * Area class has a string id.
  * Area can also contain another area, if it does then the boolean containsArea is set to true;
  * It can also contain nodes.
  * 
@@ -17,7 +17,7 @@ public class Area {
     private String id;
     private boolean containsArea;
 
-    // these list contains the nodes and areas in this area
+    // these list contains the nodes and areas contained within this area
     private ArrayList<Node> nodes;
     private ArrayList<Area> areas;
 

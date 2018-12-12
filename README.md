@@ -1,4 +1,4 @@
-# csTeamProject
+# Operating interface for large-scale Wireless Sensor Networks
 
 University of Glasgow
 CS+ MSc Computing Science Team Project 2018.
@@ -10,15 +10,15 @@ CS+ MSc Computing Science Team Project 2018.
 * Thomas Mannsverk Eliassen
 * Yiting Zhang
 
-## Operating interface for large-scale Wireless Sensor Networks
+## Project description
 
-This project is a proof of concept, for showing that it is possible to create a Graphical User Interface for a Wireless Sensor Networks. The GUI provides an easy drag-and-drop interface for creating a WSN and then exporting it as a Bigraph algebraic expression or a BIG file.  
+This repository contains the source code for a test version of an Operating Interface for large-scale Wireless Sensor Networks. This application allows a user to create a WSN while a bigraph algebraic representation is build in the background. When a user is done building their network they can export the WSN to a BIG file.
 
-The program is available in the BigraphUI.jar file.
+This application follows the paper "Modelling and Verification of Large-Scale Sensor Network Infrastructures" by Michele Sevegnani et al. and provides an easier way to create WSN model. However, this is just a Proof of concept and does not provide a fully implemented version, and has some problems that have not been fixed at this point.
 
-## Program structure
+The program is available to run in its current state with the BigraphUI.jar file.
 
-The program consists of a controller package that handles the relationship between each node, area, and application. As well as exports the WSN to a Bigraph expression and BIG file.  
+### Work with this program
 
-The application package contains the structure for the graphical elements of the application.
-
+This program was build following Eclipse standard package structure, and is split in two packages, controller and application.
+The application contains the GUI, and interacts with the controller to create the Bigraph and the BIG file.
