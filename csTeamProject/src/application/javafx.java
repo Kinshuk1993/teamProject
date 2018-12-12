@@ -1,5 +1,4 @@
 package application;
-
 //import custom and existing files and packages
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -8,7 +7,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 //import controller.test;
-
 public class javafx extends Application {
 
 	Stage window;
@@ -34,10 +32,6 @@ public class javafx extends Application {
 			scene.getStylesheets().add(getClass().getResource("/fxml/app.css").toExternalForm());
 			// Displaying the contents of the stage
 			window.show();
-//			//TEST string array
-//			String[] toppings = new String[20];
-//			//TEST to check the nodeList functionality
-//			test.main(toppings);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -48,14 +42,14 @@ public class javafx extends Application {
 		Stage newWindow = new Stage();
 		BorderPane newPane = new BorderPane();
 		Scene newScene = new Scene(newPane, 200, 100);
-		//stop user from accessing any other dialog box other than the current one
+		// stop user from accessing any other dialog box other than the current one
 		newWindow.initModality(Modality.APPLICATION_MODAL);
 //		remove minimize and maximize button
-        newWindow.resizableProperty().setValue(Boolean.FALSE);
-        newWindow.getIcons().add(new Image(getClass().getResource("/resources/close-icon.png").toExternalForm()));
+		newWindow.resizableProperty().setValue(Boolean.FALSE);
+		newWindow.getIcons().add(new Image(getClass().getResource("/resources/close-icon.png").toExternalForm()));
 		newWindow.setTitle("Close Confirmation");
 		newWindow.setScene(newScene);
-		newWindow.show();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+		newWindow.show();
 		ConfirmBox confirmbox = new ConfirmBox();
 		newPane.setCenter(confirmbox);
 		Boolean answer = ConfirmBox.display();

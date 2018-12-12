@@ -37,16 +37,10 @@ public class Layout extends BorderPane {
 	@FXML
 	VBox left_pane;
 	@FXML
-	Button clearButton;
+	Button generateAlgebraicExpression, clearAlgebraicExpression, exportBigFile;
 	@FXML
-	Button saveButton;
+	TextArea algebraicExpressionDisplay;
 	@FXML
-	Button generateButton;
-	@FXML
-	Button exportButton;
-	@FXML
-	TextArea textArea;
-	@FXML 
 	VBox configPane;
 	@FXML
 	Button createAppButton;
@@ -91,17 +85,25 @@ public class Layout extends BorderPane {
 		this.TopAreasCreated = new ArrayList<DraggableArea>();
 		this.InnerAreasCreated = new ArrayList<DraggableArea>();
 		this.AllNodesCreated = new ArrayList<DragableNode>();
-		clearButton.setOnAction(e -> {
-			textArea.setText(null);
+		// set the action on clicking of clear button
+		clearAlgebraicExpression.setOnAction(e -> {
+			// clear the existing text
+			algebraicExpressionDisplay.setText(null);
+			// clear the algebraic expression from the text field and clear the existing
+			// text
+			algebraicExpressionDisplay.setPromptText("The Algebraic Expression generated will be displayed here.");
 		});
-		saveButton.setOnAction(e -> {
-			// to be fullfilled
+		// set the action on clicking of generate button
+		generateAlgebraicExpression.setOnAction(e -> {
+			// get the bigraph expression
+			String expression = newScene.exportBigraph();
+			// print the bigraph on the display text area
+			algebraicExpressionDisplay.setText(expression);
 		});
-		exportButton.setOnAction(e -> {
-			// to be fullfilled
-		});
-		generateButton.setOnAction(e -> {
-			// to be fullfilled
+		// set the action on clicking of export button
+		exportBigFile.setOnAction(e -> {
+			// export the big file
+			newScene.exportBIG();
 		});
 		// set the short hand event handler for create application button
 		createAppButton.setOnAction(event -> {
@@ -130,7 +132,7 @@ public class Layout extends BorderPane {
 			}
 		});
 		nodeConfigBox nodeCFGbox = new nodeConfigBox();
-    	configPane.getChildren().addAll(nodeCFGbox);
+		configPane.getChildren().addAll(nodeCFGbox);
 		mDragableNodeOver = new DragableNode();
 		mDragableNodeOver.id = "mDragableNodeOver";
 		mDragableNodeOver.setVisible(false);
@@ -157,20 +159,6 @@ public class Layout extends BorderPane {
 		buildDragHandlers2();
 	}
 
-	// public void saveButtonClick() {
-	//
-	// }
-	//
-	// public void exportButtonClick() {
-	//
-	// }
-	//
-	// public void generateButtonClick() {
-	//
-	// }
-	// public void clearButtonClick() {
-	//
-	// }
 	private void buildDragHandlers() {
 		mNodeDragOverRoot = new EventHandler<DragEvent>() {
 
@@ -218,7 +206,6 @@ public class Layout extends BorderPane {
 				DragableContainer container = (DragableContainer) event.getDragboard()
 						.getContent(DragableContainer.AddNode);
 				if (container != null) {
-					System.out.println(container.getData().toString());
 					if (container.getValue("scene_coordinates") != null) {
 						DragableNode nodeDropped = new DragableNode();
 //                        nodeDropped.setType(DragableNodeType.valueOf(container.getValue("type")));
@@ -242,7 +229,7 @@ public class Layout extends BorderPane {
 								break;
 							}
 						}
-						System.out.println(nodeAccept);
+//						System.out.println(nodeAccept);
 						if (nodeAccept) {
 							try {
 								Stage nodeWindow = new Stage();
@@ -274,8 +261,8 @@ public class Layout extends BorderPane {
 										pressure_value = true;
 									} else
 										pressure_value = false;
-									System.out.println(temperature_value + " " + wind_speed_value + " " + humidity_value
-											+ " " + vibration_value + " " + pressure_value);
+//									System.out.println(temperature_value + " " + wind_speed_value + " " + humidity_value
+//											+ " " + vibration_value + " " + pressure_value);
 									AllNodesCreated.add(nodeDropped);
 									boolean findParent = false;
 									for (int i = 0; i < InnerAreasCreated.size(); i++) {
@@ -293,9 +280,9 @@ public class Layout extends BorderPane {
 											nodeDropped.id = newScene.addNodeToArea(InnerAreasCreated.get(i).name,
 													temperature_value, wind_speed_value, humidity_value,
 													vibration_value, pressure_value);
-											System.out.println("node created: " + nodeDropped.id);
+//											System.out.println("node created: " + nodeDropped.id);
 											findParent = true;
-											System.out.println("Parent area :" + InnerAreasCreated.get(i).name);
+//											System.out.println("Parent area :" + InnerAreasCreated.get(i).name);
 											break;
 										}
 									}
@@ -315,9 +302,9 @@ public class Layout extends BorderPane {
 												nodeDropped.id = newScene.addNodeToArea(TopAreasCreated.get(i).name,
 														temperature_value, wind_speed_value, humidity_value,
 														vibration_value, pressure_value);
-												System.out.println("node created: " + nodeDropped.id);
+//												System.out.println("node created: " + nodeDropped.id);
 												findParent = true;
-												System.out.println("Parent area :" + TopAreasCreated.get(i).name);
+//												System.out.println("Parent area :" + TopAreasCreated.get(i).name);
 												break;
 											}
 										}
@@ -335,7 +322,7 @@ public class Layout extends BorderPane {
 							nodePositionErrorBox.setScene(nodePositionErrorScene);
 							nodePositionErrorBox.show();
 							nodePositionError node_position_error = new nodePositionError();
-							errorPane.setCenter(node_position_error);							
+							errorPane.setCenter(node_position_error);
 							right_pane.getChildren().remove(nodeDropped);
 						}
 					}
@@ -347,7 +334,7 @@ public class Layout extends BorderPane {
 				DragableContainer2 container2 = (DragableContainer2) event.getDragboard()
 						.getContent(DragableContainer2.AddArea);
 				if (container2 != null) {
-					System.out.println(container2.getData().toString());
+//					System.out.println(container2.getData().toString());
 					if (container2.getValue("scene_coordinates") != null) {
 						DraggableArea areaDropped = new DraggableArea();
 //                        areaDropped.setType(DragableNodeType.valueOf(container.getValue("type")));
@@ -383,10 +370,10 @@ public class Layout extends BorderPane {
 															+ InnerAreasCreated.get(i).areaHeight()) {
 										InnerAreasCreated.add(areaDropped);
 										newScene.addInnerArea(InnerAreasCreated.get(i).name, areaDropped.name);
-										System.out.println("inner area created: " + areaDropped.name);
+//										System.out.println("inner area created: " + areaDropped.name);
 										isInnerarea = true;
 										findParent = true;
-										System.out.println("Parent area :" + InnerAreasCreated.get(i).name);
+//										System.out.println("Parent area :" + InnerAreasCreated.get(i).name);
 										break;
 									}
 								}
@@ -403,10 +390,10 @@ public class Layout extends BorderPane {
 																+ TopAreasCreated.get(i).areaHeight()) {
 											InnerAreasCreated.add(areaDropped);
 											newScene.addInnerArea(AllAreasCreated.get(i).name, areaDropped.name);
-											System.out.println("inner area created : " + areaDropped.name);
+//											System.out.println("inner area created : " + areaDropped.name);
 											isInnerarea = true;
 											findParent = true;
-											System.out.println("Parent area :" + TopAreasCreated.get(i).name);
+//											System.out.println("Parent area :" + TopAreasCreated.get(i).name);
 											break;
 										}
 									}
@@ -414,7 +401,7 @@ public class Layout extends BorderPane {
 								if (!isInnerarea) {
 									TopAreasCreated.add(areaDropped);
 									newScene.addTopArea(areaDropped.name);
-									System.out.println("top level area created: " + areaDropped.name);
+//									System.out.println("top level area created: " + areaDropped.name);
 								}
 								areaWindow.close();
 							});

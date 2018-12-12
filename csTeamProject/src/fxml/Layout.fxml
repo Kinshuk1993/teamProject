@@ -46,10 +46,9 @@
             </MenuBar>
             <ToolBar>
               <items>
-                  <Button fx:id="saveButton" mnemonicParsing="false" text="Save" />
-                  <Button fx:id="generateButton" mnemonicParsing="false" text="Generate" />
-                  <Button fx:id="exportButton" mnemonicParsing="false" text="Export" />
-                  <Button fx:id="clearButton" mnemonicParsing="false" text="Clear" />
+                  <Button fx:id="generateAlgebraicExpression" mnemonicParsing="false" text="Generate" />
+                  <Button fx:id="exportBigFile" mnemonicParsing="false" text="Export" />
+                  <Button fx:id="clearAlgebraicExpression" mnemonicParsing="false" text="Clear" />
               </items>
             </ToolBar>
          </children>
@@ -88,7 +87,7 @@
       </VBox>
    </right>
    <bottom>
-      <TextArea id="algebraicExpression" fx:id="textArea" editable="false" promptText="The Algebraic Expression generated will be displayed here." wrapText="true" BorderPane.alignment="CENTER">
+      <TextArea fx:id="algebraicExpressionDisplay" editable="false" promptText="The Algebraic Expression generated will be displayed here." wrapText="true" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
