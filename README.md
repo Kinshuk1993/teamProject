@@ -12,7 +12,7 @@ CS+ MSc Computing Science Team Project 2018.
 
 ## Project description
 
-This repository contains the source code for a test version of an Operating Interface for large-scale Wireless Sensor Networks. This application allows a user to create a WSN while a bigraph algebraic representation is build in the background. When a user is done building their network they can export the WSN to a BIG file.
+This repository contains the source code for a test version of an Operating Interface for large-scale Wireless Sensor Networks. This application allows a user to create a WSN while a Bigraph algebraic representation is build in the background. When a user is done building their network they can export the WSN to a BIG file.
 
 This application follows the paper "Modelling and Verification of Large-Scale Sensor Network Infrastructures" by Michele Sevegnani et al. and provides an easier way to create WSN model. However, this is just a Proof of concept and does not provide a fully implemented version, and has some problems that have not been fixed at this point.
 
