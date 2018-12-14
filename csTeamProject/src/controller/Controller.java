@@ -140,7 +140,7 @@ public class Controller{
      * @param appName
      * @return the id of the node
      */
-    public String addNodeToArea(String areaName, boolean temperature, boolean windspeed, boolean humidity, boolean vibration, boolean pressure){
+    public String addNodeToArea(String areaName, boolean temperature, boolean windspeed, boolean humidity, boolean vibration, boolean pressure, double X, double Y){
         // find the area
         Area areaToAddTo = findArea(areaName); 
 
@@ -148,6 +148,10 @@ public class Controller{
         String nodeId = "{c"+(listOfNodes.size()+1)+"}";
         // create new node
         Node newNode = new Node(nodeId);
+        //set the node X coordinate
+        newNode.setxCoord(X);
+        //set the node Y coordinate
+        newNode.setyCoord(Y);
         // set nodes configurations
         newNode.setAllConf(temperature, windspeed, humidity, vibration, pressure);
 
@@ -156,7 +160,7 @@ public class Controller{
         // add node to area
         areaToAddTo.addNode(newNode);
 
-        //retur node name
+        //return node name
         return nodeId;
 
     }

@@ -15,11 +15,13 @@ import java.util.Random;
 import java.util.ArrayList;
 public class Node {
 
-	// Privat variables
+	// Private variables
 	private String id; // this is the id the node is known as
 	private String typeId; // this identifies what kind of node it is
 	private String Mac; // MAC is needed, works as the ID
 	private String ipv6; // Only when connected to a network
+	private double xCoord; //to store the x coordinate of this node on the scene
+	private double yCoord; //to store the y coordinate of this node on the scene
 	// These are indicators for what kind of data this node can provide
 	private boolean Temperature;
 	private boolean Windspeed;
@@ -243,5 +245,21 @@ public class Node {
 			sb.append(String.format("%02x", b));
 		}
 		return sb.toString();
+	}
+
+	public double getxCoord() {
+		return xCoord;
+	}
+
+	public void setxCoord(double xCoord) {
+		this.xCoord = xCoord;
+	}
+
+	public double getyCoord() {
+		return yCoord;
+	}
+
+	public void setyCoord(double yCoord) {
+		this.yCoord = yCoord;
 	}
 }

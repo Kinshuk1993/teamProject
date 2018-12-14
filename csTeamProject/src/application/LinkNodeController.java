@@ -113,6 +113,7 @@ public class LinkNodeController {
 			});
 			// listener for creating the link
 			createNodeLink.setOnAction(createNodeLink -> {
+				Node currentNode = new Node(), targetNode = new Node();
 				// check if the node list to attach to application is empty or not
 				if (!listofNodesToLinkCurrentNode.isEmpty()) {
 					// iterate through each selected node
@@ -126,6 +127,18 @@ public class LinkNodeController {
 									&& !eachNode.getNodesLinkedTo().contains(eachSelectedNode)) {
 								// create the link for each node
 								Controller.addNewLink(LinkNodeLoader.currentNodeID, "{" + eachSelectedNode + "}");
+								//assign current node
+								currentNode = eachNode;
+							}
+							//check for target node
+							if (eachNode.getId().equals("{" + eachSelectedNode + "}")) {
+								//assign target node
+								targetNode = eachNode;
+							}
+							//check if the current and target node are properly defined
+							if (!targetNode.getId().equalsIgnoreCase("Failed") && !currentNode.getId().equalsIgnoreCase("Failed")) {
+								//create a link graphically between current and target node
+								javafx.newLayout.addLinkNodeLine(currentNode.getxCoord(), currentNode.getyCoord(), targetNode.getxCoord(), targetNode.getyCoord());
 							}
 						}
 					}

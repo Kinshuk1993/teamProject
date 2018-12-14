@@ -7,6 +7,7 @@ package application;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Random;
 import controller.Controller;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -21,6 +22,9 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Line;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.geometry.Point2D;
@@ -304,7 +308,9 @@ public class Layout extends BorderPane {
 																+ InnerAreasCreated.get(i).areaHeight()) {
 											nodeDropped.id = newScene.addNodeToArea(InnerAreasCreated.get(i).name,
 													temperature_value, wind_speed_value, humidity_value,
-													vibration_value, pressure_value);
+													vibration_value, pressure_value, nodeDropped.getLayoutX(), nodeDropped.getLayoutY());
+											System.out.println(nodeDropped.id + "-X: " + nodeDropped.getLayoutX());
+											System.out.println(nodeDropped.id + "-Y: " + nodeDropped.getLayoutY());
 											findParent = true;
 											break;
 										}
@@ -322,7 +328,9 @@ public class Layout extends BorderPane {
 																	+ TopAreasCreated.get(i).areaHeight()) {
 												nodeDropped.id = newScene.addNodeToArea(TopAreasCreated.get(i).name,
 														temperature_value, wind_speed_value, humidity_value,
-														vibration_value, pressure_value);
+														vibration_value, pressure_value, nodeDropped.getLayoutX(), nodeDropped.getLayoutY());
+												System.out.println(nodeDropped.id + "-X: " + nodeDropped.getLayoutX());
+												System.out.println(nodeDropped.id + "-Y: " + nodeDropped.getLayoutY());
 												findParent = true;
 												break;
 											}
@@ -519,5 +527,37 @@ public class Layout extends BorderPane {
 				event.consume();
 			}
 		});
+	}
+
+	/**
+	 * Function to link two connecting nodes
+	 * @param startX
+	 * @param startY
+	 * @param endX
+	 * @param endY
+	 */
+	public void addLinkNodeLine(double startX, double startY, double endX, double endY) {
+		//create a line
+		Line linkNodeLine = new Line(startX+11, startY+10, endX+11, endY+10);
+		//set line color
+		linkNodeLine.setFill(generateRandomColor());
+		//set line width
+		linkNodeLine.setStrokeWidth(2);
+		//add the line to connect 2 nodes
+		right_pane.getChildren().add(linkNodeLine);
+	}
+	
+	/**
+	 * Function to get random colors every time for a new link line created
+	 */
+	public Paint generateRandomColor() {
+		// generate a random number
+		Random randomNum = new Random();
+		// get 2 random numbers - for R, G, and B
+		int r = randomNum.nextInt(255);
+		int g = randomNum.nextInt(255);
+		int b = randomNum.nextInt(255);
+		//return new color
+		return Color.rgb(r, g, b);
 	}
 }

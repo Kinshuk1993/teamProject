@@ -10,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 public class javafx extends Application {
 
 	static Stage window;
+	static Layout newLayout;
 
 	public static void main(String args[]) {
 		launch(args);
@@ -17,6 +18,7 @@ public class javafx extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		newLayout = new Layout();
 		javafx.window = primaryStage;
 		BorderPane borderPane = new BorderPane();
 		try {
@@ -37,7 +39,7 @@ public class javafx extends Application {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		borderPane.setCenter(new Layout());
+		borderPane.setCenter(newLayout);
 	}
 
 	public void closeProgram() {
