@@ -172,7 +172,6 @@ public class Layout extends BorderPane {
 		getChildren().add(mDragableAreaOver);
 		Label areaLabel = new Label("Area");
 		Label nodeLabel = new Label("Node");
-		Label linkLabel = new Label("Link");
 		left_pane.getChildren().add(areaLabel);
 		DraggableArea area = new DraggableArea();
 		addDragDetection(area);
@@ -182,7 +181,6 @@ public class Layout extends BorderPane {
 		node.id = "icon";
 		addDragDetection(node);
 		left_pane.getChildren().add(node);
-		left_pane.getChildren().add(linkLabel);
 		buildDragHandlers();
 		buildDragHandlers2();
 	}
