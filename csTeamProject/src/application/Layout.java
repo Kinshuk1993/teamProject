@@ -9,6 +9,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 import controller.Controller;
+import controller.Node;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,11 +32,11 @@ import javafx.stage.Stage;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 public class Layout extends BorderPane {
 
-	@FXML
-	BorderPane border_pane;
+	@FXML BorderPane border_pane;
 	@FXML
 	SplitPane base_pane;
 	@FXML
@@ -43,14 +45,14 @@ public class Layout extends BorderPane {
 	VBox left_pane;
 	@FXML
 	Button generateAlgebraicExpression, clearAlgebraicExpression, exportBigFile, newNetworkButton;
+	@FXML TextArea algebraicExpressionDisplay;
+	@FXML CheckBox Sensor_windspeed, Sensor_temperature, Sensor_humidity, Sensor_virbration, Sensor_pressure;
+	@FXML Label IPV6ID, MACID, NodeID, AppList;
 	@FXML
-	TextArea algebraicExpressionDisplay;
-//	@FXML
+	Button createAppButton, AddAppBtn;
+	@FXML VBox vBoxForAreaNames;
 	
-	@FXML
-	Button createAppButton;
-	@FXML
-	VBox vBoxForAreaNames;
+	double xMin,xMax,yMin,yMax,xm,ym;//location of the node,location of the mouse (ZHang)
 	private DragableNode mDragableNodeOver = null;
 	private DraggableArea mDragableAreaOver = null;
 	private EventHandler<DragEvent> mNodeDragOverRoot = null;
@@ -159,7 +161,7 @@ public class Layout extends BorderPane {
 				zoomOperator.zoom(right_pane, zoomFactor, event.getSceneX(), event.getSceneY());
 			}
 		});
-
+		mouseClickDetectAddCfgbBx(right_pane);//Zhang
 
 		mDragableNodeOver = new DragableNode();
 		mDragableNodeOver.id = "mDragableNodeOver";
@@ -307,6 +309,7 @@ public class Layout extends BorderPane {
 											nodeDropped.id = newScene.addNodeToArea(InnerAreasCreated.get(i).name,
 													temperature_value, wind_speed_value, humidity_value,
 													vibration_value, pressure_value, nodeDropped.getLayoutX(), nodeDropped.getLayoutY());
+											//nodeDropped.Mac =   //Zhang
 											System.out.println(nodeDropped.id + "-X: " + nodeDropped.getLayoutX());
 											System.out.println(nodeDropped.id + "-Y: " + nodeDropped.getLayoutY());
 											findParent = true;
@@ -558,4 +561,68 @@ public class Layout extends BorderPane {
 		//return new color
 		return Color.rgb(r, g, b);
 	}
+	
+	//Zhang
+	public void mouseClickDetectAddCfgbBx(AnchorPane pane) {
+		 //Creating the mouse event handler 
+	      EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() { 
+	         @Override 
+	         public void handle(MouseEvent event) { 
+		        xm = event.getSceneX();
+		        ym = event.getSceneY();
+		        //get eachnode position 
+		        for (DragableNode eachNode : AllNodesCreated) {
+		        	 xMin = eachNode.NodeAreaXmin();
+		        	 xMax = eachNode.NodeAreaXmax();
+		        	 yMin = eachNode.NodeAreaYmin();
+		        	 yMax = eachNode.NodeAreaYmax();
+		        	 if (xMin < xm && xm < xMax && yMin < ym && ym < yMax) {
+		        		 // show the node's cfg in cfg box
+		        		 for (Node nodeEach : Controller.getNodes()) {
+		        			 if(nodeEach.getId() == eachNode.id) {
+				        		 NodeID.setText(nodeEach.getId());
+				        		 MACID.setText(nodeEach.getMac());
+				        		 IPV6ID.setText(nodeEach.getIP());
+				        		 if(nodeEach.getWindspeed()) {Sensor_windspeed.setSelected(true);}else {Sensor_windspeed.setSelected(false);}
+				        		 if(nodeEach.getTemperature()) {Sensor_temperature.setSelected(true);}else {Sensor_temperature.setSelected(false);}
+				        		 if(nodeEach.getHumidity()) {Sensor_humidity.setSelected(true);}else {Sensor_humidity.setSelected(false);}
+				        		 if(nodeEach.getVibration()) {Sensor_virbration.setSelected(true);}else {Sensor_virbration.setSelected(false);}
+				        		 if(nodeEach.getPressure()) {Sensor_pressure.setSelected(true);}else {Sensor_pressure.setSelected(false);}
+				        		 AppList.setText(nodeEach.getApplicationsID());
+		        			 }
+		        		 }//for Node nodeEach
+		        	 }
+		        } //for (DragableNode eachNode
+	         } 
+	      };  // EventHandler<MouseEvent> event
+	     pane.addEventHandler(MouseEvent.MOUSE_CLICKED, event);
+	}
+	
+	//if user changes sensor choice , then record again--
+	public void SensorCheckEvent(ActionEvent event) {
+    	if (Sensor_windspeed.isSelected()) {
+    		wind_speed_value = true;
+    	}else {wind_speed_value = false;}
+    	if (Sensor_temperature.isSelected()) {
+    		temperature_value = true;
+    		}else {temperature_value = false;}
+    	if (Sensor_humidity.isSelected()) {
+    		humidity_value = true;
+    	}else {humidity_value = false;}	
+    	if (Sensor_virbration.isSelected()) {
+    		vibration_value = true;
+    	}else {vibration_value = false;}
+    	if (Sensor_pressure.isSelected()) {
+    		pressure_value = true;
+    	}else {pressure_value = false;}
+    	
+    	for (Node nodeEach : Controller.getNodes()) {
+    		if (nodeEach.getId() == NodeID.getText()) {
+    			nodeEach.setAllConf(temperature_value, wind_speed_value, humidity_value, vibration_value, pressure_value);
+    		}
+    	}//for
+    	
+    }
+	
+	
 }

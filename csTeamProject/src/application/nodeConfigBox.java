@@ -79,6 +79,7 @@ public class nodeConfigBox extends AnchorPane {
     		System.out.println("ActionEvent pressure is selected!");
     	}else {ifpressure = false;}
     	
+    	Sensor_humidity.isSelected();
 //    	node.setAllConf(iftemperature, ifwindspeed, ifhumidity, ifvirbration, ifpressure);
 //    	MACID.setText(node.getMac());
 //    	IPV6ID.setText(node.getIP());

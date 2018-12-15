@@ -13,9 +13,17 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseDragEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
+import javafx.geometry.Bounds;
 public class DragableNode extends AnchorPane {
-
 	public String id;
+//	public String typeId; 
+//	public String Mac;    //Zhang
+//	public String ipv6; 
+//	public boolean Temperature;
+//	public boolean Windspeed;
+//	public boolean Humidity;
+//	public boolean Vibration;
+//	public boolean Pressure;
 	@FXML
 	public Circle circle;
 	@FXML
@@ -67,4 +75,29 @@ public class DragableNode extends AnchorPane {
 			e.printStackTrace();
 		}
 	}
+	
+	 //get node position area //ZHANG
+	public int NodeAreaXmin() {
+		Bounds boundsInScene = circle.localToScene(circle.getBoundsInLocal());
+	    int x = (int) boundsInScene.getMinX();
+	    return x;       
+	}	
+	public int NodeAreaXmax() {
+		Bounds boundsInScene = circle.localToScene(circle.getBoundsInLocal());
+	    int x = (int) boundsInScene.getMaxX();
+	    return x;       
+	}
+	public int NodeAreaYmin() {
+		Bounds boundsInScene = circle.localToScene(circle.getBoundsInLocal());
+	    int y = (int) boundsInScene.getMinY();
+	    return y;
+	}
+	public int NodeAreaYmax() {
+		Bounds boundsInScene = circle.localToScene(circle.getBoundsInLocal());
+	    int y = (int) boundsInScene.getMaxY();
+	    return y;
+	}
+	
+	
+	
 }

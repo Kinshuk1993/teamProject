@@ -9,7 +9,6 @@ package controller;
  * 
  * N_U = Node in Use, a node is in use if it has an application
  * N = Idle node
- * 
  */
 import java.util.Random;
 import java.util.ArrayList;
@@ -31,8 +30,9 @@ public class Node {
 	// List containing links, applications and nodes it is currently linked to
 	private ArrayList<String> links;
 	private ArrayList<Apps> applications;
+	private String applicationsID,applicationsName;
 	private ArrayList<String> nodesLinkedTo;
-
+	
 	// Constructors
 	public Node(String id) {
 		this.id = id;
@@ -262,4 +262,20 @@ public class Node {
 	public void setyCoord(double yCoord) {
 		this.yCoord = yCoord;
 	}
+
+	// Zhang public ArrayList<String> getApplicationsID() {
+	public String getApplicationsID() {
+		applicationsID = "";
+		for(Apps eachApp : applications) {
+			applicationsID = applicationsID +"\n"+ eachApp.getId();
+		}
+		return applicationsID;
+	}
+	public String getApplicationsName() {
+		for(Apps eachApp : applications) {
+			applicationsName = applicationsName + eachApp.getName();
+		}
+		return applicationsName;
+	}
+	
 }
