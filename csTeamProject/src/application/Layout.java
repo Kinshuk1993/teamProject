@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package application;
+//import packages
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -124,7 +125,7 @@ public class Layout extends BorderPane {
 		});
 		// event handler for the new network button - create a new FULL SCREEN WINDOW
 		newNetworkButton.setOnAction(newProjectEvent -> {
-			//open new project
+			// open new project
 			openNewProject();
 		});
 		// Create operator
@@ -555,16 +556,24 @@ public class Layout extends BorderPane {
 	 * Function to handle click on Help menu option of Help
 	 */
 	public void helpAboutClicked() {
+		// file handling exceptions handled
+		try {
+			// open the about section
+			new AboutHelpLoader();
+		} catch (Exception e) { // catch for handling any exception
+			// print the error if any as is
+			e.printStackTrace();
+		}
 	}
-	
+
 	/**
 	 * Function to handle click on Help menu option of Help
 	 */
 	public void fileNewClicked() {
-		//open a new project
+		// open a new project
 		openNewProject();
 	}
-	
+
 	/**
 	 * Function which when called will open a new project
 	 */

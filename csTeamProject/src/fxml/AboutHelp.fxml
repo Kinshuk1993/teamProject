@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="806.0" prefWidth="1329.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AboutHelpController">
+   <content>
+      <VBox fx:id="vboxHelpText" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="803.0" prefWidth="1326.0" />
+   </content>
+</ScrollPane>
