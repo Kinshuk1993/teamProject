@@ -38,7 +38,7 @@ public class Node {
 		this.id = id;
 		this.typeId = "N";
 		this.Mac = findMac();
-		this.ipv6 = findIPv6();
+		this.ipv6 = "N/A";
 		this.links = new ArrayList<String>();
 		this.applications = new ArrayList<Apps>();
 		this.nodesLinkedTo = new ArrayList<String>();
@@ -223,6 +223,7 @@ public class Node {
 
 	// Add link to list of links
 	public void addLink(String newLink) {
+		this.ipv6 = findIPv6();
 		this.links.add(newLink);
 	}
 
