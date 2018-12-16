@@ -223,13 +223,13 @@ public class Layout extends BorderPane {
 						nodeDropped.relocateToPoint(new Point2D(cursorPoint.getX(), cursorPoint.getY()));
 						boolean nodeAccept = false;
 						for (int i = 0; i < AllAreasCreated.size(); i++) {
-							if (nodeDropped.getLayoutX() > AllAreasCreated.get(i).rectangle.getLayoutX()
+							if (nodeDropped.getLayoutX() > AllAreasCreated.get(i).getLayoutX()
 									&& nodeDropped.getLayoutX() + nodeDropped.circle.getRadius()
-											* 2 < AllAreasCreated.get(i).rectangle.getLayoutX()
+											* 2 < AllAreasCreated.get(i).getLayoutX()
 													+ AllAreasCreated.get(i).areaWidth()
-									&& nodeDropped.getLayoutY() > AllAreasCreated.get(i).rectangle.getLayoutY()
+									&& nodeDropped.getLayoutY() > AllAreasCreated.get(i).getLayoutY()
 									&& nodeDropped.getLayoutY() + nodeDropped.circle.getRadius()
-											* 2 < AllAreasCreated.get(i).rectangle.getLayoutY()
+											* 2 < AllAreasCreated.get(i).getLayoutY()
 													+ AllAreasCreated.get(i).areaHeight()) {
 								nodeAccept = true;
 								break;
@@ -278,14 +278,14 @@ public class Layout extends BorderPane {
 									AllNodesCreated.add(nodeDropped);
 									boolean findParent = false;
 									for (int i = 0; i < InnerAreasCreated.size(); i++) {
-										if (nodeDropped.getLayoutX() > InnerAreasCreated.get(i).rectangle.getLayoutX()
+										if (nodeDropped.getLayoutX() > InnerAreasCreated.get(i).getLayoutX()
 												&& nodeDropped.getLayoutX() + nodeDropped.circle.getRadius()
-														* 2 < InnerAreasCreated.get(i).rectangle.getLayoutX()
+														* 2 < InnerAreasCreated.get(i).getLayoutX()
 																+ InnerAreasCreated.get(i).areaWidth()
-												&& nodeDropped.getLayoutY() > InnerAreasCreated.get(i).rectangle
+												&& nodeDropped.getLayoutY() > InnerAreasCreated.get(i)
 														.getLayoutY()
 												&& nodeDropped.getLayoutY() + nodeDropped.circle.getRadius()
-														* 2 < InnerAreasCreated.get(i).rectangle.getLayoutY()
+														* 2 < InnerAreasCreated.get(i).getLayoutY()
 																+ InnerAreasCreated.get(i).areaHeight()) {
 											nodeDropped.id = newScene.addNodeToArea(InnerAreasCreated.get(i).name,
 													temperature_value, wind_speed_value, humidity_value,
@@ -298,14 +298,14 @@ public class Layout extends BorderPane {
 									}
 									if (!findParent) {
 										for (int i = 0; i < TopAreasCreated.size(); i++) {
-											if (nodeDropped.getLayoutX() > TopAreasCreated.get(i).rectangle.getLayoutX()
+											if (nodeDropped.getLayoutX() > TopAreasCreated.get(i).getLayoutX()
 													&& nodeDropped.getLayoutX() + nodeDropped.circle.getRadius()
-															* 2 < TopAreasCreated.get(i).rectangle.getLayoutX()
+															* 2 < TopAreasCreated.get(i).getLayoutX()
 																	+ TopAreasCreated.get(i).areaWidth()
-													&& nodeDropped.getLayoutY() > TopAreasCreated.get(i).rectangle
+													&& nodeDropped.getLayoutY() > TopAreasCreated.get(i)
 															.getLayoutY()
 													&& nodeDropped.getLayoutY() + nodeDropped.circle.getRadius()
-															* 2 < TopAreasCreated.get(i).rectangle.getLayoutY()
+															* 2 < TopAreasCreated.get(i).getLayoutY()
 																	+ TopAreasCreated.get(i).areaHeight()) {
 												nodeDropped.id = newScene.addNodeToArea(TopAreasCreated.get(i).name,
 														temperature_value, wind_speed_value, humidity_value,
@@ -374,17 +374,18 @@ public class Layout extends BorderPane {
 								boolean isInnerarea = false;
 								boolean findParent = false;
 								for (int i = 0; i < InnerAreasCreated.size(); i++) {
-									if (areaDropped.getLayoutX() > InnerAreasCreated.get(i).rectangle.getLayoutX()
+									if (areaDropped.getLayoutX() > InnerAreasCreated.get(i).getLayoutX()
 											&& areaDropped.getLayoutX() + areaDropped
-													.areaWidth() < InnerAreasCreated.get(i).rectangle.getLayoutX()
+													.areaWidth() < InnerAreasCreated.get(i).getLayoutX()
 															+ InnerAreasCreated.get(i).areaWidth()
-											&& areaDropped.getLayoutY() > InnerAreasCreated.get(i).rectangle
+											&& areaDropped.getLayoutY() > InnerAreasCreated.get(i)
 													.getLayoutY()
 											&& areaDropped.getLayoutY() + areaDropped
-													.areaHeight() < InnerAreasCreated.get(i).rectangle.getLayoutY()
+													.areaHeight() < InnerAreasCreated.get(i).getLayoutY()
 															+ InnerAreasCreated.get(i).areaHeight()) {
 										InnerAreasCreated.add(areaDropped);
 										newScene.addInnerArea(InnerAreasCreated.get(i).name, areaDropped.name);
+										areaDropped.label.setText( areaDropped.name);
 										isInnerarea = true;
 										findParent = true;
 										break;
@@ -392,17 +393,18 @@ public class Layout extends BorderPane {
 								}
 								if (!findParent) {
 									for (int i = 0; i < TopAreasCreated.size(); i++) {
-										if (areaDropped.getLayoutX() > TopAreasCreated.get(i).rectangle.getLayoutX()
+										if (areaDropped.getLayoutX() > TopAreasCreated.get(i).getLayoutX()
 												&& areaDropped.getLayoutX() + areaDropped
-														.areaWidth() < TopAreasCreated.get(i).rectangle.getLayoutX()
+														.areaWidth() < TopAreasCreated.get(i).getLayoutX()
 																+ TopAreasCreated.get(i).areaWidth()
-												&& areaDropped.getLayoutY() > TopAreasCreated.get(i).rectangle
+												&& areaDropped.getLayoutY() > TopAreasCreated.get(i)
 														.getLayoutY()
 												&& areaDropped.getLayoutY() + areaDropped
-														.areaHeight() < TopAreasCreated.get(i).rectangle.getLayoutY()
+														.areaHeight() < TopAreasCreated.get(i).getLayoutY()
 																+ TopAreasCreated.get(i).areaHeight()) {
 											InnerAreasCreated.add(areaDropped);
 											newScene.addInnerArea(AllAreasCreated.get(i).name, areaDropped.name);
+											areaDropped.label.setText( areaDropped.name);
 											isInnerarea = true;
 											findParent = true;
 											break;
@@ -412,6 +414,7 @@ public class Layout extends BorderPane {
 								if (!isInnerarea) {
 									TopAreasCreated.add(areaDropped);
 									newScene.addTopArea(areaDropped.name);
+									areaDropped.label.setText( areaDropped.name);
 								}
 								areaWindow.close();
 							});
