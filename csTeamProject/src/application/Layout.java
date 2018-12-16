@@ -39,32 +39,19 @@ import javafx.scene.control.MenuItem;
 public class Layout extends BorderPane {
 
 	@FXML BorderPane border_pane;
-	@FXML
-	SplitPane base_pane;
-	@FXML
-	AnchorPane right_pane;
-	@FXML
-	VBox left_pane;
-	@FXML
-	Button generateAlgebraicExpression, clearAlgebraicExpression, exportBigFile, newNetworkButton;
+	@FXML SplitPane base_pane;
+	@FXML AnchorPane right_pane;
+	@FXML VBox left_pane;
+	@FXML Button generateAlgebraicExpression, clearAlgebraicExpression, exportBigFile, newNetworkButton;
 	@FXML TextArea algebraicExpressionDisplay;
 	@FXML CheckBox Sensor_windspeed, Sensor_temperature, Sensor_humidity, Sensor_virbration, Sensor_pressure;
 	@FXML Label IPV6ID, MACID, NodeID, AppList;
-	@FXML
-<<<<<<< HEAD
-	Button createAppButton, AddAppBtn;
+	@FXML Button createAppButton, AddAppBtn;
 	@FXML VBox vBoxForAreaNames;
-	
+	@FXML MenuItem fileExit, helpAbout, fileNew;
+
 	double xMin,xMax,yMin,yMax,xm,ym;//location of the node,location of the mouse (ZHang)
-=======
-	TextArea algebraicExpressionDisplay;
-	@FXML
-	MenuItem fileExit, helpAbout, fileNew;
-	@FXML
-	Button createAppButton;
-	@FXML
-	VBox vBoxForAreaNames;
->>>>>>> b3d57b1502d574926c3b96a8c8c086064fb92cce
+	
 	private DragableNode mDragableNodeOver = null;
 	private DraggableArea mDragableAreaOver = null;
 	private EventHandler<DragEvent> mNodeDragOverRoot = null;
@@ -155,11 +142,8 @@ public class Layout extends BorderPane {
 				zoomOperator.zoom(right_pane, zoomFactor, event.getSceneX(), event.getSceneY());
 			}
 		});
-<<<<<<< HEAD
 		mouseClickDetectAddCfgbBx(right_pane);//Zhang
 
-=======
->>>>>>> b3d57b1502d574926c3b96a8c8c086064fb92cce
 		mDragableNodeOver = new DragableNode();
 		mDragableNodeOver.id = "mDragableNodeOver";
 		mDragableNodeOver.setVisible(false);
@@ -305,13 +289,7 @@ public class Layout extends BorderPane {
 																+ InnerAreasCreated.get(i).areaHeight()) {
 											nodeDropped.id = newScene.addNodeToArea(InnerAreasCreated.get(i).name,
 													temperature_value, wind_speed_value, humidity_value,
-<<<<<<< HEAD
 													vibration_value, pressure_value, nodeDropped.getLayoutX(), nodeDropped.getLayoutY());
-											//nodeDropped.Mac =   //Zhang
-=======
-													vibration_value, pressure_value, nodeDropped.getLayoutX(),
-													nodeDropped.getLayoutY());
->>>>>>> b3d57b1502d574926c3b96a8c8c086064fb92cce
 											System.out.println(nodeDropped.id + "-X: " + nodeDropped.getLayoutX());
 											System.out.println(nodeDropped.id + "-Y: " + nodeDropped.getLayoutY());
 											findParent = true;
@@ -442,7 +420,7 @@ public class Layout extends BorderPane {
 						}
 					}
 				}
-				event.consume();
+//				event.consume();
 			}
 		});
 	}
@@ -565,7 +543,6 @@ public class Layout extends BorderPane {
 		// return new color
 		return Color.rgb(r, g, b);
 	}
-<<<<<<< HEAD
 	
 	//Zhang
 	public void mouseClickDetectAddCfgbBx(AnchorPane pane) {
@@ -630,7 +607,6 @@ public class Layout extends BorderPane {
     }
 	
 	
-=======
 
 	/**
 	 * Function to handle click on File menu option of Close
@@ -665,7 +641,7 @@ public class Layout extends BorderPane {
 	/**
 	 * Function which when called will open a new project
 	 */
-	private void openNewProject() {
+	private void openNewProject(){
 		BorderPane borderPane = new BorderPane();
 		try {
 			Scene scene = new Scene(borderPane, 640, 480);
@@ -687,5 +663,4 @@ public class Layout extends BorderPane {
 			e.printStackTrace();
 		}
 	}
->>>>>>> b3d57b1502d574926c3b96a8c8c086064fb92cce
 }
