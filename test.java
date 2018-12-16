@@ -34,22 +34,22 @@ public class test {
         // Add inner Area
         String bridge = newScene.addInnerArea(north, "Bridge");
 
-        // Node A created
+        // Node 1 created
         String node1 = newScene.addNodeToArea(bridge, false, false, false, false, true);
 
-        // Node B created
+        // Node 2 created
         String node2 = newScene.addNodeToArea(north, false, false, false, true, false);
 
-        // Node C created
+        // Node 3 created
         String node3 = newScene.addNodeToArea(north, false, false, true, true, true);
 
-        // Node D created
+        // Node 4 created
         String node4 = newScene.addNodeToArea(north, true, true, false, false, true);
 
-        // Node E created
+        // Node 5 created
         String node5 = newScene.addNodeToArea(north, false, false, true, false, true);        
 
-        // Node F created
+        // Node 6 created
         String node6 = newScene.addNodeToArea(south, false, false, true, false, true);        
 
         // link nodes together

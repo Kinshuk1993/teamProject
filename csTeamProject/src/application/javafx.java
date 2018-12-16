@@ -48,7 +48,7 @@ public class javafx extends Application {
 		Scene newScene = new Scene(newPane, 200, 100);
 		// stop user from accessing any other dialog box other than the current one
 		newWindow.initModality(Modality.APPLICATION_MODAL);
-//		remove minimize and maximize button
+		// remove minimize and maximize button
 		newWindow.resizableProperty().setValue(Boolean.FALSE);
 		newWindow.getIcons().add(new Image(getClass().getResource("/resources/close-icon.png").toExternalForm()));
 		newWindow.setTitle("Close Confirmation");

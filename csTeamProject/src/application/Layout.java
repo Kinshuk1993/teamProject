@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package application;
+//import packages
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 public class Layout extends BorderPane {
 
 	@FXML BorderPane border_pane;
@@ -49,10 +51,20 @@ public class Layout extends BorderPane {
 	@FXML CheckBox Sensor_windspeed, Sensor_temperature, Sensor_humidity, Sensor_virbration, Sensor_pressure;
 	@FXML Label IPV6ID, MACID, NodeID, AppList;
 	@FXML
+<<<<<<< HEAD
 	Button createAppButton, AddAppBtn;
 	@FXML VBox vBoxForAreaNames;
 	
 	double xMin,xMax,yMin,yMax,xm,ym;//location of the node,location of the mouse (ZHang)
+=======
+	TextArea algebraicExpressionDisplay;
+	@FXML
+	MenuItem fileExit, helpAbout, fileNew;
+	@FXML
+	Button createAppButton;
+	@FXML
+	VBox vBoxForAreaNames;
+>>>>>>> b3d57b1502d574926c3b96a8c8c086064fb92cce
 	private DragableNode mDragableNodeOver = null;
 	private DraggableArea mDragableAreaOver = null;
 	private EventHandler<DragEvent> mNodeDragOverRoot = null;
@@ -125,26 +137,8 @@ public class Layout extends BorderPane {
 		});
 		// event handler for the new network button - create a new FULL SCREEN WINDOW
 		newNetworkButton.setOnAction(newProjectEvent -> {
-			BorderPane borderPane = new BorderPane();
-			try {
-				Scene scene = new Scene(borderPane, 640, 480);
-				// Setting the title to Stage.
-				javafx.window.setTitle("Project");
-				javafx.window.setOnCloseRequest(e -> {
-					e.consume();
-					new javafx().closeProgram();
-				});
-				// Adding the scene to Stage
-				javafx.window.setScene(scene);
-				scene.getStylesheets().add(getClass().getResource("/fxml/app.css").toExternalForm());
-				// open the application in maximized mode
-				javafx.window.setFullScreen(true);
-				// Displaying the contents of the stage
-				javafx.window.show();
-				borderPane.setCenter(new Layout());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			// open new project
+			openNewProject();
 		});
 		// Create operator
 		AnimatedZoomOperator zoomOperator = new AnimatedZoomOperator();
@@ -161,8 +155,11 @@ public class Layout extends BorderPane {
 				zoomOperator.zoom(right_pane, zoomFactor, event.getSceneX(), event.getSceneY());
 			}
 		});
+<<<<<<< HEAD
 		mouseClickDetectAddCfgbBx(right_pane);//Zhang
 
+=======
+>>>>>>> b3d57b1502d574926c3b96a8c8c086064fb92cce
 		mDragableNodeOver = new DragableNode();
 		mDragableNodeOver.id = "mDragableNodeOver";
 		mDragableNodeOver.setVisible(false);
@@ -308,8 +305,13 @@ public class Layout extends BorderPane {
 																+ InnerAreasCreated.get(i).areaHeight()) {
 											nodeDropped.id = newScene.addNodeToArea(InnerAreasCreated.get(i).name,
 													temperature_value, wind_speed_value, humidity_value,
+<<<<<<< HEAD
 													vibration_value, pressure_value, nodeDropped.getLayoutX(), nodeDropped.getLayoutY());
 											//nodeDropped.Mac =   //Zhang
+=======
+													vibration_value, pressure_value, nodeDropped.getLayoutX(),
+													nodeDropped.getLayoutY());
+>>>>>>> b3d57b1502d574926c3b96a8c8c086064fb92cce
 											System.out.println(nodeDropped.id + "-X: " + nodeDropped.getLayoutX());
 											System.out.println(nodeDropped.id + "-Y: " + nodeDropped.getLayoutY());
 											findParent = true;
@@ -329,7 +331,8 @@ public class Layout extends BorderPane {
 																	+ TopAreasCreated.get(i).areaHeight()) {
 												nodeDropped.id = newScene.addNodeToArea(TopAreasCreated.get(i).name,
 														temperature_value, wind_speed_value, humidity_value,
-														vibration_value, pressure_value, nodeDropped.getLayoutX(), nodeDropped.getLayoutY());
+														vibration_value, pressure_value, nodeDropped.getLayoutX(),
+														nodeDropped.getLayoutY());
 												System.out.println(nodeDropped.id + "-X: " + nodeDropped.getLayoutX());
 												System.out.println(nodeDropped.id + "-Y: " + nodeDropped.getLayoutY());
 												findParent = true;
@@ -532,35 +535,37 @@ public class Layout extends BorderPane {
 
 	/**
 	 * Function to link two connecting nodes
+	 * 
 	 * @param startX
 	 * @param startY
 	 * @param endX
 	 * @param endY
 	 */
 	public void addLinkNodeLine(double startX, double startY, double endX, double endY) {
-		//create a line
-		Line linkNodeLine = new Line(startX+11, startY+10, endX+11, endY+10);
-		//set line color
+		// create a line
+		Line linkNodeLine = new Line(startX + 11, startY + 10, endX + 11, endY + 10);
+		// set line color
 		linkNodeLine.setFill(generateRandomColor());
-		//set line width
+		// set line width
 		linkNodeLine.setStrokeWidth(2);
-		//add the line to connect 2 nodes
+		// add the line to connect 2 nodes
 		right_pane.getChildren().add(linkNodeLine);
 	}
-	
+
 	/**
 	 * Function to get random colors every time for a new link line created
 	 */
 	public Paint generateRandomColor() {
 		// generate a random number
 		Random randomNum = new Random();
-		// get 2 random numbers - for R, G, and B
+		// get 3 random numbers - for R, G, and B
 		int r = randomNum.nextInt(255);
 		int g = randomNum.nextInt(255);
 		int b = randomNum.nextInt(255);
-		//return new color
+		// return new color
 		return Color.rgb(r, g, b);
 	}
+<<<<<<< HEAD
 	
 	//Zhang
 	public void mouseClickDetectAddCfgbBx(AnchorPane pane) {
@@ -625,4 +630,62 @@ public class Layout extends BorderPane {
     }
 	
 	
+=======
+
+	/**
+	 * Function to handle click on File menu option of Close
+	 */
+	public void fileExitClicked() {
+		// call the close program function to close the current application
+		new javafx().closeProgram();
+	}
+
+	/**
+	 * Function to handle click on Help menu option of Help
+	 */
+	public void helpAboutClicked() {
+		// file handling exceptions handled
+		try {
+			// open the about section
+			new AboutHelpLoader();
+		} catch (Exception e) { // catch for handling any exception
+			// print the error if any as is
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Function to handle click on Help menu option of Help
+	 */
+	public void fileNewClicked() {
+		// open a new project
+		openNewProject();
+	}
+
+	/**
+	 * Function which when called will open a new project
+	 */
+	private void openNewProject() {
+		BorderPane borderPane = new BorderPane();
+		try {
+			Scene scene = new Scene(borderPane, 640, 480);
+			// Setting the title to Stage.
+			javafx.window.setTitle("Project");
+			javafx.window.setOnCloseRequest(e -> {
+				e.consume();
+				new javafx().closeProgram();
+			});
+			// Adding the scene to Stage
+			javafx.window.setScene(scene);
+			scene.getStylesheets().add(getClass().getResource("/fxml/app.css").toExternalForm());
+			// open the application in maximized mode
+			javafx.window.setFullScreen(true);
+			// Displaying the contents of the stage
+			javafx.window.show();
+			borderPane.setCenter(new Layout());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+>>>>>>> b3d57b1502d574926c3b96a8c8c086064fb92cce
 }

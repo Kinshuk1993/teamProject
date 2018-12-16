@@ -223,6 +223,9 @@ public class Node {
 
 	// Add link to list of links
 	public void addLink(String newLink) {
+		if(this.ipv6.equals("N/A")){
+			this.ipv6 = findIPv6();
+		}
 		this.links.add(newLink);
 	}
 
@@ -243,6 +246,21 @@ public class Node {
 			if (sb.length() > 0)
 				sb.append(":");
 			sb.append(String.format("%02x", b));
+		}
+		return sb.toString();
+	}
+
+	// create IPv6
+	private String findIPv6() {
+		Random rand = new Random();
+		byte[] ipv6Addr = new byte[8];
+		rand.nextBytes(ipv6Addr);
+		ipv6Addr[0] = (byte) (ipv6Addr[0] & (byte) 254);
+		StringBuilder sb = new StringBuilder(40);
+		for (byte b : ipv6Addr) {
+			if (sb.length() > 0)
+				sb.append(":");
+			sb.append(String.format("%04x", b));
 		}
 		return sb.toString();
 	}
