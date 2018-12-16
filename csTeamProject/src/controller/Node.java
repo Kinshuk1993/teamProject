@@ -223,7 +223,9 @@ public class Node {
 
 	// Add link to list of links
 	public void addLink(String newLink) {
-		this.ipv6 = findIPv6();
+		if(this.ipv6.equals("N/A")){
+			this.ipv6 = findIPv6();
+		}
 		this.links.add(newLink);
 	}
 
