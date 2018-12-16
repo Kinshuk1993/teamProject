@@ -28,6 +28,8 @@ public class Node {
 	// List containing links, applications and nodes it is currently linked to
 	private ArrayList<String> links;
 	private ArrayList<Apps> applications;
+
+	//
 	private String applicationsID, applicationsName;
 	private ArrayList<String> nodesLinkedTo;
 
@@ -75,6 +77,7 @@ public class Node {
 		this.nodesLinkedTo.add(nodeId.substring(1, nodeId.toString().length() - 1));
 	}
 
+	// Should noe be used
 	// getNode prints the node with a MAC address and each configuration
 	public String getNode() {
 		return "Node: " + Mac + "\nTemperature: " + String.valueOf(Temperature) + ", Windspeed: "
@@ -263,6 +266,10 @@ public class Node {
 		return sb.toString();
 	}
 
+	/**
+	 * Retrieve the Id of every application deployed to this node
+	 * returned as a String with a new line for each id
+	 */
 	public String getApplicationsID() {
 		applicationsID = "";
 		for (Apps eachApp : applications) {
@@ -271,6 +278,10 @@ public class Node {
 		return applicationsID;
 	}
 
+	/**
+	 * Retrieve the Id of every application deployed to this node
+	 * returned as a String with each application name
+	 */
 	public String getApplicationsName() {
 		for (Apps eachApp : applications) {
 			applicationsName = applicationsName + eachApp.getName();
