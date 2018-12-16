@@ -1,0 +1,44 @@
+# Signature
+
+# Node types
+ctrl N = 1;                 # Idle node
+ctrl N_U = 1;               # Node in use
+atomic ctrl N_F = 1;        # Node with failure
+ctrl L = 0;                 # Links
+atomic ctrl L_E = 1;        # Link end
+
+fun ctrl App(x) = 0;        # Application
+atomic fun ctrl A(x) = 0;   # Application token
+
+# Node configuration
+ctrl Conf = 1;
+
+# Node configuration values
+atomic fun ctrl MAC(x) = 0;
+atomic fun ctrl IPv6(x) = 0;
+atomic ctrl T = 0;
+atomic ctrl H = 0;
+atomic ctrl V = 0;
+atomic ctrl P = 0;
+atomic ctrl W = 0;
+
+# Topology
+
+# Perspectives
+ctrl PHY = 0;
+ctrl DATA = 0;
+ctrl CONF = 0;
+ctrl SERVICE = 0;
+
+# Current state
+big s0_P = 
+  
+	PHY.();
+
+big s0_D = DATA.();
+
+big s0_S = SERVICE.();
+
+big s0 = 
+  /
+	(s0_P || s0_D || s0_S);
