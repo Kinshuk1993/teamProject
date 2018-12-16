@@ -265,21 +265,6 @@ public class Node {
 		return sb.toString();
 	}
 
-	// create IPv6
-	private String findIPv6() {
-		Random rand = new Random();
-		byte[] ipv6Addr = new byte[8];
-		rand.nextBytes(ipv6Addr);
-		ipv6Addr[0] = (byte) (ipv6Addr[0] & (byte) 254);
-		StringBuilder sb = new StringBuilder(40);
-		for (byte b : ipv6Addr) {
-			if (sb.length() > 0)
-				sb.append(":");
-			sb.append(String.format("%04x", b));
-		}
-		return sb.toString();
-	}
-
 	public double getxCoord() {
 		return xCoord;
 	}
