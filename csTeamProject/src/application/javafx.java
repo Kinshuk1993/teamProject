@@ -27,6 +27,7 @@ public class javafx extends Application {
 			javafx.window.setTitle("Project");
 			javafx.window.setOnCloseRequest(e -> {
 				e.consume();
+				// call the close program
 				closeProgram();
 			});
 			// Adding the scene to Stage

@@ -9,8 +9,6 @@
  * package declaration
  */
 package application;
-import java.io.BufferedReader;
-import java.io.FileReader;
 //import packages
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;

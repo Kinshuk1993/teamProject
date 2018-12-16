@@ -127,18 +127,20 @@ public class LinkNodeController {
 									&& !eachNode.getNodesLinkedTo().contains(eachSelectedNode)) {
 								// create the link for each node
 								Controller.addNewLink(LinkNodeLoader.currentNodeID, "{" + eachSelectedNode + "}");
-								//assign current node
+								// assign current node
 								currentNode = eachNode;
 							}
-							//check for target node
+							// check for target node
 							if (eachNode.getId().equals("{" + eachSelectedNode + "}")) {
-								//assign target node
+								// assign target node
 								targetNode = eachNode;
 							}
-							//check if the current and target node are properly defined
-							if (!targetNode.getId().equalsIgnoreCase("Failed") && !currentNode.getId().equalsIgnoreCase("Failed")) {
-								//create a link graphically between current and target node
-								javafx.newLayout.addLinkNodeLine(currentNode.getxCoord(), currentNode.getyCoord(), targetNode.getxCoord(), targetNode.getyCoord());
+							// check if the current and target node are properly defined
+							if (!targetNode.getId().equalsIgnoreCase("Failed")
+									&& !currentNode.getId().equalsIgnoreCase("Failed")) {
+								// create a link graphically between current and target node
+								javafx.newLayout.addLinkNodeLine(currentNode.getxCoord(), currentNode.getyCoord(),
+										targetNode.getxCoord(), targetNode.getyCoord());
 							}
 						}
 					}
