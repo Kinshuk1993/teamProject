@@ -36,6 +36,7 @@ public class AboutHelpController {
 				"	b. Then drag a new Area or a Node into the area. \r\n \r\n" , 
 				"	c. To link Nodes together first, click on a Node, then in the drop-down menu select a Node to you want to link to and click \"Add node\". \r\n \r\n" , 
 				"	d. In the bottom section, the new linked node will now show up. When you have added all new linked nodes click \"Create Link\". \r\n \r\n" , 
+				"e. When you click on a node, you can change the node configuration by checking/unchecking the different properties' boxes",
 				"	e. To add an Application hit the \"Create Application\" button and give it a Name. \r\n \r\n" , 
 				"	f. Then if there are nodes available select the nodes you want to deploy the application to from the drop-down menu and click \"Add to app\". \r\n \r\n" , 
 				"	g. After adding the App to your selected nodes then click \"Create\".   \r\n \r\n" , 

@@ -72,7 +72,7 @@ public class Layout extends BorderPane {
 	private ArrayList<DraggableArea> AllAreasCreated; // all areas created on the right_pane
 	private ArrayList<DraggableArea> TopAreasCreated; // all top-level areas created on the right_pane
 	private ArrayList<DraggableArea> InnerAreasCreated; // all inner areas created on the right_pane
-	private ArrayList<DragableNode> AllNodesCreated; // all nodes created on the right_pane
+	public static ArrayList<DragableNode> AllNodesCreated; // all nodes created on the right_pane
 	Boolean wind_speed_value;
 	Boolean temperature_value;
 	Boolean humidity_value;
@@ -99,7 +99,7 @@ public class Layout extends BorderPane {
 		this.AllAreasCreated = new ArrayList<DraggableArea>();
 		this.TopAreasCreated = new ArrayList<DraggableArea>();
 		this.InnerAreasCreated = new ArrayList<DraggableArea>();
-		this.AllNodesCreated = new ArrayList<DragableNode>();
+		Layout.AllNodesCreated = new ArrayList<DragableNode>();
 		// set the action on clicking of clear button
 		clearAlgebraicExpression.setOnAction(e -> {
 			// clear the existing text
@@ -225,7 +225,6 @@ public class Layout extends BorderPane {
 				if (container != null) {
 					if (container.getValue("scene_coordinates") != null) {
 						DragableNode nodeDropped = new DragableNode();
-//                        nodeDropped.setType(DragableNodeType.valueOf(container.getValue("type")));
 						right_pane.getChildren().add(nodeDropped);
 						Point2D cursorPoint = container.getValue("scene_coordinates");
 						nodeDropped.relocateToPoint(new Point2D(cursorPoint.getX(), cursorPoint.getY()));
@@ -299,6 +298,10 @@ public class Layout extends BorderPane {
 													temperature_value, wind_speed_value, humidity_value,
 													vibration_value, pressure_value, nodeDropped.getLayoutX(),
 													nodeDropped.getLayoutY());
+											//set the X coordinate of dropped node
+											nodeDropped.xCoord = nodeDropped.getLayoutX();
+											//set the X coordinate of dropped node
+											nodeDropped.yCoord = nodeDropped.getLayoutY();
 											findParent = true;
 											break;
 										}
@@ -318,6 +321,10 @@ public class Layout extends BorderPane {
 														temperature_value, wind_speed_value, humidity_value,
 														vibration_value, pressure_value, nodeDropped.getLayoutX(),
 														nodeDropped.getLayoutY());
+												//set the X coordinate of dropped node
+												nodeDropped.xCoord = nodeDropped.getLayoutX();
+												//set the X coordinate of dropped node
+												nodeDropped.yCoord = nodeDropped.getLayoutY();
 												findParent = true;
 												break;
 											}
@@ -525,8 +532,6 @@ public class Layout extends BorderPane {
 	public void addLinkNodeLine(double startX, double startY, double endX, double endY) {
 		// create a line
 		Line linkNodeLine = new Line(startX + 11, startY + 10, endX + 11, endY + 10);
-		// set line color
-		linkNodeLine.setFill(Color.RED);
 		// set line width
 		linkNodeLine.setStrokeWidth(2);
 		// add the line to connect 2 nodes
@@ -547,7 +552,6 @@ public class Layout extends BorderPane {
 		return Color.rgb(r, g, b);
 	}
 
-	// Zhang
 	public void mouseClickDetectAddCfgbBx(AnchorPane pane) {
 		// Creating the mouse event handler
 		EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
@@ -598,7 +602,7 @@ public class Layout extends BorderPane {
 							}
 						} // for Node nodeEach
 					}
-				} // for (DragableNode eachNode
+				} // for DragableNode eachNode
 			}
 		}; // EventHandler<MouseEvent> event
 		pane.addEventHandler(MouseEvent.MOUSE_CLICKED, event);
@@ -636,7 +640,7 @@ public class Layout extends BorderPane {
 				nodeEach.setAllConf(temperature_value, wind_speed_value, humidity_value, vibration_value,
 						pressure_value);
 			}
-		} // for
+		}
 	}
 
 	/**
