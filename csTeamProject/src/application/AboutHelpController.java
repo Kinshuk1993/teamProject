@@ -31,7 +31,7 @@ public class AboutHelpController {
 		// try-catch to do file handling exceptions
 		try {
 			// read the file
-			FileReader fileReader = new FileReader("help.txt");
+			FileReader fileReader = new FileReader(AboutHelpController.class.getResource("/application/help.txt").getPath());
 			// create a buffer reader for reading each line
 			BufferedReader buffer = new BufferedReader(fileReader);
 			// read till end of file
