@@ -379,7 +379,7 @@ public class Layout extends BorderPane {
 							});
 							areaSetting area_setting = new areaSetting();
 							Pane.setCenter(area_setting);
-							DragResizeMod.makeResizable(areaDropped.rectangle, null);
+							DragResizeMod.makeResizable(areaDropped, null);
 							area_setting.saveButton.setOnAction(e -> {
 								areaDropped.name = area_setting.areaName.getText();
 								AllAreasCreated.add(areaDropped);
