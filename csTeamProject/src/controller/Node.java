@@ -122,7 +122,7 @@ public class Node {
 	public String printAppsAndLinks() {
 		String toRet = this.typeId + this.id + ".(";
 		if (this.links.isEmpty() && this.applications.isEmpty()) {
-			return this.id;
+			return this.typeId + this.id;
 		}
 		if (!this.links.isEmpty()) {
 			toRet = toRet + "L.(";
