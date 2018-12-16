@@ -49,8 +49,8 @@ public class AboutHelpController {
 				"	a. If you drag an Area or Node to the scene it cannot be removed. \r\n \r\n" , 
 				"	b. If you create a Link or Application, it can not be removed. \r\n \r\n" , 
 				"	c. If you add an Application to a node it cannot be removed. \r\n \r\n" , 
-				"	d. If you hit the \"Create a new Project\" button the area is created in full screen. Hitting Esc will minimize the scene. \r\n \r\n" , 
-				"	e. However, when you return to full screen, the bar separating Area and Node from the scene will be in the middle of the screen but can be moved to the left.  "};
+				"	d. If you hit the \"Create a new Project\" button a new Project will be created and everything currently configured will be lost if not exported to a BIG file. \r\n \r\n",
+				"e. To save the previous configuration, you can export it to a BIG file. Please be aware that creatig a new BIG file will over-write any previous one. \r\n \r\n"};
 		//loop through each help text lne
 		for (int lineCounter=0; lineCounter<line.length;lineCounter++) {
 			// create a label
