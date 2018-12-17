@@ -13,11 +13,13 @@ package application;
 import java.util.Random;
 import controller.Apps;
 import controller.Controller;
+//import controller.Node;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+//import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -63,6 +65,22 @@ public class AddApplicationLoader {
 			String eachNewAppName = ++i + ". " + eachApp.getName();
 			// create a label
 			TextField eachAppNameText = new TextField(eachNewAppName);
+			//COMMENTING OUT FOR FURTHER EXPLORATION - DO NOT REMOVE
+//			eachAppNameText.setOnMouseEntered(e -> {
+//				String eachAppNodeList = "";
+//				for (Node eachNode : Controller.getNodes()) {
+//					if (eachNode.getApps().contains(eachApp)) {
+//						eachAppNodeList = eachAppNodeList + ", " + eachNode.getId();
+//					}
+//				}
+//				Tooltip tooltip = new Tooltip();
+//				if (eachAppNodeList.length() == 0) {
+//					tooltip.setText("No nodes linked to this application");
+//				} else {
+//					tooltip.setText(eachAppNodeList);
+//				}
+//				eachAppNameText.setTooltip(tooltip);
+//			});
 			// set the padding for each label
 			eachAppNameText.setPadding(new Insets(5, 0, 0, 11));
 			// set a random color to the application names, set font size, weight,
