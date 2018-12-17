@@ -14,8 +14,6 @@ import controller.Apps;
 import controller.Controller;
 import controller.Node;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.fxml.FXML;

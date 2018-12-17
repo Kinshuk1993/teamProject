@@ -13,13 +13,10 @@ import controller.Node;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.text.*;
-import javafx.stage.Stage;
-import javafx.beans.binding.BooleanBinding;
-import javafx.event.ActionEvent; 
+import javafx.stage.Stage; 
 import javafx.scene.layout.AnchorPane;
 
 public class nodeConfigBox extends AnchorPane {
