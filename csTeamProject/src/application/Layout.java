@@ -136,7 +136,8 @@ public class Layout extends BorderPane {
 					stageC.show();
 					// set action on close request of node setting window
 					stageC.setOnCloseRequest(closeEventOnNodeWindow -> {
-					// take away java's control of close event and don't exit							closeEventOnNodeWindow.consume();
+					// take away java's control of close event and don't exit							
+						closeEventOnNodeWindow.consume();
 					});
 					System.out.println("test 0");
 					//cfgAddAppLoader CFGaddApp = new cfgAddAppLoader(AppList);

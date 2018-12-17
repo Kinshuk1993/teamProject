@@ -275,7 +275,6 @@ public class Controller {
         int index = Controller.listOfAreas.indexOf(areaRem);
         if(index != -1){
         	Controller.listOfAreas.remove(index);
-            Controller.listOfAreas.remove(index);
         }
     }
 
