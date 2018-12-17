@@ -281,7 +281,6 @@ public class Node {
 		this.yCoord = yCoord;
 	}
 
-	// Zhang public ArrayList<String> getApplicationsID() {
 	public String getApplicationsID() {
 		applicationsID = "";
 		for(Apps eachApp : applications) {

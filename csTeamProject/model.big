@@ -23,7 +23,7 @@ atomic ctrl P = 0;
 atomic ctrl W = 0;
 
 # Topology
-ctrl area1 = 0;
+ctrl a = 0;
 
 # Perspectives
 ctrl PHY = 0;
@@ -33,19 +33,20 @@ ctrl SERVICE = 0;
 
 # Current state
 big s0_P = 
-  /l1/l2
-	PHY.( area1.(N_U{c1}.(L.( L_E{l1}) | A(1) | A(2) | A(3)) | N_U{c2}.(L.( L_E{l2}) | A(4)) | N_U{c3}.(L.(L_E{l1} | L_E{l2}) | A(4))));
+  /l1
+	PHY.( a.(N_U{c1}.(L.( L_E{l1}) | A(1) | A(3) | A(5) | A(6)) | N{c2}.(L.( L_E{l1}) |)));
 
-big s0_D = DATA.(Conf{c1}.(MAC(90:59:d0:68:96:b3) | IPv6(N/A) | P)
-				| Conf{c2}.(MAC(64:c7:f6:fe:85:26) | IPv6(N/A) | W)
-				| Conf{c3}.(MAC(a2:66:25:8e:8b:51) | IPv6(N/A) | H));
+big s0_D = DATA.(Conf{c1}.(MAC(54:24:e0:46:c8:b6) | IPv6(002c:002a:0087:008b:008d:0044:008a:0055) | W | H | V)
+				| Conf{c2}.(MAC(50:fd:78:e3:02:22) | IPv6(00b2:008b:00c0:0051:000a:00c4:0003:001c) | P));
 
 big s0_S = SERVICE.(App(1).(A(1))
 				| App(2).(A(2))
 				| App(3).(A(3))
 				| App(4).(A(4))
-				| App(5).(A(5)));
+				| App(5).(A(5))
+				| App(6).(A(6))
+				| App(7).(A(7)));
 
 big s0 = 
-  /c1/c2/c3/
+  /c1/c2/
 	(s0_P || s0_D || s0_S);

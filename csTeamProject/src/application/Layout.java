@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package application;
+
 //import packages
 import java.io.IOException;
 import java.net.URL;
@@ -45,7 +46,9 @@ public class Layout extends BorderPane {
 	@FXML Button generateAlgebraicExpression, clearAlgebraicExpression, exportBigFile, newNetworkButton;
 	@FXML TextArea algebraicExpressionDisplay;
 	@FXML CheckBox Sensor_windspeed, Sensor_temperature, Sensor_humidity, Sensor_virbration, Sensor_pressure;
-	@FXML Label IPV6ID, MACID, NodeID, AppList;
+	@FXML Label IPV6ID, MACID, NodeID;
+	@FXML Label AppList;
+	@FXML Label NodeIDinvisible;
 	@FXML Button createAppButton, AddAppBtn;
 	@FXML VBox vBoxForAreaNames;
 	@FXML MenuItem fileExit, helpAbout, fileNew;
@@ -69,6 +72,7 @@ public class Layout extends BorderPane {
 	Boolean humidity_value;
 	Boolean vibration_value;
 	Boolean pressure_value;
+	static String TempStoreNodeClickedID;
 	// Create new Scene, this will be the new Controller
 	Controller newScene = new Controller("Scene");
 
@@ -111,6 +115,32 @@ public class Layout extends BorderPane {
 			// export the big file
 			newScene.exportBIG();
 		});
+	     //add app to node in cfg box
+		AddAppBtn.setOnAction(event -> {
+			try {
+					//new cfgAddAppLoader(AppList);
+					Stage stageC = new Stage();
+					BorderPane Pane = new BorderPane();
+					Scene sceneC = new Scene(Pane, 400, 250);
+					// block using of any other window of current application
+					stageC.initModality(Modality.APPLICATION_MODAL);
+					// disable resizing of the area setting dialog box
+					stageC.resizableProperty().setValue(Boolean.FALSE);
+					stageC.setTitle("Add Application for Node");
+					stageC.setScene(sceneC);
+					stageC.show();
+					// set action on close request of node setting window
+					stageC.setOnCloseRequest(closeEventOnNodeWindow -> {
+					// take away java's control of close event and don't exit							closeEventOnNodeWindow.consume();
+					});
+					System.out.println("test 0");
+					//cfgAddAppLoader CFGaddApp = new cfgAddAppLoader(AppList);
+					nodeConfigBox CFGaddApp = new nodeConfigBox(AppList);
+					Pane.setCenter(CFGaddApp);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+		});
 		// set the short hand event handler for create application button
 		createAppButton.setOnAction(event -> {
 			// exception handling
@@ -142,8 +172,8 @@ public class Layout extends BorderPane {
 				zoomOperator.zoom(right_pane, zoomFactor, event.getSceneX(), event.getSceneY());
 			}
 		});
-		mouseClickDetectAddCfgbBx(right_pane);//Zhang
-
+		mouseClickDetectAddCfgbBx(right_pane);
+		TempStoreNodeClickedID = "";
 		mDragableNodeOver = new DragableNode();
 		mDragableNodeOver.id = "mDragableNodeOver";
 		mDragableNodeOver.setVisible(false);
@@ -166,8 +196,8 @@ public class Layout extends BorderPane {
 		left_pane.getChildren().add(node);
 		buildDragHandlers();
 		buildDragHandlers2();
+		NodeIDinvisible.setVisible(false);  //newzhang
 	}
-
 	private void buildDragHandlers() {
 		mNodeDragOverRoot = new EventHandler<DragEvent>() {
 
@@ -545,6 +575,10 @@ public class Layout extends BorderPane {
 	}
 	
 	//Zhang
+	
+	/**
+	 * Function to get the configuration information showed on left pane when click the node
+	 */
 	public void mouseClickDetectAddCfgbBx(AnchorPane pane) {
 		 //Creating the mouse event handler 
 	      EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() { 
@@ -562,7 +596,9 @@ public class Layout extends BorderPane {
 		        		 // show the node's cfg in cfg box
 		        		 for (Node nodeEach : Controller.getNodes()) {
 		        			 if(nodeEach.getId() == eachNode.id) {
-				        		 NodeID.setText(nodeEach.getId());
+		        				 NodeIDinvisible.setText(nodeEach.getId());  //Zhangnew
+				        		 TempStoreNodeClickedID = nodeEach.getId(); //Zhangnew
+				        		 NodeID.setText(nodeEach.getId().substring(1, nodeEach.getId().length() - 1)); //Zhangnew
 				        		 MACID.setText(nodeEach.getMac());
 				        		 IPV6ID.setText(nodeEach.getIP());
 				        		 if(nodeEach.getWindspeed()) {Sensor_windspeed.setSelected(true);}else {Sensor_windspeed.setSelected(false);}
@@ -575,12 +611,17 @@ public class Layout extends BorderPane {
 		        		 }//for Node nodeEach
 		        	 }
 		        } //for (DragableNode eachNode
+		        System.out.println("here!!!"+getCurrentNodeId());
 	         } 
 	      };  // EventHandler<MouseEvent> event
 	     pane.addEventHandler(MouseEvent.MOUSE_CLICKED, event);
 	}
 	
 	//if user changes sensor choice , then record again--
+	
+	/**
+	 * Function when user changes sensor choice , then record again
+	 */
 	public void SensorCheckEvent(ActionEvent event) {
     	if (Sensor_windspeed.isSelected()) {
     		wind_speed_value = true;
@@ -599,7 +640,7 @@ public class Layout extends BorderPane {
     	}else {pressure_value = false;}
     	
     	for (Node nodeEach : Controller.getNodes()) {
-    		if (nodeEach.getId() == NodeID.getText()) {
+    		if (nodeEach.getId() == NodeIDinvisible.getText()) { //newzhang
     			nodeEach.setAllConf(temperature_value, wind_speed_value, humidity_value, vibration_value, pressure_value);
     		}
     	}//for
@@ -608,6 +649,7 @@ public class Layout extends BorderPane {
 	
 	
 
+	
 	/**
 	 * Function to handle click on File menu option of Close
 	 */
@@ -616,6 +658,7 @@ public class Layout extends BorderPane {
 		new javafx().closeProgram();
 	}
 
+	
 	/**
 	 * Function to handle click on Help menu option of Help
 	 */
@@ -630,6 +673,7 @@ public class Layout extends BorderPane {
 		}
 	}
 
+	
 	/**
 	 * Function to handle click on Help menu option of Help
 	 */
@@ -638,6 +682,8 @@ public class Layout extends BorderPane {
 		openNewProject();
 	}
 
+	
+	
 	/**
 	 * Function which when called will open a new project
 	 */
@@ -663,4 +709,18 @@ public class Layout extends BorderPane {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	/**
+	 * Function used in cfgAddAppController.java to get the current clicked node ID
+	 */
+	public static String getCurrentNodeId() {
+		System.out.println(TempStoreNodeClickedID);  //test
+		return TempStoreNodeClickedID;
+	    
+	}
+	
+
+
 }
