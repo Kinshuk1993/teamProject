@@ -55,9 +55,9 @@ public class Layout extends BorderPane {
 	@FXML VBox vBoxForAreaNames;
 	@FXML MenuItem fileExit, helpAbout, fileNew;
 
-	double xMin,xMax,yMin,yMax,xm,ym;//location of the node,location of the mouse (ZHang)
+	double xMin,xMax,yMin,yMax,xm,ym;//location of the node,location of the mouse
 	double xNode, yNode, xAreaMin, xAreaMax, yAreaMin, yAreaMax, xNodeMax, yNodeMax, 
-	areaMin_x,areaMin_y, areaMax_x,areaMax_y; //locaton of node in an area
+	areaMin_x,areaMin_y, areaMax_x,areaMax_y; //location of node in an area
 	String tempIDstore;
 	private DragableNode mDragableNodeOver = null;
 	private DraggableArea mDragableAreaOver = null;
@@ -71,7 +71,7 @@ public class Layout extends BorderPane {
 	private ArrayList<DraggableArea> TopAreasCreated; // all top-level areas created on the right_pane
 	private ArrayList<DraggableArea> InnerAreasCreated; // all inner areas created on the right_pane
 	public static ArrayList<DragableNode> AllNodesCreated; // all nodes created on the right_pane
-	public static ArrayList<Line> allGraphicalLinksCreated; // all graphical node links created
+	public static ArrayList<Line> allGraphicalLinksCreated = new ArrayList<>(); // all graphical node links created
 	Boolean wind_speed_value;
 	Boolean temperature_value;
 	Boolean humidity_value;
