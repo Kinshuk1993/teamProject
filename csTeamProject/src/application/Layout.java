@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
+
+import controller.Area;
 import controller.Controller;
 import controller.Node;
 import javafx.event.ActionEvent;
@@ -712,6 +714,34 @@ public class Layout extends BorderPane {
 	    
 	}
 	
+	public void mouseClickDetectAddCfgbBxDeleteArea(AnchorPane pane) {
+		 //Creating the mouse event handler 
+	      EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() { 
+	         @Override 
+	         public void handle(MouseEvent event) { 
+		        xm = event.getSceneX();
+		        ym = event.getSceneY();
+		        //get eacharea position 
+		        for (DraggableArea eachArea : AllAreasCreated) {
+		        	 xMin = eachArea.label.getLayoutX();
+		        	 xMax = eachArea.label.getLayoutX() + eachArea.label.getWidth();
+		        	 yMin = eachArea.label.getLayoutY();
+		        	 yMax = eachArea.label.getLayoutY() + eachArea.label.getHeight();
+		        	 if (xMin < xm && xm < xMax && yMin < ym && ym < yMax) {
+		        		 // delete the area and the nodes within it
+		        		 for (Area areaEach : newScene.getAreas()) {
+		        			 if(areaEach.getId() == eachArea.name) {
+		        				 
+		        				
+		        			 }
+		        		 }//for Node nodeEach
+		        	 }
+		        } //for (DragableNode eachNode
+		        System.out.println("here!!!"+getCurrentNodeId());
+	         } 
+	      };  // EventHandler<MouseEvent> event
+	     pane.addEventHandler(MouseEvent.MOUSE_CLICKED, event);
+	}
 
 
 }
