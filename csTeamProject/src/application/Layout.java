@@ -67,6 +67,7 @@ public class Layout extends BorderPane {
 	private ArrayList<DraggableArea> TopAreasCreated; // all top-level areas created on the right_pane
 	private ArrayList<DraggableArea> InnerAreasCreated; // all inner areas created on the right_pane
 	public static ArrayList<DragableNode> AllNodesCreated; // all nodes created on the right_pane
+	public static ArrayList<Line> allGraphicalLinksCreated; // all graphical node links created
 	Boolean wind_speed_value;
 	Boolean temperature_value;
 	Boolean humidity_value;
@@ -554,6 +555,8 @@ public class Layout extends BorderPane {
 	public void addLinkNodeLine(double startX, double startY, double endX, double endY) {
 		// create a line
 		Line linkNodeLine = new Line(startX + 11, startY + 10, endX + 11, endY + 10);
+		//add the links to a static list
+		allGraphicalLinksCreated.add(linkNodeLine);
 		// set line width
 		linkNodeLine.setStrokeWidth(2);
 		// add the line to connect 2 nodes
