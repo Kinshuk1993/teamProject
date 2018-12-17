@@ -227,6 +227,106 @@ public class Controller {
 		return linkName;
 	}
 
+	// ---------------- Removal section -----------------------
+    /**
+     * Remove area
+     * @param area
+     */
+    public void removeArea(String area){
+        // get the area
+        Area areaToRemove = findArea(area);
+
+        //remove area from lists
+        removeAreaFromLists(areaToRemove);
+
+        //check if this area contains another area
+        if(areaToRemove.hasArea()){
+            ArrayList<Area> removeAllAreas = areaToRemove.getAreas();
+
+            for(int i = 0; i < removeAllAreas.size(); i++){
+                removeArea(removeAllAreas.get(i).getId());
+            }
+
+        }
+
+        // get all nodes that must be removed
+        ArrayList<Node> nodesToRemove = areaToRemove.getNodes();
+        for(int i = 0; i < nodesToRemove.size(); i++){
+            removeNode(nodesToRemove.get(i).getId());
+        }
+
+    }
+
+    /**
+     * Helper to remove area
+     * @param areaRem
+     */
+    private void removeAreaFromLists(Area areaRem){
+        // remove the area from its lists
+        int indexTop = this.topLevelAreas.indexOf(areaRem);
+        if(indexTop != -1){
+            this.topLevelAreas.remove(indexTop);
+        }
+        int indexInner = this.innerAreas.indexOf(areaRem);
+        if(indexInner != -1){
+            this.innerAreas.remove(indexInner);
+        }
+        int index = this.listOfAreas.indexOf(areaRem);
+        if(index != -1){
+            this.listOfAreas.remove(index);
+        }
+    }
+
+    public void removeNode(String nodeId){
+        //get the node
+        Node nodeToRemove = findNode(nodeId);
+        
+        // remove node from list of nodes
+        int index = Controller.listOfNodes.indexOf(nodeToRemove);
+        if(index != -1){
+            Controller.listOfNodes.remove(index);
+        }
+
+        // remove links related to this node
+        ArrayList<String> nodesLinks = nodeToRemove.getLinks();
+        if(!nodesLinks.isEmpty()){
+            for(int i = 0; i < nodesLinks.size(); i++){
+                String temp = nodesLinks.get(i);
+                this.removeLink(temp);
+            }
+        }
+
+        // remove node from the area its in
+        for(int j = 0; j < this.listOfAreas.size(); j++){
+            this.listOfAreas.get(j).removeNode(nodeToRemove);
+        }
+
+    }
+
+    // remove links
+    public void removeLink(String linkId){
+        if(Controller.listOfLinks.contains(linkId)){
+            for(int i  = 0; i < Controller.listOfNodes.size(); i++){
+                Controller.listOfNodes.get(i).removeLink(linkId);
+            }
+            Controller.listOfLinks.remove(linkId);
+        }
+    }
+
+    // remove applications
+    public void removeApps(String appId){
+        // get app
+        Apps appToRemove = findApp(appId);
+        if(Controller.listOfApps.contains(appToRemove)){
+            for(int i = 0; i < Controller.listOfNodes.size(); i++){
+                Controller.listOfNodes.get(i).removeApp(appToRemove);
+            }
+            Controller.listOfApps.remove(appToRemove);
+        }
+        
+    }
+
+
 	// ---------------- Print out ----------------------------
 	/**
 	 * Put together a string that represents the bigrap algebraic expression
