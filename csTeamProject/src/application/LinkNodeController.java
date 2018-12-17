@@ -113,7 +113,8 @@ public class LinkNodeController {
 			});
 			// listener for creating the link
 			createNodeLink.setOnAction(createNodeLink -> {
-				Node currentNode = new Node(), targetNode = new Node();
+				// variables to store the coordinates of the node
+				double startX = 0.0, startY = 0.0, endX = 0.0, endY = 0.0;
 				// check if the node list to attach to application is empty or not
 				if (!listofNodesToLinkCurrentNode.isEmpty()) {
 					// iterate through each selected node
@@ -127,19 +128,26 @@ public class LinkNodeController {
 									&& !eachNode.getNodesLinkedTo().contains(eachSelectedNode)) {
 								// create the link for each node
 								Controller.addNewLink(LinkNodeLoader.currentNodeID, "{" + eachSelectedNode + "}");
-								//assign current node
-								currentNode = eachNode;
 							}
-							//check for target node
-							if (eachNode.getId().equals("{" + eachSelectedNode + "}")) {
-								//assign target node
-								targetNode = eachNode;
+							// for all nodes present in the application, get the current and target nodes
+							// coordinates
+							for (DragableNode eachDraggableNode : Layout.AllNodesCreated) {
+								// for current node
+								if (eachDraggableNode.id.equals(LinkNodeLoader.currentNodeID)) {
+									// set start X
+									startX = eachDraggableNode.xCoord;
+									// set start Y
+									startY = eachDraggableNode.yCoord;
+								}
+								// for target node
+								if (eachDraggableNode.id.equals("{" + eachSelectedNode + "}")) {
+									// set end X
+									endX = eachDraggableNode.xCoord;
+									// set end Y
+									endY = eachDraggableNode.yCoord;
+								}
 							}
-							//check if the current and target node are properly defined
-							if (!targetNode.getId().equalsIgnoreCase("Failed") && !currentNode.getId().equalsIgnoreCase("Failed")) {
-								//create a link graphically between current and target node
-								javafx.newLayout.addLinkNodeLine(currentNode.getxCoord(), currentNode.getyCoord(), targetNode.getxCoord(), targetNode.getyCoord());
-							}
+							javafx.newLayout.addLinkNodeLine(startX, startY, endX, endY);
 						}
 					}
 				}

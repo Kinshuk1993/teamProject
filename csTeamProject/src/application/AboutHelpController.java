@@ -9,8 +9,6 @@
  * package declaration
  */
 package application;
-import java.io.BufferedReader;
-import java.io.FileReader;
 //import packages
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -38,6 +36,7 @@ public class AboutHelpController {
 				"	b. Then drag a new Area or a Node into the area. \r\n \r\n" , 
 				"	c. To link Nodes together first, click on a Node, then in the drop-down menu select a Node to you want to link to and click \"Add node\". \r\n \r\n" , 
 				"	d. In the bottom section, the new linked node will now show up. When you have added all new linked nodes click \"Create Link\". \r\n \r\n" , 
+				"e. When you click on a node, you can change the node configuration by checking/unchecking the different properties' boxes",
 				"	e. To add an Application hit the \"Create Application\" button and give it a Name. \r\n \r\n" , 
 				"	f. Then if there are nodes available select the nodes you want to deploy the application to from the drop-down menu and click \"Add to app\". \r\n \r\n" , 
 				"	g. After adding the App to your selected nodes then click \"Create\".   \r\n \r\n" , 
@@ -51,8 +50,8 @@ public class AboutHelpController {
 				"	a. If you drag an Area or Node to the scene it cannot be removed. \r\n \r\n" , 
 				"	b. If you create a Link or Application, it can not be removed. \r\n \r\n" , 
 				"	c. If you add an Application to a node it cannot be removed. \r\n \r\n" , 
-				"	d. If you hit the \"Create a new Project\" button the area is created in full screen. Hitting Esc will minimize the scene. \r\n \r\n" , 
-				"	e. However, when you return to full screen, the bar separating Area and Node from the scene will be in the middle of the screen but can be moved to the left.  "};
+				"	d. If you hit the \"Create a new Project\" button a new Project will be created and everything currently configured will be lost if not exported to a BIG file. \r\n \r\n",
+				"e. To save the previous configuration, you can export it to a BIG file. Please be aware that creatig a new BIG file will over-write any previous one. \r\n \r\n"};
 		//loop through each help text lne
 		for (int lineCounter=0; lineCounter<line.length;lineCounter++) {
 			// create a label

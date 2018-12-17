@@ -19,8 +19,6 @@ public class Node {
 	private String typeId; // this identifies what kind of node it is
 	private String Mac; // MAC is needed, works as the ID
 	private String ipv6; // Only when connected to a network
-	private double xCoord; //to store the x coordinate of this node on the scene
-	private double yCoord; //to store the y coordinate of this node on the scene
 	// These are indicators for what kind of data this node can provide
 	private boolean Temperature;
 	private boolean Windspeed;
@@ -30,9 +28,11 @@ public class Node {
 	// List containing links, applications and nodes it is currently linked to
 	private ArrayList<String> links;
 	private ArrayList<Apps> applications;
-	private String applicationsID,applicationsName;
+
+	//
+	private String applicationsID, applicationsName;
 	private ArrayList<String> nodesLinkedTo;
-	
+
 	// Constructors
 	public Node(String id) {
 		this.id = id;
@@ -77,6 +77,7 @@ public class Node {
 		this.nodesLinkedTo.add(nodeId.substring(1, nodeId.toString().length() - 1));
 	}
 
+	// Should noe be used
 	// getNode prints the node with a MAC address and each configuration
 	public String getNode() {
 		return "Node: " + Mac + "\nTemperature: " + String.valueOf(Temperature) + ", Windspeed: "
@@ -121,7 +122,7 @@ public class Node {
 	public String printAppsAndLinks() {
 		String toRet = this.typeId + this.id + ".(";
 		if (this.links.isEmpty() && this.applications.isEmpty()) {
-			return this.id;
+			return this.typeId + this.id;
 		}
 		if (!this.links.isEmpty()) {
 			toRet = toRet + "L.(";
@@ -223,7 +224,7 @@ public class Node {
 
 	// Add link to list of links
 	public void addLink(String newLink) {
-		if(this.ipv6.equals("N/A")){
+		if (this.ipv6.equals("N/A")) {
 			this.ipv6 = findIPv6();
 		}
 		this.links.add(newLink);
@@ -265,34 +266,26 @@ public class Node {
 		return sb.toString();
 	}
 
-	public double getxCoord() {
-		return xCoord;
-	}
-
-	public void setxCoord(double xCoord) {
-		this.xCoord = xCoord;
-	}
-
-	public double getyCoord() {
-		return yCoord;
-	}
-
-	public void setyCoord(double yCoord) {
-		this.yCoord = yCoord;
-	}
-
+	/**
+	 * Retrieve the Id of every application deployed to this node
+	 * returned as a String with a new line for each id
+	 */
 	public String getApplicationsID() {
 		applicationsID = "";
-		for(Apps eachApp : applications) {
-			applicationsID = applicationsID +"\n"+ eachApp.getId();
+		for (Apps eachApp : applications) {
+			applicationsID = applicationsID + "\n" + eachApp.getId();
 		}
 		return applicationsID;
 	}
+
+	/**
+	 * Retrieve the Id of every application deployed to this node
+	 * returned as a String with each application name
+	 */
 	public String getApplicationsName() {
-		for(Apps eachApp : applications) {
+		for (Apps eachApp : applications) {
 			applicationsName = applicationsName + eachApp.getName();
 		}
 		return applicationsName;
 	}
-	
 }

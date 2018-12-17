@@ -66,7 +66,7 @@ public class Layout extends BorderPane {
 	private ArrayList<DraggableArea> AllAreasCreated; // all areas created on the right_pane
 	private ArrayList<DraggableArea> TopAreasCreated; // all top-level areas created on the right_pane
 	private ArrayList<DraggableArea> InnerAreasCreated; // all inner areas created on the right_pane
-	private ArrayList<DragableNode> AllNodesCreated; // all nodes created on the right_pane
+	public static ArrayList<DragableNode> AllNodesCreated; // all nodes created on the right_pane
 	Boolean wind_speed_value;
 	Boolean temperature_value;
 	Boolean humidity_value;
@@ -94,7 +94,7 @@ public class Layout extends BorderPane {
 		this.AllAreasCreated = new ArrayList<DraggableArea>();
 		this.TopAreasCreated = new ArrayList<DraggableArea>();
 		this.InnerAreasCreated = new ArrayList<DraggableArea>();
-		this.AllNodesCreated = new ArrayList<DragableNode>();
+		Layout.AllNodesCreated = new ArrayList<DragableNode>();
 		// set the action on clicking of clear button
 		clearAlgebraicExpression.setOnAction(e -> {
 			// clear the existing text
@@ -247,19 +247,18 @@ public class Layout extends BorderPane {
 				if (container != null) {
 					if (container.getValue("scene_coordinates") != null) {
 						DragableNode nodeDropped = new DragableNode();
-//                        nodeDropped.setType(DragableNodeType.valueOf(container.getValue("type")));
 						right_pane.getChildren().add(nodeDropped);
 						Point2D cursorPoint = container.getValue("scene_coordinates");
 						nodeDropped.relocateToPoint(new Point2D(cursorPoint.getX(), cursorPoint.getY()));
 						boolean nodeAccept = false;
 						for (int i = 0; i < AllAreasCreated.size(); i++) {
-							if (nodeDropped.getLayoutX() > AllAreasCreated.get(i).rectangle.getLayoutX()
+							if (nodeDropped.getLayoutX() > AllAreasCreated.get(i).getLayoutX()
 									&& nodeDropped.getLayoutX() + nodeDropped.circle.getRadius()
-											* 2 < AllAreasCreated.get(i).rectangle.getLayoutX()
+											* 2 < AllAreasCreated.get(i).getLayoutX()
 													+ AllAreasCreated.get(i).areaWidth()
-									&& nodeDropped.getLayoutY() > AllAreasCreated.get(i).rectangle.getLayoutY()
+									&& nodeDropped.getLayoutY() > AllAreasCreated.get(i).getLayoutY()
 									&& nodeDropped.getLayoutY() + nodeDropped.circle.getRadius()
-											* 2 < AllAreasCreated.get(i).rectangle.getLayoutY()
+											* 2 < AllAreasCreated.get(i).getLayoutY()
 													+ AllAreasCreated.get(i).areaHeight()) {
 								nodeAccept = true;
 								break;
@@ -308,41 +307,46 @@ public class Layout extends BorderPane {
 									AllNodesCreated.add(nodeDropped);
 									boolean findParent = false;
 									for (int i = 0; i < InnerAreasCreated.size(); i++) {
-										if (nodeDropped.getLayoutX() > InnerAreasCreated.get(i).rectangle.getLayoutX()
+										if (nodeDropped.getLayoutX() > InnerAreasCreated.get(i).getLayoutX()
 												&& nodeDropped.getLayoutX() + nodeDropped.circle.getRadius()
-														* 2 < InnerAreasCreated.get(i).rectangle.getLayoutX()
+														* 2 < InnerAreasCreated.get(i).getLayoutX()
 																+ InnerAreasCreated.get(i).areaWidth()
-												&& nodeDropped.getLayoutY() > InnerAreasCreated.get(i).rectangle
+												&& nodeDropped.getLayoutY() > InnerAreasCreated.get(i)
 														.getLayoutY()
 												&& nodeDropped.getLayoutY() + nodeDropped.circle.getRadius()
-														* 2 < InnerAreasCreated.get(i).rectangle.getLayoutY()
+														* 2 < InnerAreasCreated.get(i).getLayoutY()
 																+ InnerAreasCreated.get(i).areaHeight()) {
 											nodeDropped.id = newScene.addNodeToArea(InnerAreasCreated.get(i).name,
 													temperature_value, wind_speed_value, humidity_value,
-													vibration_value, pressure_value, nodeDropped.getLayoutX(), nodeDropped.getLayoutY());
-											System.out.println(nodeDropped.id + "-X: " + nodeDropped.getLayoutX());
-											System.out.println(nodeDropped.id + "-Y: " + nodeDropped.getLayoutY());
+													vibration_value, pressure_value, nodeDropped.getLayoutX(),
+													nodeDropped.getLayoutY());
+											//set the X coordinate of dropped node
+											nodeDropped.xCoord = nodeDropped.getLayoutX();
+											//set the X coordinate of dropped node
+											nodeDropped.yCoord = nodeDropped.getLayoutY();
 											findParent = true;
 											break;
 										}
 									}
 									if (!findParent) {
 										for (int i = 0; i < TopAreasCreated.size(); i++) {
-											if (nodeDropped.getLayoutX() > TopAreasCreated.get(i).rectangle.getLayoutX()
+											if (nodeDropped.getLayoutX() > TopAreasCreated.get(i).getLayoutX()
 													&& nodeDropped.getLayoutX() + nodeDropped.circle.getRadius()
-															* 2 < TopAreasCreated.get(i).rectangle.getLayoutX()
+															* 2 < TopAreasCreated.get(i).getLayoutX()
 																	+ TopAreasCreated.get(i).areaWidth()
-													&& nodeDropped.getLayoutY() > TopAreasCreated.get(i).rectangle
+													&& nodeDropped.getLayoutY() > TopAreasCreated.get(i)
 															.getLayoutY()
 													&& nodeDropped.getLayoutY() + nodeDropped.circle.getRadius()
-															* 2 < TopAreasCreated.get(i).rectangle.getLayoutY()
+															* 2 < TopAreasCreated.get(i).getLayoutY()
 																	+ TopAreasCreated.get(i).areaHeight()) {
 												nodeDropped.id = newScene.addNodeToArea(TopAreasCreated.get(i).name,
 														temperature_value, wind_speed_value, humidity_value,
 														vibration_value, pressure_value, nodeDropped.getLayoutX(),
 														nodeDropped.getLayoutY());
-												System.out.println(nodeDropped.id + "-X: " + nodeDropped.getLayoutX());
-												System.out.println(nodeDropped.id + "-Y: " + nodeDropped.getLayoutY());
+												//set the X coordinate of dropped node
+												nodeDropped.xCoord = nodeDropped.getLayoutX();
+												//set the X coordinate of dropped node
+												nodeDropped.yCoord = nodeDropped.getLayoutY();
 												findParent = true;
 												break;
 											}
@@ -404,17 +408,18 @@ public class Layout extends BorderPane {
 								boolean isInnerarea = false;
 								boolean findParent = false;
 								for (int i = 0; i < InnerAreasCreated.size(); i++) {
-									if (areaDropped.getLayoutX() > InnerAreasCreated.get(i).rectangle.getLayoutX()
+									if (areaDropped.getLayoutX() > InnerAreasCreated.get(i).getLayoutX()
 											&& areaDropped.getLayoutX() + areaDropped
-													.areaWidth() < InnerAreasCreated.get(i).rectangle.getLayoutX()
+													.areaWidth() < InnerAreasCreated.get(i).getLayoutX()
 															+ InnerAreasCreated.get(i).areaWidth()
-											&& areaDropped.getLayoutY() > InnerAreasCreated.get(i).rectangle
+											&& areaDropped.getLayoutY() > InnerAreasCreated.get(i)
 													.getLayoutY()
 											&& areaDropped.getLayoutY() + areaDropped
-													.areaHeight() < InnerAreasCreated.get(i).rectangle.getLayoutY()
+													.areaHeight() < InnerAreasCreated.get(i).getLayoutY()
 															+ InnerAreasCreated.get(i).areaHeight()) {
 										InnerAreasCreated.add(areaDropped);
 										newScene.addInnerArea(InnerAreasCreated.get(i).name, areaDropped.name);
+										areaDropped.label.setText( areaDropped.name);
 										isInnerarea = true;
 										findParent = true;
 										break;
@@ -422,17 +427,18 @@ public class Layout extends BorderPane {
 								}
 								if (!findParent) {
 									for (int i = 0; i < TopAreasCreated.size(); i++) {
-										if (areaDropped.getLayoutX() > TopAreasCreated.get(i).rectangle.getLayoutX()
+										if (areaDropped.getLayoutX() > TopAreasCreated.get(i).getLayoutX()
 												&& areaDropped.getLayoutX() + areaDropped
-														.areaWidth() < TopAreasCreated.get(i).rectangle.getLayoutX()
+														.areaWidth() < TopAreasCreated.get(i).getLayoutX()
 																+ TopAreasCreated.get(i).areaWidth()
-												&& areaDropped.getLayoutY() > TopAreasCreated.get(i).rectangle
+												&& areaDropped.getLayoutY() > TopAreasCreated.get(i)
 														.getLayoutY()
 												&& areaDropped.getLayoutY() + areaDropped
-														.areaHeight() < TopAreasCreated.get(i).rectangle.getLayoutY()
+														.areaHeight() < TopAreasCreated.get(i).getLayoutY()
 																+ TopAreasCreated.get(i).areaHeight()) {
 											InnerAreasCreated.add(areaDropped);
 											newScene.addInnerArea(AllAreasCreated.get(i).name, areaDropped.name);
+											areaDropped.label.setText( areaDropped.name);
 											isInnerarea = true;
 											findParent = true;
 											break;
@@ -442,6 +448,7 @@ public class Layout extends BorderPane {
 								if (!isInnerarea) {
 									TopAreasCreated.add(areaDropped);
 									newScene.addTopArea(areaDropped.name);
+									areaDropped.label.setText( areaDropped.name);
 								}
 								areaWindow.close();
 							});
@@ -450,7 +457,6 @@ public class Layout extends BorderPane {
 						}
 					}
 				}
-//				event.consume();
 			}
 		});
 	}
@@ -523,15 +529,11 @@ public class Layout extends BorderPane {
 				base_pane.setOnDragOver(mAreaDragOverRoot);
 				right_pane.setOnDragOver(mAreaDragOverRightPane);
 				right_pane.setOnDragDropped(mAreaDragDropped);
-				// get ref to clicked node
 				@SuppressWarnings("unused")
 				DraggableArea area = (DraggableArea) event.getSource();
-				// drag baby
-//                mDragableNodeOver.setType(area.getType());
 				mDragableAreaOver.relocateToPoint(new Point2D(event.getSceneX(), event.getSceneY()));
 				ClipboardContent content2 = new ClipboardContent();
 				DragableContainer2 container2 = new DragableContainer2();
-//                container.addData("type", mDragableNodeOver.getType().toString());
 				content2.put(DragableContainer2.AddArea, container2);
 				mDragableAreaOver.startDragAndDrop(TransferMode.ANY).setContent(content2);
 				mDragableAreaOver.setVisible(true);
@@ -552,8 +554,6 @@ public class Layout extends BorderPane {
 	public void addLinkNodeLine(double startX, double startY, double endX, double endY) {
 		// create a line
 		Line linkNodeLine = new Line(startX + 11, startY + 10, endX + 11, endY + 10);
-		// set line color
-		linkNodeLine.setFill(generateRandomColor());
 		// set line width
 		linkNodeLine.setStrokeWidth(2);
 		// add the line to connect 2 nodes
@@ -574,7 +574,7 @@ public class Layout extends BorderPane {
 		return Color.rgb(r, g, b);
 	}
 	
-	//Zhang
+	
 	
 	/**
 	 * Function to get the configuration information showed on left pane when click the node
@@ -616,38 +616,41 @@ public class Layout extends BorderPane {
 	      };  // EventHandler<MouseEvent> event
 	     pane.addEventHandler(MouseEvent.MOUSE_CLICKED, event);
 	}
-	
-	//if user changes sensor choice , then record again--
-	
-	/**
-	 * Function when user changes sensor choice , then record again
-	 */
+
+	// if user changes sensor choice , then record again--
 	public void SensorCheckEvent(ActionEvent event) {
-    	if (Sensor_windspeed.isSelected()) {
-    		wind_speed_value = true;
-    	}else {wind_speed_value = false;}
-    	if (Sensor_temperature.isSelected()) {
-    		temperature_value = true;
-    		}else {temperature_value = false;}
-    	if (Sensor_humidity.isSelected()) {
-    		humidity_value = true;
-    	}else {humidity_value = false;}	
-    	if (Sensor_virbration.isSelected()) {
-    		vibration_value = true;
-    	}else {vibration_value = false;}
-    	if (Sensor_pressure.isSelected()) {
-    		pressure_value = true;
-    	}else {pressure_value = false;}
-    	
-    	for (Node nodeEach : Controller.getNodes()) {
-    		if (nodeEach.getId() == NodeIDinvisible.getText()) { //newzhang
-    			nodeEach.setAllConf(temperature_value, wind_speed_value, humidity_value, vibration_value, pressure_value);
-    		}
-    	}//for
-    	
-    }
-	
-	
+		if (Sensor_windspeed.isSelected()) {
+			wind_speed_value = true;
+		} else {
+			wind_speed_value = false;
+		}
+		if (Sensor_temperature.isSelected()) {
+			temperature_value = true;
+		} else {
+			temperature_value = false;
+		}
+		if (Sensor_humidity.isSelected()) {
+			humidity_value = true;
+		} else {
+			humidity_value = false;
+		}
+		if (Sensor_virbration.isSelected()) {
+			vibration_value = true;
+		} else {
+			vibration_value = false;
+		}
+		if (Sensor_pressure.isSelected()) {
+			pressure_value = true;
+		} else {
+			pressure_value = false;
+		}
+		for (Node nodeEach : Controller.getNodes()) {
+			if (nodeEach.getId() == NodeID.getText()) {
+				nodeEach.setAllConf(temperature_value, wind_speed_value, humidity_value, vibration_value,
+						pressure_value);
+			}
+		}
+	}
 
 	
 	/**
@@ -687,27 +690,15 @@ public class Layout extends BorderPane {
 	/**
 	 * Function which when called will open a new project
 	 */
-	private void openNewProject(){
-		BorderPane borderPane = new BorderPane();
-		try {
-			Scene scene = new Scene(borderPane, 640, 480);
-			// Setting the title to Stage.
-			javafx.window.setTitle("Project");
-			javafx.window.setOnCloseRequest(e -> {
-				e.consume();
-				new javafx().closeProgram();
-			});
-			// Adding the scene to Stage
-			javafx.window.setScene(scene);
-			scene.getStylesheets().add(getClass().getResource("/fxml/app.css").toExternalForm());
-			// open the application in maximized mode
-			javafx.window.setFullScreen(true);
-			// Displaying the contents of the stage
-			javafx.window.show();
-			borderPane.setCenter(new Layout());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	private void openNewProject() {
+		// clear out the scene
+		right_pane.getChildren().clear();
+		// clear the text area for algebraic expression
+		algebraicExpressionDisplay.setText(null);
+		// clear the applications list
+		vBoxForAreaNames.getChildren().clear();
+		// create a new controller
+		newScene = new Controller("Scene");
 	}
 	
 	

@@ -16,14 +16,8 @@ import javafx.scene.shape.Circle;
 import javafx.geometry.Bounds;
 public class DragableNode extends AnchorPane {
 	public String id;
-//	public String typeId; 
-//	public String Mac;    //Zhang
-//	public String ipv6; 
-//	public boolean Temperature;
-//	public boolean Windspeed;
-//	public boolean Humidity;
-//	public boolean Vibration;
-//	public boolean Pressure;
+	public double xCoord; // to store the x coordinate of this node on the scene
+	public double yCoord; // to store the y coordinate of this node on the scene
 	@FXML
 	public Circle circle;
 	@FXML

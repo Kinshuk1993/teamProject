@@ -4,10 +4,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
-public class DraggableArea extends Rectangle {
+public class DraggableArea extends AnchorPane {
 	public String name ;
     @FXML public Rectangle rectangle;
+    @FXML public Label label;
 	//    @FXML AnchorPane area;
 	public DraggableArea() {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/DraggableArea.fxml"));
