@@ -126,11 +126,9 @@ public class LinkNodeController {
 							for (Node eachNode : Controller.getNodes()) {
 								// if it is current node and no existing links already exists then add new link
 								// else do nothing and close the dialog box
-								if (LinkNodeLoader.currentNodeID.equals(eachNode.getId())
-										&& !eachNode.getNodesLinkedTo().contains(eachSelectedNode)) {
-									// create the link for each node
-									Controller.addNewLink(LinkNodeLoader.currentNodeID, "{" + eachSelectedNode + "}");
-								}
+								// String for link
+								String linkname = "";
+								
 								// for all nodes present in the application, get the current and target nodes
 								// coordinates
 								for (DragableNode eachDraggableNode : Layout.AllNodesCreated) {
@@ -149,7 +147,13 @@ public class LinkNodeController {
 										endY = eachDraggableNode.yCoord;
 									}
 								}
-								javafx.newLayout.addLinkNodeLine(startX, startY, endX, endY);
+								if (LinkNodeLoader.currentNodeID.equals(eachNode.getId())
+										&& !eachNode.getNodesLinkedTo().contains(eachSelectedNode)) {
+									// create the link for each node
+									linkname = Controller.addNewLink(LinkNodeLoader.currentNodeID, "{" + eachSelectedNode + "}");
+									//add graphical link
+									javafx.newLayout.addLinkNodeLine(startX, startY, endX, endY, linkname);
+								}
 							}
 						}
 					}

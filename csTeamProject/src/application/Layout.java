@@ -9,6 +9,7 @@ package application;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import controller.Area;
@@ -53,7 +54,7 @@ public class Layout extends BorderPane {
 	@FXML Label NodeIDinvisible;
 	@FXML Button createAppButton, AddAppBtn, DelNode;
 	@FXML VBox vBoxForAreaNames;
-	@FXML MenuItem fileExit, helpAbout, fileNew;
+	@FXML MenuItem fileExit, helpAbout;
 
 	double xMin,xMax,yMin,yMax,xm,ym;//location of the node,location of the mouse
 	double xNode, yNode, xAreaMin, xAreaMax, yAreaMin, yAreaMax, xNodeMax, yNodeMax, 
@@ -71,7 +72,7 @@ public class Layout extends BorderPane {
 	private ArrayList<DraggableArea> TopAreasCreated; // all top-level areas created on the right_pane
 	private ArrayList<DraggableArea> InnerAreasCreated; // all inner areas created on the right_pane
 	public static ArrayList<DragableNode> AllNodesCreated; // all nodes created on the right_pane
-	public static ArrayList<Line> allGraphicalLinksCreated = new ArrayList<>(); // all graphical node links created
+	public static HashMap<String, Line> allGraphicalLinksCreated = new HashMap<>();
 	Boolean wind_speed_value;
 	Boolean temperature_value;
 	Boolean humidity_value;
@@ -140,7 +141,6 @@ public class Layout extends BorderPane {
 					// take away java's control of close event and don't exit							
 						closeEventOnNodeWindow.consume();
 					});
-					System.out.println("test 0");
 					//cfgAddAppLoader CFGaddApp = new cfgAddAppLoader(AppList);
 					nodeConfigBox CFGaddApp = new nodeConfigBox(AppList);
 					Pane.setCenter(CFGaddApp);
@@ -160,10 +160,11 @@ public class Layout extends BorderPane {
 			}
 		});
 		// event handler for the new network button - create a new FULL SCREEN WINDOW
-		newNetworkButton.setOnAction(newProjectEvent -> {
-			// open new project
-			openNewProject();
-		});
+//		newNetworkButton.setOnAction(newProjectEvent -> {
+//			// open new project
+//			openNewProject();
+//		});
+		newNetworkButton.setVisible(false);
 		
 		DelNode.setOnAction(event ->{
 	        if (NodeIDinvisible.getText()!= "") {
@@ -171,6 +172,7 @@ public class Layout extends BorderPane {
 	                tempIDstore = NodeIDinvisible.getText();
 	                for(DragableNode each : AllNodesCreated) {
 	                    if(each.getID()== tempIDstore) {
+	                    	deleteLinks(each.getID());
 	                        right_pane.getChildren().remove(each);
 	                        Controller.removeNode(tempIDstore);
 	                    }
@@ -574,11 +576,11 @@ public class Layout extends BorderPane {
 	 * @param endX
 	 * @param endY
 	 */
-	public void addLinkNodeLine(double startX, double startY, double endX, double endY) {
+	public void addLinkNodeLine(double startX, double startY, double endX, double endY, String linkname) {
 		// create a line
 		Line linkNodeLine = new Line(startX + 11, startY + 10, endX + 11, endY + 10);
 		//add the links to a static list
-		allGraphicalLinksCreated.add(linkNodeLine);
+		allGraphicalLinksCreated.put(linkname, linkNodeLine);
 		// set line width
 		linkNodeLine.setStrokeWidth(2);
 		// add the line to connect 2 nodes
@@ -676,7 +678,6 @@ public class Layout extends BorderPane {
 		        		 }//for Node nodeEach
 		        	 }
 		        } //for (DragableNode eachNode
-//		        System.out.println("here!!!"+getCurrentNodeId());
 	         } 
 	      };  // EventHandler<MouseEvent> event
 	     pane.addEventHandler(MouseEvent.MOUSE_CLICKED, event);
@@ -713,11 +714,23 @@ public class Layout extends BorderPane {
 		
 		for(DragableNode each : AllNodesCreated) {
             if(each.getID()== nodeId) {
-                right_pane.getChildren().remove(each);
                 // remove link GUI
+            	deleteLinks(nodeId);
+                right_pane.getChildren().remove(each);
             }
         }
 		
+	}
+	
+	
+	public void deleteLinks(String nodeId) {
+		Node tempNode = Controller.findNode(nodeId);
+		ArrayList<String> tempLinks = tempNode.getLinks();
+		if(!tempLinks.isEmpty()) {
+			for(int i = 0; i < tempLinks.size(); i++) {
+				right_pane.getChildren().remove(allGraphicalLinksCreated.get(tempLinks.get(i)));
+			}
+		}
 	}
 
 	// if user changes sensor choice , then record again--
@@ -783,41 +796,41 @@ public class Layout extends BorderPane {
 	/**
 	 * Function to handle click on Help menu option of Help
 	 */
-	public void fileNewClicked() {
-		// open a new project
-		openNewProject();
-	}
+//	public void fileNewClicked() {
+//		// open a new project
+//		openNewProject();
+//	}
 
 	
 	
 	/**
 	 * Function which when called will open a new project
 	 */
-	private void openNewProject() {
-		// clear out the scene
-		right_pane.getChildren().clear();
-		// clear the text area for algebraic expression
-		algebraicExpressionDisplay.setText(null);
-		// clear the applications list
-		vBoxForAreaNames.getChildren().clear();
-		//clear the cfg part 
-		Sensor_windspeed.setSelected(false);
-		Sensor_windspeed.setSelected(false);
-		Sensor_temperature.setSelected(false);
-		Sensor_humidity.setSelected(false);
-		Sensor_virbration.setSelected(false);
-		Sensor_pressure.setSelected(false);
-		IPV6ID.setText(""); 
-		MACID.setText(""); 
-		NodeID.setText(""); 
-		NodeIDinvisible.setText(""); 
-		AppList.setText("");
-		// create a new controller
-		newScene = new Controller("Scene");
-		Controller.linkCounter = 1;
-		Controller.nodeCounter = 1;
-		Controller.appCounter = 1;
-	}
+//	private void openNewProject() {
+//		// clear out the scene
+//		right_pane.getChildren().clear();
+//		// clear the text area for algebraic expression
+//		algebraicExpressionDisplay.setText(null);
+//		// clear the applications list
+//		vBoxForAreaNames.getChildren().clear();
+//		//clear the cfg part 
+//		Sensor_windspeed.setSelected(false);
+//		Sensor_windspeed.setSelected(false);
+//		Sensor_temperature.setSelected(false);
+//		Sensor_humidity.setSelected(false);
+//		Sensor_virbration.setSelected(false);
+//		Sensor_pressure.setSelected(false);
+//		IPV6ID.setText(""); 
+//		MACID.setText(""); 
+//		NodeID.setText(""); 
+//		NodeIDinvisible.setText(""); 
+//		AppList.setText("");
+//		// create a new controller
+//		newScene = new Controller("Scene");
+//		Controller.linkCounter = 1;
+//		Controller.nodeCounter = 1;
+//		Controller.appCounter = 1;
+//	}
 	
 	
 	
@@ -825,9 +838,7 @@ public class Layout extends BorderPane {
 	 * Function used in cfgAddAppController.java to get the current clicked node ID
 	 */
 	public static String getCurrentNodeId() {
-		System.out.println(TempStoreNodeClickedID);  //test
 		return TempStoreNodeClickedID;
-	    
 	}
 	
 	public void mouseClickDetectAddCfgbBxDeleteArea(AnchorPane pane) {
@@ -853,7 +864,6 @@ public class Layout extends BorderPane {
 		        		 }//for Node nodeEach
 		        	 }
 		        } //for (DragableNode eachNode
-		        System.out.println("here!!!"+getCurrentNodeId());
 	         } 
 	      };  // EventHandler<MouseEvent> event
 	     pane.addEventHandler(MouseEvent.MOUSE_CLICKED, event);

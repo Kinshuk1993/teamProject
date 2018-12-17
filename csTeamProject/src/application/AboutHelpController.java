@@ -47,12 +47,11 @@ public class AboutHelpController {
 				"	c. The file will be stored in the same directory as the BigraphUI.jar program.   \r\n \r\n" , 
 				"\r\n" , 
 				"4. Version specific Notes \r\n \r\n" , 
-				"	a. If you drag an Area or Node to the scene it cannot be removed. \r\n \r\n" , 
-				"	b. If you create a Link or Application, it can not be removed. \r\n \r\n" , 
-				"	c. If you add an Application to a node it cannot be removed. \r\n \r\n" , 
-				"	d. If you hit the \"Create a new Project\" button a new Project will be created and everything currently configured will be lost if not exported to a BIG file. \r\n \r\n",
-				"e. To save the previous configuration, you can export it to a BIG file. Please be aware that creatig a new BIG file will over-write any previous one. \r\n \r\n"};
-		//loop through each help text lne
+				"	a. If you drag a Node to the scene it can be removed by clicking its icon, then cancel on the pop-up, and then click delete button in node configuration. \r\n \r\n" ,
+				"b. If you drag an Area to the scene, it can be removed by clicking on the area name, \r\n \r\n",
+				"	c. If you create a Link, it can be removed by either removing its parent area or either of the node it connects. \r\n \r\n" , 
+				"	d. If you add an Application to a node it cannot be removed. \r\n \r\n"};
+		//loop through each help text line
 		for (int lineCounter=0; lineCounter<line.length;lineCounter++) {
 			// create a label
 			TextField eachAppNameText = new TextField(line[lineCounter]);
