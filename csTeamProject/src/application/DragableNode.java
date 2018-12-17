@@ -60,14 +60,20 @@ public class DragableNode extends AnchorPane {
 	 * Function to handle the click event of the node
 	 */
 	public void nodeClicked() {
-		// handle exception
-		try {
-			// load the link Node FXML passing the current id as parameter
-			new LinkNodeLoader(id);
-		} catch (Exception e) { // handle any error/exception
-			// print the error / exception in console
-			e.printStackTrace();
+		// if node id is icon, do nothing
+		if (id.equals("icon")) {
+			// DO NOTHING
+		} else { // open node linking dialog only when the node is present in the area with a proper id
+			// handle exception
+			try {
+				// load the link Node FXML passing the current id as parameter
+				new LinkNodeLoader(id);
+			} catch (Exception e) { // handle any error/exception
+				// print the error / exception in console
+				e.printStackTrace();
+			}
 		}
+		
 	}
 	
 	 //get node position area 

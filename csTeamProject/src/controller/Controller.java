@@ -139,7 +139,7 @@ public class Controller {
 	 * @return the id of the node
 	 */
 	public String addNodeToArea(String areaName, boolean temperature, boolean windspeed, boolean humidity,
-			boolean vibration, boolean pressure, double X, double Y) {
+			boolean vibration, boolean pressure) {
 		// find the area
 		Area areaToAddTo = findArea(areaName);
 		// Create nodeId

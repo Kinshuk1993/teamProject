@@ -320,8 +320,7 @@ public class Layout extends BorderPane {
 																+ InnerAreasCreated.get(i).areaHeight()) {
 											nodeDropped.id = newScene.addNodeToArea(InnerAreasCreated.get(i).name,
 													temperature_value, wind_speed_value, humidity_value,
-													vibration_value, pressure_value, nodeDropped.getLayoutX(),
-													nodeDropped.getLayoutY());
+													vibration_value, pressure_value);
 											//set the X coordinate of dropped node
 											nodeDropped.xCoord = nodeDropped.getLayoutX();
 											//set the X coordinate of dropped node
@@ -343,8 +342,7 @@ public class Layout extends BorderPane {
 																	+ TopAreasCreated.get(i).areaHeight()) {
 												nodeDropped.id = newScene.addNodeToArea(TopAreasCreated.get(i).name,
 														temperature_value, wind_speed_value, humidity_value,
-														vibration_value, pressure_value, nodeDropped.getLayoutX(),
-														nodeDropped.getLayoutY());
+														vibration_value, pressure_value);
 												//set the X coordinate of dropped node
 												nodeDropped.xCoord = nodeDropped.getLayoutX();
 												//set the X coordinate of dropped node

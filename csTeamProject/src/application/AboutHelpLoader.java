@@ -14,7 +14,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.stage.Modality;
+//COMMENTING OUT THE FOLLOWING BASED ON THE USER FEEDBACK
+//import javafx.stage.Modality;
 import javafx.stage.Stage;
 public class AboutHelpLoader {
 
@@ -27,10 +28,11 @@ public class AboutHelpLoader {
 		Stage applicationHelp = new Stage();
 		applicationHelp.getIcons()
 				.add(new Image(getClass().getResource("/resources/create-app-icon.png").toExternalForm()));
+		// COMMENTING OUT THE FOLLOWING BASED ON THE USER FEEDBACK
 		// block using of any other window of current application
-		applicationHelp.initModality(Modality.APPLICATION_MODAL);
+		// applicationHelp.initModality(Modality.APPLICATION_MODAL);
 		// remove minimize and maximize button
-		applicationHelp.resizableProperty().setValue(Boolean.FALSE);
+		// applicationHelp.resizableProperty().setValue(Boolean.FALSE);
 		// set the title of the stage
 		applicationHelp.setTitle("About Application");
 		// set the scene of the window
