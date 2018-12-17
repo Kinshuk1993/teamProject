@@ -202,6 +202,8 @@ public class nodeConfigBox extends AnchorPane {
     public static void updateNodeAppsList() {
     	Applist.setText("");
     	Applist.setText(appsCurLabel);
+    	//update the app list
+    	AddApplicationLoader.updateApplicationList();
     }
     
     public void closeDialog() {

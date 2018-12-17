@@ -23,6 +23,7 @@ public class Controller {
 	private static ArrayList<Area> listOfAreas; // all areas
 	private ArrayList<Area> topLevelAreas; // areas on the scene
 	private ArrayList<Area> innerAreas; // areas within another area
+	private static int linkCounter = 0, nodeCounter = 0, appCounter = 0;
 	// list of Nodes
 	private static ArrayList<Node> listOfNodes;
 
@@ -143,7 +144,7 @@ public class Controller {
 		// find the area
 		Area areaToAddTo = findArea(areaName);
 		// Create nodeId
-		String nodeId = "{c" + (listOfNodes.size() + 1) + "}";
+		String nodeId = "{c" + (Controller.nodeCounter + 1) + "}";
 		// create new node
 		Node newNode = new Node(nodeId);
 		// set nodes configurations
@@ -197,7 +198,7 @@ public class Controller {
 	 * @return generated appID
 	 */
 	public static String newApp(String appName) {
-		String appID = "A(" + (Controller.listOfApps.size() + 1) + ")";
+		String appID = "A(" + (Controller.appCounter + 1) + ")";
 		Apps newApp = new Apps(appName, appID);
 		Controller.listOfApps.add(newApp);
 		return appID;
@@ -215,7 +216,7 @@ public class Controller {
 	 */
 	public static String addNewLink(String firstNodeName, String secondNodeName) {
 		// create new link
-		String linkName = "l" + (Controller.listOfLinks.size() + 1);
+		String linkName = "l" + (Controller.linkCounter + 1);
 		Controller.listOfLinks.add(linkName);
 		// find the nodes
 		Node firstNode = findNode(firstNodeName);
