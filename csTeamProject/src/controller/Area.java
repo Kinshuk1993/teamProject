@@ -67,6 +67,26 @@ public class Area {
         this.areas.add(newArea);
     }    
 
+    // remove given node
+    public void removeNode(Node node){
+        int index = this.nodes.indexOf(node);
+        if(index != -1){
+            this.nodes.remove(index);
+        }
+    }
+
+    // remove given area and checks if the area no longer contains other areas.
+    public void removeArea(Area area){
+        int index = this.areas.indexOf(area);
+        if(index != -1){
+            this.areas.remove(index);
+        }
+
+        if(this.areas.isEmpty()){
+            this.containsArea = false;
+        }
+    }
+
     // print Area and its content
     public String printArea(){
         String toRet = this.id + ".(";

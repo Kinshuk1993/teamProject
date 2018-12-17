@@ -58,13 +58,18 @@ public class Node {
 	public String getId() {
 		return this.id;
 	}
-
 	public String getMac() {
 		return this.Mac;
 	}
-
 	public String getIP() {
 		return ipv6;
+	}
+	// Setters
+	public void setMac(String mac) {
+		this.Mac = mac;
+	}
+	public void setIP(String ipv6) {
+		this.ipv6 = ipv6;
 	}
 
 	// getters for nodes linked to
@@ -120,6 +125,7 @@ public class Node {
 	 * @return string with apps and links
 	 */
 	public String printAppsAndLinks() {
+
 		String toRet = this.typeId + this.id + ".(";
 		if (this.links.isEmpty() && this.applications.isEmpty()) {
 			return this.typeId + this.id;
@@ -136,9 +142,12 @@ public class Node {
 				}
 			}
 			toRet = toRet + ")";
-			toRet = toRet + " |";
+			
 		}
 		if (!this.applications.isEmpty()) {
+			if (!this.links.isEmpty()){
+				toRet = toRet + " |";
+			}
 			for (int i = 0; i < this.applications.size(); i++) {
 				if (i == this.applications.size() - 1) {
 					toRet = toRet + " " + this.applications.get(i).getId();
@@ -155,66 +164,48 @@ public class Node {
 	public boolean getTemperature() {
 		return Temperature;
 	}
-
 	public boolean getWindspeed() {
 		return Windspeed;
 	}
-
 	public boolean getHumidity() {
 		return Humidity;
 	}
-
 	public boolean getVibration() {
 		return Vibration;
 	}
-
 	public boolean getPressure() {
 		return Pressure;
 	}
 
-	// links
+	// get List of links
 	public ArrayList<String> getLinks() {
 		return links;
 	}
 
-	// apps
+	// get List of Apps
 	public ArrayList<Apps> getApps() {
 		return applications;
-	}
-
-	// Setters
-	public void setMac(String mac) {
-		this.Mac = mac;
-	}
-
-	public void setIP(String ipv6) {
-		this.ipv6 = ipv6;
 	}
 
 	// set configurations
 	public void setTemperature(boolean temp) {
 		this.Temperature = temp;
 	}
-
 	public void setWindspeed(boolean wind) {
 		this.Windspeed = wind;
 	}
-
 	public void setHumidity(boolean humidity) {
 		this.Humidity = humidity;
 	}
-
 	public void setVibration(boolean vibration) {
 		this.Vibration = vibration;
 	}
-
 	public void setPressure(boolean pressure) {
 		this.Pressure = pressure;
 	}
 
 	// set all configs in one
-	public void setAllConf(boolean temperature, boolean windspeed, boolean humidity, boolean vibration,
-			boolean pressure) {
+	public void setAllConf(boolean temperature, boolean windspeed, boolean humidity, boolean vibration,boolean pressure) {
 		this.Temperature = temperature;
 		this.Windspeed = windspeed;
 		this.Humidity = humidity;
@@ -232,9 +223,44 @@ public class Node {
 
 	// Add app to list of apps
 	public void addApp(Apps newApp) {
-		this.typeId = "N_U";
+		if(this.typeId.equals("N")){
+			this.typeId = "N_U";
+		}
 		this.applications.add(newApp);
 	}
+
+	/**
+	 * Remove app from list of application
+	 */
+	public void removeApp(Apps app){
+		
+		int index = this.applications.indexOf(app);
+		
+		if(index != -1){
+			this.applications.remove(index);
+		}
+		
+		if(this.applications.isEmpty()){
+			this.typeId = "N";
+		}
+
+	}
+
+	/**
+	 * Remove link from this application
+	 */
+	public void removeLink(String linkId){
+		int index = this.links.indexOf(linkId);
+		if(index != -1){
+			this.links.remove(index);
+			if(this.links.isEmpty()){
+				this.ipv6 = "N/A";
+			}
+		}
+	}
+
+	
+// --------- Create fake Mac and IPv6 -----------------
 
 	// create Mac
 	private String findMac() {
