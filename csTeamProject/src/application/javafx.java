@@ -24,7 +24,7 @@ public class javafx extends Application {
 		try {
 			Scene scene = new Scene(borderPane, 640, 480);
 			// Setting the title to Stage.
-			javafx.window.setTitle("Project");
+			javafx.window.setTitle("Operating interface for large-scale Wireless Sensor Networks");
 			javafx.window.setOnCloseRequest(e -> {
 				e.consume();
 				// call the close program
