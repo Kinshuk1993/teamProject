@@ -1,6 +1,6 @@
 package application;
 /*
- * this file describe the function of the add button in the left pane of the layout 
+ * this file describe the function of the add button in the left pane of the layout
  * to add a application to the node
  */
 import java.io.IOException;
@@ -60,12 +60,8 @@ public class nodeConfigBox extends AnchorPane {
 			addAppbtn.setDisable(true);
 			CnlBtn.setDisable(true);
 			Finishbtn.setDisable(true);
-			// AppChoicebox.setVisible(false);
-			// addAppbtn.setVisible(false);
 			CnlBtn.setVisible(false);
 			Finishbtn.setVisible(false);
-			// introText.setVisible(false);
-			// AppsCurLabel.setVisible(false);
 			noNodeClickedAlert.setVisible(false);
 			noAppAlert.setVisible(true);
 			AlertOkBtn.setVisible(true);
@@ -79,12 +75,8 @@ public class nodeConfigBox extends AnchorPane {
 			addAppbtn.setDisable(true);
 			CnlBtn.setDisable(true);
 			Finishbtn.setDisable(true);
-			// AppChoicebox.setVisible(false);
-			// addAppbtn.setVisible(false);
 			CnlBtn.setVisible(false);
 			Finishbtn.setVisible(false);
-			// introText.setVisible(false);
-			// AppsCurLabel.setVisible(false);
 			noAppAlert.setVisible(false);
 			noNodeClickedAlert.setVisible(true);
 			AlertOkBtn.setVisible(true);
@@ -128,8 +120,10 @@ public class nodeConfigBox extends AnchorPane {
 				for (Node nodeEach : Controller.getNodes()) {
 					if (nodeEach.getId() == Layout.getCurrentNodeId()) { // get the node
 						AppsCurLabel.setText(nodeEach.getApplicationsID());
-						for (Apps eachApp : nodeEach.getApps()) { // node's applications
-							// if the application is in applist of node ,remove
+						// // node's applications
+						// if the application is in applist of node ,remove
+						int mark = 0;
+						for (Apps eachApp : nodeEach.getApps()) {
 							if (eachApp.getId() == TempStoreID) {
 								TempStoreApp = eachApp;
 								nodeEach.removeApp(TempStoreApp);
@@ -137,20 +131,19 @@ public class nodeConfigBox extends AnchorPane {
 								appsCurLabel = "";
 								appsCurLabel = AppsCurLabel.getText();
 								Finishbtn.setDisable(false);
-							} else {
-								// if the application is in the all app list ,add
-								for (Apps AppEACH : Controller.getApps()) {
-									if (AppEACH.getId() == TempStoreID) {
-										TempStoreApp = AppEACH;
-										nodeEach.addApp(TempStoreApp);
-										AppsCurLabel.setText(nodeEach.getApplicationsID());
-										appsCurLabel = "";
-										appsCurLabel = AppsCurLabel.getText();
-										Finishbtn.setDisable(false);
-									}
-								}
-							}
+								mark = 1;
+							} // if
 						} // for
+						for (Apps AppEACH : Controller.getApps()) {
+							if (AppEACH.getId() == TempStoreID && mark == 0) {
+								TempStoreApp = AppEACH;
+								nodeEach.addApp(TempStoreApp);
+								AppsCurLabel.setText(nodeEach.getApplicationsID());
+								appsCurLabel = "";
+								appsCurLabel = AppsCurLabel.getText();
+								Finishbtn.setDisable(false);
+							}
+						}
 					} // if
 				} // for
 			});
