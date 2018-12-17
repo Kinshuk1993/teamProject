@@ -23,7 +23,7 @@ public class Controller {
 	public static ArrayList<Area> listOfAreas; // all areas
 	private static ArrayList<Area> topLevelAreas; // areas on the scene
 	private static ArrayList<Area> innerAreas; // areas within another area
-	private static int linkCounter = 0, nodeCounter = 0, appCounter = 0;
+	private static int linkCounter = 1, nodeCounter = 1, appCounter = 1;
 	// list of Nodes
 	private static ArrayList<Node> listOfNodes;
 
@@ -33,8 +33,8 @@ public class Controller {
 		Controller.listOfLinks = new ArrayList<String>();
 		Controller.listOfApps = new ArrayList<Apps>();
 		Controller.listOfAreas = new ArrayList<Area>();
-		this.topLevelAreas = new ArrayList<Area>();
-		this.innerAreas = new ArrayList<Area>();
+		Controller.topLevelAreas = new ArrayList<Area>();
+		Controller.innerAreas = new ArrayList<Area>();
 		Controller.listOfNodes = new ArrayList<Node>();
 	}
 
@@ -44,8 +44,8 @@ public class Controller {
 		Controller.listOfLinks = new ArrayList<String>();
 		Controller.listOfApps = new ArrayList<Apps>();
 		Controller.listOfAreas = new ArrayList<Area>();
-		this.topLevelAreas = new ArrayList<Area>();
-		this.innerAreas = new ArrayList<Area>();
+		Controller.topLevelAreas = new ArrayList<Area>();
+		Controller.innerAreas = new ArrayList<Area>();
 		Controller.listOfNodes = new ArrayList<Node>();
 	}
 
@@ -81,12 +81,12 @@ public class Controller {
 
 	// get list of topAreas
 	public ArrayList<Area> getTopLvlAreas() {
-		return this.topLevelAreas;
+		return Controller.topLevelAreas;
 	}
 
 	// get list of innerAreas
 	public ArrayList<Area> getInnerAreas() {
-		return this.innerAreas;
+		return Controller.innerAreas;
 	}
 
 	// ---------------- Area ----------------------------
@@ -100,7 +100,7 @@ public class Controller {
 	public String addTopArea(String name) {
 		Area newArea = new Area(name);
 		Controller.listOfAreas.add(newArea);
-		this.topLevelAreas.add(newArea);
+		Controller.topLevelAreas.add(newArea);
 		return newArea.getId();
 	}
 
@@ -120,7 +120,7 @@ public class Controller {
 		Area newArea = new Area(newId);
 		parentArea.addArea(newArea);
 		Controller.listOfAreas.add(newArea);
-		this.innerAreas.add(newArea);
+		Controller.innerAreas.add(newArea);
 		return newArea.getId();
 	}
 	// ---------------- Node ----------------------------
@@ -144,7 +144,7 @@ public class Controller {
 		// find the area
 		Area areaToAddTo = findArea(areaName);
 		// Create nodeId
-		String nodeId = "{c" + (Controller.nodeCounter + 1) + "}";
+		String nodeId = "{c" + (Controller.nodeCounter++) + "}";
 		// create new node
 		Node newNode = new Node(nodeId);
 		// set nodes configurations
@@ -198,7 +198,7 @@ public class Controller {
 	 * @return generated appID
 	 */
 	public static String newApp(String appName) {
-		String appID = "A(" + (Controller.appCounter + 1) + ")";
+		String appID = "A(" + (Controller.appCounter++) + ")";
 		Apps newApp = new Apps(appName, appID);
 		Controller.listOfApps.add(newApp);
 		return appID;
@@ -216,7 +216,7 @@ public class Controller {
 	 */
 	public static String addNewLink(String firstNodeName, String secondNodeName) {
 		// create new link
-		String linkName = "l" + (Controller.linkCounter + 1);
+		String linkName = "l" + (Controller.linkCounter++);
 		Controller.listOfLinks.add(linkName);
 		// find the nodes
 		Node firstNode = findNode(firstNodeName);
@@ -400,13 +400,13 @@ public class Controller {
 	 */
 	private String printAreas() {
 		String toRet = "";
-		for (int i = 0; i < this.topLevelAreas.size(); i++) {
-			if (i == this.topLevelAreas.size() - 1) {
-				toRet = toRet + " " + this.topLevelAreas.get(i).printArea();
-			} else if (i == 0 && !(i == this.topLevelAreas.size() - 1)) {
-				toRet = toRet + this.topLevelAreas.get(i).printArea() + " |";
+		for (int i = 0; i < Controller.topLevelAreas.size(); i++) {
+			if (i == Controller.topLevelAreas.size() - 1) {
+				toRet = toRet + " " + Controller.topLevelAreas.get(i).printArea();
+			} else if (i == 0 && !(i == Controller.topLevelAreas.size() - 1)) {
+				toRet = toRet + Controller.topLevelAreas.get(i).printArea() + " |";
 			} else {
-				toRet = toRet + " " + this.topLevelAreas.get(i).printArea() + " |";
+				toRet = toRet + " " + Controller.topLevelAreas.get(i).printArea() + " |";
 			}
 		}
 		// if(toRet.substring(toRet.length() - 1).equals("|")){

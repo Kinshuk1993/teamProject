@@ -96,7 +96,7 @@ public class Layout extends BorderPane {
 
 	@FXML
 	private void initialize() {
-		this.AllAreasCreated = new ArrayList<DraggableArea>();
+		Layout.AllAreasCreated = new ArrayList<DraggableArea>();
 		this.TopAreasCreated = new ArrayList<DraggableArea>();
 		this.InnerAreasCreated = new ArrayList<DraggableArea>();
 		Layout.AllNodesCreated = new ArrayList<DragableNode>();
@@ -644,7 +644,7 @@ public class Layout extends BorderPane {
 				        				 for(int i = 0; i < arealist.size(); i++) {
 				        					 for(DraggableArea area: AllAreasCreated) {
 				        						 if(area.name == arealist.get(i).getId()) {
-				        							 newScene.removeArea(area.name);
+				        							 Controller.removeArea(area.name);
 				        							 InnerAreasCreated.remove(area);
 				        							 AllAreasCreated.remove(area);
 				        							 right_pane.getChildren().remove(area);
@@ -674,7 +674,7 @@ public class Layout extends BorderPane {
 					        					 }			        						
 					        				 }
 				        				 }
-				        				 newScene.removeArea(newScene.listOfAreas.get(k).getId());
+				        				 Controller.removeArea(Controller.listOfAreas.get(k).getId());
 				        				 right_pane.getChildren().remove(eachArea);
 				        				 AllAreasCreated.remove(eachArea);				        			 
 				        		 }//for Node nodeEach
@@ -864,5 +864,4 @@ public class Layout extends BorderPane {
 		// call function to perform operation for mouse over
 		AddApplicationLoader.actionOnMouseOver();
 	}
-}
 }
