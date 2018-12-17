@@ -96,6 +96,7 @@ public class Layout extends BorderPane {
 
 	@FXML
 	private void initialize() {
+		//add all lines created in a list
 		Layout.AllAreasCreated = new ArrayList<DraggableArea>();
 		this.TopAreasCreated = new ArrayList<DraggableArea>();
 		this.InnerAreasCreated = new ArrayList<DraggableArea>();
@@ -164,6 +165,29 @@ public class Layout extends BorderPane {
 			openNewProject();
 		});
 		
+		DelNode.setOnAction(event ->{
+	        if (NodeIDinvisible.getText()!= "") {
+	            try {
+	                tempIDstore = NodeIDinvisible.getText();
+	                for(DragableNode each : AllNodesCreated) {
+	                    System.out.println("test 0");
+	                    System.out.println("test 1 each dragable node id.."+ each.getID() + "tempIDstore "+ tempIDstore);
+	                    if(each.getID()== tempIDstore) {
+	                        System.out.println("test 1 : get the node..." + tempIDstore);
+	                        System.out.println("test 2 : before remove ,the list of node is .." + Controller.getNodes());
+	                        System.out.println("test 3 :the node is " + each);
+	                        right_pane.getChildren().remove(each);
+	                        Controller.removeNode(tempIDstore);
+	                        System.out.println("test 4: after remove ,the list of node is .." + Controller.getNodes());
+	                    }
+	                }
+	                
+	            }catch (Exception error) {
+	                // print the stack trace in case of error
+	                error.printStackTrace();
+	            }
+	        }
+	    });
 		
 		// Create operator
 		AnimatedZoomOperator zoomOperator = new AnimatedZoomOperator();

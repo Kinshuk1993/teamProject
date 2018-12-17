@@ -98,6 +98,8 @@ public class DragableNode extends AnchorPane {
 	    return y;
 	}
 	
-	
+	public String getID() {
+        return this.id;
+    }
 	
 }
