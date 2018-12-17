@@ -86,7 +86,7 @@
                         <CheckBox fx:id="Sensor_pressure" layoutX="31.0" layoutY="173.0" mnemonicParsing="false" onAction="#SensorCheckEvent" stylesheets="@checkbox_pressure.css" text="Pressure" />
                         <Text layoutX="8.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="APP" />
                         <Line endX="235.0" layoutX="100.0" layoutY="217.0" startX="-100.0" stroke="#aeaaaa" />
-                        <Button fx:id="AddAppBtn" layoutX="188.0" layoutY="225.0" mnemonicParsing="false" text="Add">
+                        <Button fx:id="AddAppBtn" layoutX="188.0" layoutY="225.0" mnemonicParsing="false" text="Add / Delete">
                            <font>
                               <Font size="11.0" />
                            </font></Button>
