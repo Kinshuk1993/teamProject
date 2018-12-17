@@ -78,6 +78,22 @@ public class test {
         newScene.exportBIG();
         // Print the bigraph
         System.out.println(exp);
+
+        // test removal of link
+        // newScene.removeLink(link1);
+
+        // test removal of node
+        // newScene.removeNode(node4);
+        // newScene.removeNode(node7);
+
+        // // test removal of area
+        newScene.removeArea(north);
+
+        // // test removal of apps
+        // newScene.removeApps(app);
+
+        System.out.println(newScene.exportBigraph());
+        // newScene.exportBIG();
     }
     
 
