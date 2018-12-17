@@ -70,7 +70,7 @@ public class DragableNode extends AnchorPane {
 		}
 	}
 	
-	 //get node position area //ZHANG
+	 //get node position area 
 	public int NodeAreaXmin() {
 		Bounds boundsInScene = circle.localToScene(circle.getBoundsInLocal());
 	    int x = (int) boundsInScene.getMinX();

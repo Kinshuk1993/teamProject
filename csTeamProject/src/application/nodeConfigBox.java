@@ -77,12 +77,12 @@ public class nodeConfigBox extends AnchorPane {
 			addAppbtn.setDisable(true);
 			CnlBtn.setDisable(true);
 			Finishbtn.setDisable(true);
-			AppChoicebox.setVisible(false);
-			addAppbtn.setVisible(false);
+			//AppChoicebox.setVisible(false);
+			//addAppbtn.setVisible(false);
 			CnlBtn.setVisible(false);
 			Finishbtn.setVisible(false);
-			introText.setVisible(false);
-			AppsCurLabel.setVisible(false);
+			//introText.setVisible(false);
+			//AppsCurLabel.setVisible(false);
 			noNodeClickedAlert.setVisible(false);
 			
 			noAppAlert.setVisible(true);
@@ -101,12 +101,12 @@ public class nodeConfigBox extends AnchorPane {
 				addAppbtn.setDisable(true);
 				CnlBtn.setDisable(true);
 				Finishbtn.setDisable(true);
-				AppChoicebox.setVisible(false);
-				addAppbtn.setVisible(false);
+				//AppChoicebox.setVisible(false);
+				//addAppbtn.setVisible(false);
 				CnlBtn.setVisible(false);
 				Finishbtn.setVisible(false);
-				introText.setVisible(false);
-				AppsCurLabel.setVisible(false);
+				//introText.setVisible(false);
+				//AppsCurLabel.setVisible(false);
 				noAppAlert.setVisible(false);
 				
 				noNodeClickedAlert.setVisible(true);

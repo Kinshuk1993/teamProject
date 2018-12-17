@@ -20,7 +20,7 @@ public class Controller {
 	// list of application
 	private static ArrayList<Apps> listOfApps = new ArrayList<Apps>();
 	// list of Areas
-	private ArrayList<Area> listOfAreas; // all areas
+	private static ArrayList<Area> listOfAreas; // all areas
 	private ArrayList<Area> topLevelAreas; // areas on the scene
 	private ArrayList<Area> innerAreas; // areas within another area
 	// list of Nodes
@@ -277,7 +277,7 @@ public class Controller {
         }
     }
 
-    public void removeNode(String nodeId){
+    public static void removeNode(String nodeId){
         //get the node
         Node nodeToRemove = findNode(nodeId);
         
@@ -292,19 +292,19 @@ public class Controller {
         if(!nodesLinks.isEmpty()){
             for(int i = 0; i < nodesLinks.size(); i++){
                 String temp = nodesLinks.get(i);
-                this.removeLink(temp);
+                Controller.removeLink(temp);
             }
         }
 
         // remove node from the area its in
-        for(int j = 0; j < this.listOfAreas.size(); j++){
-            this.listOfAreas.get(j).removeNode(nodeToRemove);
+        for(int j = 0; j < Controller.listOfAreas.size(); j++){
+        	Controller.listOfAreas.get(j).removeNode(nodeToRemove);
         }
 
     }
 
     // remove links
-    public void removeLink(String linkId){
+    public static void removeLink(String linkId){
         if(Controller.listOfLinks.contains(linkId)){
             for(int i  = 0; i < Controller.listOfNodes.size(); i++){
                 Controller.listOfNodes.get(i).removeLink(linkId);

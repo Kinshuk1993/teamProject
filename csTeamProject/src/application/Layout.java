@@ -49,12 +49,12 @@ public class Layout extends BorderPane {
 	@FXML Label IPV6ID, MACID, NodeID;
 	@FXML Label AppList;
 	@FXML Label NodeIDinvisible;
-	@FXML Button createAppButton, AddAppBtn;
+	@FXML Button createAppButton, AddAppBtn, DelNode;
 	@FXML VBox vBoxForAreaNames;
 	@FXML MenuItem fileExit, helpAbout, fileNew;
 
-	double xMin,xMax,yMin,yMax,xm,ym;//location of the node,location of the mouse (ZHang)
-	
+	double xMin,xMax,yMin,yMax,xm,ym;//location of the node,location of the mouse 
+	String tempIDstore;
 	private DragableNode mDragableNodeOver = null;
 	private DraggableArea mDragableAreaOver = null;
 	private EventHandler<DragEvent> mNodeDragOverRoot = null;
@@ -121,7 +121,7 @@ public class Layout extends BorderPane {
 					//new cfgAddAppLoader(AppList);
 					Stage stageC = new Stage();
 					BorderPane Pane = new BorderPane();
-					Scene sceneC = new Scene(Pane, 400, 250);
+					Scene sceneC = new Scene(Pane, 420, 230);
 					// block using of any other window of current application
 					stageC.initModality(Modality.APPLICATION_MODAL);
 					// disable resizing of the area setting dialog box
@@ -157,6 +157,8 @@ public class Layout extends BorderPane {
 			// open new project
 			openNewProject();
 		});
+		
+		
 		// Create operator
 		AnimatedZoomOperator zoomOperator = new AnimatedZoomOperator();
 		// Listen to scroll events
@@ -196,7 +198,7 @@ public class Layout extends BorderPane {
 		left_pane.getChildren().add(node);
 		buildDragHandlers();
 		buildDragHandlers2();
-		NodeIDinvisible.setVisible(false);  //newzhang
+		NodeIDinvisible.setVisible(false);  
 	}
 	private void buildDragHandlers() {
 		mNodeDragOverRoot = new EventHandler<DragEvent>() {
@@ -574,8 +576,7 @@ public class Layout extends BorderPane {
 		return Color.rgb(r, g, b);
 	}
 	
-	
-	
+
 	/**
 	 * Function to get the configuration information showed on left pane when click the node
 	 */
@@ -596,9 +597,9 @@ public class Layout extends BorderPane {
 		        		 // show the node's cfg in cfg box
 		        		 for (Node nodeEach : Controller.getNodes()) {
 		        			 if(nodeEach.getId() == eachNode.id) {
-		        				 NodeIDinvisible.setText(nodeEach.getId());  //Zhangnew
-				        		 TempStoreNodeClickedID = nodeEach.getId(); //Zhangnew
-				        		 NodeID.setText(nodeEach.getId().substring(1, nodeEach.getId().length() - 1)); //Zhangnew
+		        				 NodeIDinvisible.setText(nodeEach.getId());  
+				        		 TempStoreNodeClickedID = nodeEach.getId(); 
+				        		 NodeID.setText(nodeEach.getId().substring(1, nodeEach.getId().length() - 1)); 
 				        		 MACID.setText(nodeEach.getMac());
 				        		 IPV6ID.setText(nodeEach.getIP());
 				        		 if(nodeEach.getWindspeed()) {Sensor_windspeed.setSelected(true);}else {Sensor_windspeed.setSelected(false);}
@@ -611,7 +612,6 @@ public class Layout extends BorderPane {
 		        		 }//for Node nodeEach
 		        	 }
 		        } //for (DragableNode eachNode
-		        System.out.println("here!!!"+getCurrentNodeId());
 	         } 
 	      };  // EventHandler<MouseEvent> event
 	     pane.addEventHandler(MouseEvent.MOUSE_CLICKED, event);
@@ -645,7 +645,7 @@ public class Layout extends BorderPane {
 			pressure_value = false;
 		}
 		for (Node nodeEach : Controller.getNodes()) {
-			if (nodeEach.getId() == NodeID.getText()) {
+			if (nodeEach.getId() == NodeIDinvisible.getText()) {
 				nodeEach.setAllConf(temperature_value, wind_speed_value, humidity_value, vibration_value,
 						pressure_value);
 			}
@@ -697,6 +697,18 @@ public class Layout extends BorderPane {
 		algebraicExpressionDisplay.setText(null);
 		// clear the applications list
 		vBoxForAreaNames.getChildren().clear();
+		//clear the cfg part 
+		Sensor_windspeed.setSelected(false);
+		Sensor_windspeed.setSelected(false);
+		Sensor_temperature.setSelected(false);
+		Sensor_humidity.setSelected(false);
+		Sensor_virbration.setSelected(false);
+		Sensor_pressure.setSelected(false);
+		IPV6ID.setText(""); 
+		MACID.setText(""); 
+		NodeID.setText(""); 
+		NodeIDinvisible.setText(""); 
+		AppList.setText("");
 		// create a new controller
 		newScene = new Controller("Scene");
 	}
@@ -713,5 +725,11 @@ public class Layout extends BorderPane {
 	}
 	
 
+//	@FXML
+//	private void DeleteNode(ActionEvent event) {
+//		
+//	
+//	 
+//	}
 
 }
