@@ -89,7 +89,12 @@
                         <Label fx:id="IPV6ID" layoutX="50.0" layoutY="45.0" text="N/A" />
                         <Label fx:id="AppList" layoutX="19.0" layoutY="210.0" text="   " />
                         <Label fx:id="NodeID" layoutX="53.0" layoutY="6.0" text="ID" />
-                        <Label fx:id="NodeIDinvisible" layoutX="199.0" layoutY="5.0" text="Label" />
+                        <Label fx:id="NodeIDinvisible" layoutX="130.0" layoutY="6.0" text="Label" />
+                        <Button fx:id="DelNode" layoutX="181.0" layoutY="2.0" mnemonicParsing="false" text="Delete">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Button>
                      </children>
                   </AnchorPane>
                </content>
@@ -108,7 +113,7 @@
                <content>
                   <ScrollPane pannable="true" prefHeight="200.0" prefWidth="200.0">
                      <content>
-                        <VBox fx:id="vBoxForAreaNames" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" />
+						<VBox fx:id="vBoxForAreaNames" maxWidth="1.7976931348623157E308" onMouseEntered="#mouseOverForVBox" prefHeight="200.0" prefWidth="361.0" />
                      </content>
                      <cursor>
                         <Cursor fx:constant="TEXT" />

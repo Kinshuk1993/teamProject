@@ -20,9 +20,10 @@ public class Controller {
 	// list of application
 	private static ArrayList<Apps> listOfApps = new ArrayList<Apps>();
 	// list of Areas
-	private ArrayList<Area> listOfAreas; // all areas
-	private ArrayList<Area> topLevelAreas; // areas on the scene
-	private ArrayList<Area> innerAreas; // areas within another area
+	public static ArrayList<Area> listOfAreas; // all areas
+	private static ArrayList<Area> topLevelAreas; // areas on the scene
+	private static ArrayList<Area> innerAreas; // areas within another area
+	private static int linkCounter = 0, nodeCounter = 0, appCounter = 0;
 	// list of Nodes
 	private static ArrayList<Node> listOfNodes;
 
@@ -31,7 +32,7 @@ public class Controller {
 		this.sceneName = "DefaultName";
 		Controller.listOfLinks = new ArrayList<String>();
 		Controller.listOfApps = new ArrayList<Apps>();
-		this.listOfAreas = new ArrayList<Area>();
+		Controller.listOfAreas = new ArrayList<Area>();
 		this.topLevelAreas = new ArrayList<Area>();
 		this.innerAreas = new ArrayList<Area>();
 		Controller.listOfNodes = new ArrayList<Node>();
@@ -42,7 +43,7 @@ public class Controller {
 		this.sceneName = name;
 		Controller.listOfLinks = new ArrayList<String>();
 		Controller.listOfApps = new ArrayList<Apps>();
-		this.listOfAreas = new ArrayList<Area>();
+		Controller.listOfAreas = new ArrayList<Area>();
 		this.topLevelAreas = new ArrayList<Area>();
 		this.innerAreas = new ArrayList<Area>();
 		Controller.listOfNodes = new ArrayList<Node>();
@@ -74,8 +75,8 @@ public class Controller {
 	}
 
 	// get list of Areas
-	public ArrayList<Area> getAreas() {
-		return this.listOfAreas;
+	public  ArrayList<Area> getAreas() {
+		return Controller.listOfAreas;
 	}
 
 	// get list of topAreas
@@ -98,7 +99,7 @@ public class Controller {
 	 */
 	public String addTopArea(String name) {
 		Area newArea = new Area(name);
-		this.listOfAreas.add(newArea);
+		Controller.listOfAreas.add(newArea);
 		this.topLevelAreas.add(newArea);
 		return newArea.getId();
 	}
@@ -118,7 +119,7 @@ public class Controller {
 		// add new area to parent area
 		Area newArea = new Area(newId);
 		parentArea.addArea(newArea);
-		this.listOfAreas.add(newArea);
+		Controller.listOfAreas.add(newArea);
 		this.innerAreas.add(newArea);
 		return newArea.getId();
 	}
@@ -139,11 +140,11 @@ public class Controller {
 	 * @return the id of the node
 	 */
 	public String addNodeToArea(String areaName, boolean temperature, boolean windspeed, boolean humidity,
-			boolean vibration, boolean pressure, double X, double Y) {
+			boolean vibration, boolean pressure) {
 		// find the area
 		Area areaToAddTo = findArea(areaName);
 		// Create nodeId
-		String nodeId = "{c" + (listOfNodes.size() + 1) + "}";
+		String nodeId = "{c" + (Controller.nodeCounter + 1) + "}";
 		// create new node
 		Node newNode = new Node(nodeId);
 		// set nodes configurations
@@ -197,7 +198,7 @@ public class Controller {
 	 * @return generated appID
 	 */
 	public static String newApp(String appName) {
-		String appID = "A(" + (Controller.listOfApps.size() + 1) + ")";
+		String appID = "A(" + (Controller.appCounter + 1) + ")";
 		Apps newApp = new Apps(appName, appID);
 		Controller.listOfApps.add(newApp);
 		return appID;
@@ -215,7 +216,7 @@ public class Controller {
 	 */
 	public static String addNewLink(String firstNodeName, String secondNodeName) {
 		// create new link
-		String linkName = "l" + (Controller.listOfLinks.size() + 1);
+		String linkName = "l" + (Controller.linkCounter + 1);
 		Controller.listOfLinks.add(linkName);
 		// find the nodes
 		Node firstNode = findNode(firstNodeName);
@@ -232,7 +233,7 @@ public class Controller {
      * Remove area
      * @param area
      */
-    public void removeArea(String area){
+    public static void removeArea(String area){
         // get the area
         Area areaToRemove = findArea(area);
 
@@ -261,23 +262,24 @@ public class Controller {
      * Helper to remove area
      * @param areaRem
      */
-    private void removeAreaFromLists(Area areaRem){
+    private static void removeAreaFromLists(Area areaRem){
         // remove the area from its lists
-        int indexTop = this.topLevelAreas.indexOf(areaRem);
+        int indexTop = Controller.topLevelAreas.indexOf(areaRem);
         if(indexTop != -1){
-            this.topLevelAreas.remove(indexTop);
+        	Controller.topLevelAreas.remove(indexTop);
         }
-        int indexInner = this.innerAreas.indexOf(areaRem);
+        int indexInner = Controller.innerAreas.indexOf(areaRem);
         if(indexInner != -1){
-            this.innerAreas.remove(indexInner);
+        	Controller.innerAreas.remove(indexInner);
         }
-        int index = this.listOfAreas.indexOf(areaRem);
+        int index = Controller.listOfAreas.indexOf(areaRem);
         if(index != -1){
-            this.listOfAreas.remove(index);
+        	Controller.listOfAreas.remove(index);
+            Controller.listOfAreas.remove(index);
         }
     }
 
-    public void removeNode(String nodeId){
+    public static void removeNode(String nodeId){
         //get the node
         Node nodeToRemove = findNode(nodeId);
         
@@ -292,19 +294,19 @@ public class Controller {
         if(!nodesLinks.isEmpty()){
             for(int i = 0; i < nodesLinks.size(); i++){
                 String temp = nodesLinks.get(i);
-                this.removeLink(temp);
+                Controller.removeLink(temp);
             }
         }
 
         // remove node from the area its in
-        for(int j = 0; j < this.listOfAreas.size(); j++){
-            this.listOfAreas.get(j).removeNode(nodeToRemove);
+        for(int j = 0; j < Controller.listOfAreas.size(); j++){
+        	Controller.listOfAreas.get(j).removeNode(nodeToRemove);
         }
 
     }
 
     // remove links
-    public void removeLink(String linkId){
+    public static void removeLink(String linkId){
         if(Controller.listOfLinks.contains(linkId)){
             for(int i  = 0; i < Controller.listOfNodes.size(); i++){
                 Controller.listOfNodes.get(i).removeLink(linkId);
@@ -470,8 +472,8 @@ public class Controller {
 					+ "# Node configuration values\natomic fun ctrl MAC(x) = 0;\natomic fun ctrl IPv6(x) = 0;\natomic ctrl T = 0;\natomic ctrl H = 0;\natomic ctrl V = 0;\natomic ctrl P = 0;\natomic ctrl W = 0;\n\n";
 			// All the areas in this scene
 			toWrite = toWrite + "# Topology\n";
-			for (int i = 0; i < this.listOfAreas.size(); i++) {
-				toWrite = toWrite + "ctrl " + this.listOfAreas.get(i).getId() + " = 0;\n";
+			for (int i = 0; i < Controller.listOfAreas.size(); i++) {
+				toWrite = toWrite + "ctrl " + Controller.listOfAreas.get(i).getId() + " = 0;\n";
 			}
 			// Adds the different perspectives (unchangable)
 			toWrite = toWrite
@@ -515,19 +517,19 @@ public class Controller {
 	}
 
 	// find area in list of areas
-	private Area findArea(String areaName) {
+	private static Area findArea(String areaName) {
 		Area toReturn = new Area();
 		// find Area
-		for (int i = 0; i < this.listOfAreas.size(); i++) {
+		for (int i = 0; i < Controller.listOfAreas.size(); i++) {
 			if (listOfAreas.get(i).getId().equals(areaName)) {
-				toReturn = this.listOfAreas.get(i);
+				toReturn = Controller.listOfAreas.get(i);
 			}
 		}
 		return toReturn;
 	}
 
 	// find app in list of apps
-	private static Apps findApp(String appName) {
+	public static Apps findApp(String appName) {
 		Apps toReturn = new Apps();
 		// find App
 		for (int i = 0; i < Controller.listOfApps.size(); i++) {

@@ -51,12 +51,14 @@ public class Layout extends BorderPane {
 	@FXML Label IPV6ID, MACID, NodeID;
 	@FXML Label AppList;
 	@FXML Label NodeIDinvisible;
-	@FXML Button createAppButton, AddAppBtn;
+	@FXML Button createAppButton, AddAppBtn, DelNode;
 	@FXML VBox vBoxForAreaNames;
 	@FXML MenuItem fileExit, helpAbout, fileNew;
 
 	double xMin,xMax,yMin,yMax,xm,ym;//location of the node,location of the mouse (ZHang)
-	
+	double xNode, yNode, xAreaMin, xAreaMax, yAreaMin, yAreaMax, xNodeMax, yNodeMax, 
+	areaMin_x,areaMin_y, areaMax_x,areaMax_y; //locaton of node in an area
+	String tempIDstore;
 	private DragableNode mDragableNodeOver = null;
 	private DraggableArea mDragableAreaOver = null;
 	private EventHandler<DragEvent> mNodeDragOverRoot = null;
@@ -65,10 +67,11 @@ public class Layout extends BorderPane {
 	private EventHandler<DragEvent> mAreaDragDropped = null;
 	private EventHandler<DragEvent> mNodeDragOverRightPane = null;
 	private EventHandler<DragEvent> mAreaDragOverRightPane = null;
-	private ArrayList<DraggableArea> AllAreasCreated; // all areas created on the right_pane
+	private static ArrayList<DraggableArea> AllAreasCreated; // all areas created on the right_pane
 	private ArrayList<DraggableArea> TopAreasCreated; // all top-level areas created on the right_pane
 	private ArrayList<DraggableArea> InnerAreasCreated; // all inner areas created on the right_pane
 	public static ArrayList<DragableNode> AllNodesCreated; // all nodes created on the right_pane
+	public static ArrayList<Line> allGraphicalLinksCreated; // all graphical node links created
 	Boolean wind_speed_value;
 	Boolean temperature_value;
 	Boolean humidity_value;
@@ -123,7 +126,7 @@ public class Layout extends BorderPane {
 					//new cfgAddAppLoader(AppList);
 					Stage stageC = new Stage();
 					BorderPane Pane = new BorderPane();
-					Scene sceneC = new Scene(Pane, 400, 250);
+					Scene sceneC = new Scene(Pane, 420, 230);
 					// block using of any other window of current application
 					stageC.initModality(Modality.APPLICATION_MODAL);
 					// disable resizing of the area setting dialog box
@@ -159,6 +162,8 @@ public class Layout extends BorderPane {
 			// open new project
 			openNewProject();
 		});
+		
+		
 		// Create operator
 		AnimatedZoomOperator zoomOperator = new AnimatedZoomOperator();
 		// Listen to scroll events
@@ -198,7 +203,7 @@ public class Layout extends BorderPane {
 		left_pane.getChildren().add(node);
 		buildDragHandlers();
 		buildDragHandlers2();
-		NodeIDinvisible.setVisible(false);  //newzhang
+		NodeIDinvisible.setVisible(false);  
 	}
 	private void buildDragHandlers() {
 		mNodeDragOverRoot = new EventHandler<DragEvent>() {
@@ -320,8 +325,7 @@ public class Layout extends BorderPane {
 																+ InnerAreasCreated.get(i).areaHeight()) {
 											nodeDropped.id = newScene.addNodeToArea(InnerAreasCreated.get(i).name,
 													temperature_value, wind_speed_value, humidity_value,
-													vibration_value, pressure_value, nodeDropped.getLayoutX(),
-													nodeDropped.getLayoutY());
+													vibration_value, pressure_value);
 											//set the X coordinate of dropped node
 											nodeDropped.xCoord = nodeDropped.getLayoutX();
 											//set the X coordinate of dropped node
@@ -343,8 +347,7 @@ public class Layout extends BorderPane {
 																	+ TopAreasCreated.get(i).areaHeight()) {
 												nodeDropped.id = newScene.addNodeToArea(TopAreasCreated.get(i).name,
 														temperature_value, wind_speed_value, humidity_value,
-														vibration_value, pressure_value, nodeDropped.getLayoutX(),
-														nodeDropped.getLayoutY());
+														vibration_value, pressure_value);
 												//set the X coordinate of dropped node
 												nodeDropped.xCoord = nodeDropped.getLayoutX();
 												//set the X coordinate of dropped node
@@ -556,6 +559,8 @@ public class Layout extends BorderPane {
 	public void addLinkNodeLine(double startX, double startY, double endX, double endY) {
 		// create a line
 		Line linkNodeLine = new Line(startX + 11, startY + 10, endX + 11, endY + 10);
+		//add the links to a static list
+		allGraphicalLinksCreated.add(linkNodeLine);
 		// set line width
 		linkNodeLine.setStrokeWidth(2);
 		// add the line to connect 2 nodes
@@ -576,8 +581,7 @@ public class Layout extends BorderPane {
 		return Color.rgb(r, g, b);
 	}
 	
-	
-	
+
 	/**
 	 * Function to get the configuration information showed on left pane when click the node
 	 */
@@ -588,6 +592,97 @@ public class Layout extends BorderPane {
 	         public void handle(MouseEvent event) { 
 		        xm = event.getSceneX();
 		        ym = event.getSceneY();
+		        /**
+		    	 * Function to delete an area, as well as the nodes/areas within it
+		    	 * however, because of time limit, we can only delete the area now, without deleting the content in it
+		    	 * so we stash this part of code for now
+		    	 */		        
+		        for (DraggableArea eachArea : AllAreasCreated) {		        	
+		        	xAreaMin =  eachArea.AreaXmin();		        			        	
+		        	 xAreaMax =  eachArea.AreaXmax();
+		        	 yAreaMin =  eachArea.AreaYmin();
+		        	 yAreaMax =  eachArea.AreaYmax();
+		        	 xMin = xAreaMin;
+		        	 xMax = xMin + eachArea.label.getWidth();
+		        	 yMin = yAreaMin;
+		        	 yMax = yMin + eachArea.label.getHeight();
+		        	 		    		        	 
+		        	 if (xMin < xm && xm < xMax && yMin < ym && ym < yMax) {	
+		        		 	Stage areaWindow = new Stage();
+							BorderPane Pane = new BorderPane();
+							Scene areaScene = new Scene(Pane, 350, 100);
+							// block using of any other window of current application
+							areaWindow.initModality(Modality.APPLICATION_MODAL);
+							// disable resizing of the area setting dialog box
+							areaWindow.resizableProperty().setValue(Boolean.FALSE);
+							areaWindow.setTitle("Delete Area");
+							areaWindow.setScene(areaScene);
+							areaWindow.show();
+							// set action on close request of area setting window						
+							areaDelete area_delete = new areaDelete();
+							Pane.setCenter(area_delete);
+							area_delete.yesButton.setOnAction(e -> {
+				        		 // delete the area and the nodes within it
+				        	for (int k = 0; k < Controller.listOfAreas.size(); k++) {
+				        		Area temp = Controller.listOfAreas.get(k); 
+				        			 if(temp.getId() == eachArea.name) {	
+				        				 ArrayList<Node> tempnodelist = temp.getNodes();
+				        				 if(!tempnodelist.isEmpty()) {
+				        					 for(int i = 0; i < tempnodelist.size(); i++) {
+				        						 for(DragableNode node: AllNodesCreated) {
+				        							 if(node.id == tempnodelist.get(i).id) {
+				        							 right_pane.getChildren().remove(node);
+					        						 AllNodesCreated.remove(node);
+					        						 System.out.println(node.id + "deleted!");
+				        							 }
+				        						 }
+				        						 }
+				        					 }
+				        				 }	
+				        			 if(temp.hasArea()) {
+				        				 ArrayList<Area> arealist = temp.getAreas();
+				        				 for(int i = 0; i < arealist.size(); i++) {
+				        					 for(DraggableArea area: AllAreasCreated) {
+				        						 if(area.name == arealist.get(i).getId()) {
+				        							 newScene.removeArea(area.name);
+				        							 InnerAreasCreated.remove(area);
+				        							 AllAreasCreated.remove(area);
+				        							 right_pane.getChildren().remove(area);
+				        							 System.out.println("Inner area "+area.name + "deleted!");
+				        						 
+				        						 }
+				        					 }
+				        				 }
+				        			 }
+				        				 Boolean isDeleted = false;
+				        				 for (int i = 0; i < InnerAreasCreated.size(); i++) {
+				        					 if(eachArea.name == InnerAreasCreated.get(i).name) {
+				        						 InnerAreasCreated.remove(i);
+				        						 isDeleted = true;
+				        						 System.out.println("Inner area "+eachArea.name + "deleted!");
+				        						 break;
+				        					 }
+				        					 		
+				        				 }
+				        				 if(!isDeleted) {
+				        					 for (int i = 0; i < TopAreasCreated.size(); i++) {
+					        					 if(eachArea.name == TopAreasCreated.get(i).name) {
+					        						 TopAreasCreated.remove(i);
+					        						 isDeleted = true;
+					        						 System.out.println("Top area "+eachArea.name + "deleted!");
+					        						 break;
+					        					 }			        						
+					        				 }
+				        				 }
+				        				 newScene.removeArea(newScene.listOfAreas.get(k).getId());
+				        				 right_pane.getChildren().remove(eachArea);
+				        				 AllAreasCreated.remove(eachArea);				        			 
+				        		 }//for Node nodeEach
+				        	areaWindow.close();
+							});
+		        	 }
+		        	 
+		        } 
 		        //get eachnode position 
 		        for (DragableNode eachNode : AllNodesCreated) {
 		        	 xMin = eachNode.NodeAreaXmin();
@@ -598,9 +693,9 @@ public class Layout extends BorderPane {
 		        		 // show the node's cfg in cfg box
 		        		 for (Node nodeEach : Controller.getNodes()) {
 		        			 if(nodeEach.getId() == eachNode.id) {
-		        				 NodeIDinvisible.setText(nodeEach.getId());  //Zhangnew
-				        		 TempStoreNodeClickedID = nodeEach.getId(); //Zhangnew
-				        		 NodeID.setText(nodeEach.getId().substring(1, nodeEach.getId().length() - 1)); //Zhangnew
+		        				 NodeIDinvisible.setText(nodeEach.getId());  
+				        		 TempStoreNodeClickedID = nodeEach.getId(); 
+				        		 NodeID.setText(nodeEach.getId().substring(1, nodeEach.getId().length() - 1)); 
 				        		 MACID.setText(nodeEach.getMac());
 				        		 IPV6ID.setText(nodeEach.getIP());
 				        		 if(nodeEach.getWindspeed()) {Sensor_windspeed.setSelected(true);}else {Sensor_windspeed.setSelected(false);}
@@ -613,7 +708,7 @@ public class Layout extends BorderPane {
 		        		 }//for Node nodeEach
 		        	 }
 		        } //for (DragableNode eachNode
-		        System.out.println("here!!!"+getCurrentNodeId());
+//		        System.out.println("here!!!"+getCurrentNodeId());
 	         } 
 	      };  // EventHandler<MouseEvent> event
 	     pane.addEventHandler(MouseEvent.MOUSE_CLICKED, event);
@@ -647,7 +742,7 @@ public class Layout extends BorderPane {
 			pressure_value = false;
 		}
 		for (Node nodeEach : Controller.getNodes()) {
-			if (nodeEach.getId() == NodeID.getText()) {
+			if (nodeEach.getId() == NodeIDinvisible.getText()) {
 				nodeEach.setAllConf(temperature_value, wind_speed_value, humidity_value, vibration_value,
 						pressure_value);
 			}
@@ -699,6 +794,18 @@ public class Layout extends BorderPane {
 		algebraicExpressionDisplay.setText(null);
 		// clear the applications list
 		vBoxForAreaNames.getChildren().clear();
+		//clear the cfg part 
+		Sensor_windspeed.setSelected(false);
+		Sensor_windspeed.setSelected(false);
+		Sensor_temperature.setSelected(false);
+		Sensor_humidity.setSelected(false);
+		Sensor_virbration.setSelected(false);
+		Sensor_pressure.setSelected(false);
+		IPV6ID.setText(""); 
+		MACID.setText(""); 
+		NodeID.setText(""); 
+		NodeIDinvisible.setText(""); 
+		AppList.setText("");
 		// create a new controller
 		newScene = new Controller("Scene");
 	}
@@ -743,5 +850,19 @@ public class Layout extends BorderPane {
 	     pane.addEventHandler(MouseEvent.MOUSE_CLICKED, event);
 	}
 
+//	@FXML
+//	private void DeleteNode(ActionEvent event) {
+//		
+//	
+//	 
+//	}
 
+	/**
+	 * Function to perform action on mouse over
+	 */
+	public void mouseOverForVBox() {
+		// call function to perform operation for mouse over
+		AddApplicationLoader.actionOnMouseOver();
+	}
+}
 }

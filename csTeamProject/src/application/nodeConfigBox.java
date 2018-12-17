@@ -13,13 +13,10 @@ import controller.Node;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.text.*;
-import javafx.stage.Stage;
-import javafx.beans.binding.BooleanBinding;
-import javafx.event.ActionEvent; 
+import javafx.stage.Stage; 
 import javafx.scene.layout.AnchorPane;
 
 public class nodeConfigBox extends AnchorPane {
@@ -77,12 +74,12 @@ public class nodeConfigBox extends AnchorPane {
 			addAppbtn.setDisable(true);
 			CnlBtn.setDisable(true);
 			Finishbtn.setDisable(true);
-			AppChoicebox.setVisible(false);
-			addAppbtn.setVisible(false);
+			//AppChoicebox.setVisible(false);
+			//addAppbtn.setVisible(false);
 			CnlBtn.setVisible(false);
 			Finishbtn.setVisible(false);
-			introText.setVisible(false);
-			AppsCurLabel.setVisible(false);
+			//introText.setVisible(false);
+			//AppsCurLabel.setVisible(false);
 			noNodeClickedAlert.setVisible(false);
 			
 			noAppAlert.setVisible(true);
@@ -101,12 +98,12 @@ public class nodeConfigBox extends AnchorPane {
 				addAppbtn.setDisable(true);
 				CnlBtn.setDisable(true);
 				Finishbtn.setDisable(true);
-				AppChoicebox.setVisible(false);
-				addAppbtn.setVisible(false);
+				//AppChoicebox.setVisible(false);
+				//addAppbtn.setVisible(false);
 				CnlBtn.setVisible(false);
 				Finishbtn.setVisible(false);
-				introText.setVisible(false);
-				AppsCurLabel.setVisible(false);
+				//introText.setVisible(false);
+				//AppsCurLabel.setVisible(false);
 				noAppAlert.setVisible(false);
 				
 				noNodeClickedAlert.setVisible(true);
@@ -205,6 +202,8 @@ public class nodeConfigBox extends AnchorPane {
     public static void updateNodeAppsList() {
     	Applist.setText("");
     	Applist.setText(appsCurLabel);
+    	//update the app list
+    	AddApplicationLoader.updateApplicationList();
     }
     
     public void closeDialog() {

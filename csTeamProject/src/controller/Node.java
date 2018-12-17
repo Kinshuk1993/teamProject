@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class Node {
 
 	// Private variables
-	private String id; // this is the id the node is known as
+	public String id; // this is the id the node is known as
 	private String typeId; // this identifies what kind of node it is
 	private String Mac; // MAC is needed, works as the ID
 	private String ipv6; // Only when connected to a network

@@ -9,6 +9,6 @@
 <fx:root fx:id="root_pane" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="80.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="80.0" />
-      <Label fx:id="label" layoutX="6.0" layoutY="6.0" prefHeight="10.0" prefWidth="20.0" />
+      <Label fx:id="label" layoutX="6.0" layoutY="6.0" prefHeight="20.0" prefWidth="35.0" />
    </children>
 </fx:root>

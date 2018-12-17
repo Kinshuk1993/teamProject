@@ -52,4 +52,24 @@ public class DraggableArea extends AnchorPane {
 		 int height = (int) bounds.getHeight();
         return height;
 	}
+	public int AreaXmin() {
+		Bounds boundsInScene = rectangle.localToScene(rectangle.getBoundsInLocal());
+	    int x = (int) boundsInScene.getMinX();
+	    return x;       
+	}	
+	public int AreaXmax() {
+		Bounds boundsInScene = rectangle.localToScene(rectangle.getBoundsInLocal());
+	    int x = (int) boundsInScene.getMaxX();
+	    return x;       
+	}
+	public int AreaYmin() {
+		Bounds boundsInScene = rectangle.localToScene(rectangle.getBoundsInLocal());
+	    int y = (int) boundsInScene.getMinY();
+	    return y;
+	}
+	public int AreaYmax() {
+		Bounds boundsInScene = rectangle.localToScene(rectangle.getBoundsInLocal());
+	    int y = (int) boundsInScene.getMaxY();
+	    return y;
+	}
 }
