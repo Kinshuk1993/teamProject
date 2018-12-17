@@ -23,7 +23,7 @@ public class Controller {
 	public static ArrayList<Area> listOfAreas; // all areas
 	private static ArrayList<Area> topLevelAreas; // areas on the scene
 	private static ArrayList<Area> innerAreas; // areas within another area
-	private static int linkCounter = 1, nodeCounter = 1, appCounter = 1;
+	public static int linkCounter = 1, nodeCounter = 1, appCounter = 1;
 	// list of Nodes
 	private static ArrayList<Node> listOfNodes;
 
@@ -247,9 +247,10 @@ public class Controller {
             for(int i = 0; i < removeAllAreas.size(); i++){
                 removeArea(removeAllAreas.get(i).getId());
             }
-
         }
-
+        
+        removeFromParentArea(areaToRemove);
+        
         // get all nodes that must be removed
         ArrayList<Node> nodesToRemove = areaToRemove.getNodes();
         for(int i = 0; i < nodesToRemove.size(); i++){
@@ -276,6 +277,20 @@ public class Controller {
         if(index != -1){
         	Controller.listOfAreas.remove(index);
         }
+    }
+    
+    private static void removeFromParentArea(Area areaToRem) {
+    	for (int i = 0; i < Controller.listOfAreas.size(); i++) {
+    		if(Controller.listOfAreas.get(i).hasArea()) {
+    			ArrayList<Area> temp = Controller.listOfAreas.get(i).getAreas();
+    			for(int j = 0; j < temp.size(); j++) {
+    			
+    				if(temp.get(j).getId().equals(areaToRem.getId())) {
+    					Controller.listOfAreas.get(i).removeArea(areaToRem);
+    				}
+    			}
+    		}
+    	}
     }
 
     public static void removeNode(String nodeId){
@@ -516,7 +531,7 @@ public class Controller {
 	}
 
 	// find area in list of areas
-	private static Area findArea(String areaName) {
+	public static Area findArea(String areaName) {
 		Area toReturn = new Area();
 		// find Area
 		for (int i = 0; i < Controller.listOfAreas.size(); i++) {

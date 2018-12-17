@@ -170,18 +170,11 @@ public class Layout extends BorderPane {
 	            try {
 	                tempIDstore = NodeIDinvisible.getText();
 	                for(DragableNode each : AllNodesCreated) {
-	                    System.out.println("test 0");
-	                    System.out.println("test 1 each dragable node id.."+ each.getID() + "tempIDstore "+ tempIDstore);
 	                    if(each.getID()== tempIDstore) {
-	                        System.out.println("test 1 : get the node..." + tempIDstore);
-	                        System.out.println("test 2 : before remove ,the list of node is .." + Controller.getNodes());
-	                        System.out.println("test 3 :the node is " + each);
 	                        right_pane.getChildren().remove(each);
 	                        Controller.removeNode(tempIDstore);
-	                        System.out.println("test 4: after remove ,the list of node is .." + Controller.getNodes());
 	                    }
 	                }
-	                
 	            }catch (Exception error) {
 	                // print the stack trace in case of error
 	                error.printStackTrace();
@@ -647,63 +640,13 @@ public class Layout extends BorderPane {
 							areaDelete area_delete = new areaDelete();
 							Pane.setCenter(area_delete);
 							area_delete.yesButton.setOnAction(e -> {
-				        		 // delete the area and the nodes within it
-				        	for (int k = 0; k < Controller.listOfAreas.size(); k++) {
-				        		Area temp = Controller.listOfAreas.get(k); 
-				        			 if(temp.getId() == eachArea.name) {	
-				        				 ArrayList<Node> tempnodelist = temp.getNodes();
-				        				 if(!tempnodelist.isEmpty()) {
-				        					 for(int i = 0; i < tempnodelist.size(); i++) {
-				        						 for(DragableNode node: AllNodesCreated) {
-				        							 if(node.id == tempnodelist.get(i).id) {
-				        							 right_pane.getChildren().remove(node);
-					        						 AllNodesCreated.remove(node);
-					        						 System.out.println(node.id + "deleted!");
-				        							 }
-				        						 }
-				        						 }
-				        					 }
-				        				 }	
-				        			 if(temp.hasArea()) {
-				        				 ArrayList<Area> arealist = temp.getAreas();
-				        				 for(int i = 0; i < arealist.size(); i++) {
-				        					 for(DraggableArea area: AllAreasCreated) {
-				        						 if(area.name == arealist.get(i).getId()) {
-				        							 Controller.removeArea(area.name);
-				        							 InnerAreasCreated.remove(area);
-				        							 AllAreasCreated.remove(area);
-				        							 right_pane.getChildren().remove(area);
-				        							 System.out.println("Inner area "+area.name + "deleted!");
-				        						 
-				        						 }
-				        					 }
-				        				 }
-				        			 }
-				        				 Boolean isDeleted = false;
-				        				 for (int i = 0; i < InnerAreasCreated.size(); i++) {
-				        					 if(eachArea.name == InnerAreasCreated.get(i).name) {
-				        						 InnerAreasCreated.remove(i);
-				        						 isDeleted = true;
-				        						 System.out.println("Inner area "+eachArea.name + "deleted!");
-				        						 break;
-				        					 }
-				        					 		
-				        				 }
-				        				 if(!isDeleted) {
-				        					 for (int i = 0; i < TopAreasCreated.size(); i++) {
-					        					 if(eachArea.name == TopAreasCreated.get(i).name) {
-					        						 TopAreasCreated.remove(i);
-					        						 isDeleted = true;
-					        						 System.out.println("Top area "+eachArea.name + "deleted!");
-					        						 break;
-					        					 }			        						
-					        				 }
-				        				 }
-				        				 Controller.removeArea(Controller.listOfAreas.get(k).getId());
-				        				 right_pane.getChildren().remove(eachArea);
-				        				 AllAreasCreated.remove(eachArea);				        			 
-				        		 }//for Node nodeEach
-				        	areaWindow.close();
+								
+								Area temp = Controller.findArea(eachArea.name);
+								
+			    				deleteAreaFunc(temp);
+			    				
+				    			Controller.removeArea(eachArea.name);
+				    			areaWindow.close();
 							});
 		        	 }
 		        	 
@@ -737,6 +680,44 @@ public class Layout extends BorderPane {
 	         } 
 	      };  // EventHandler<MouseEvent> event
 	     pane.addEventHandler(MouseEvent.MOUSE_CLICKED, event);
+	}
+	
+	public void deleteAreaFunc(Area areaToDelete) {
+		
+		// check if has area
+		if(areaToDelete.hasArea()) {
+			// get list of areas
+			ArrayList<Area> arealist = areaToDelete.getAreas();
+			for(int i = 0; i < arealist.size(); i++) {
+				deleteAreaFunc(arealist.get(i));				
+			}
+		}
+		
+		// delete nodes
+		ArrayList<Node> tempNode = areaToDelete.getNodes();
+		if(!tempNode.isEmpty()) {
+			for(int i = 0; i < tempNode.size(); i++){
+				deleteNodesGUI(tempNode.get(i).getId());
+			}
+		}
+		
+		for(DraggableArea area: AllAreasCreated) {
+			if(area.name.equals(areaToDelete.getId())){
+				right_pane.getChildren().remove(area);				
+			}
+		}
+		
+	}
+	
+	public void deleteNodesGUI(String nodeId) {
+		
+		for(DragableNode each : AllNodesCreated) {
+            if(each.getID()== nodeId) {
+                right_pane.getChildren().remove(each);
+                // remove link GUI
+            }
+        }
+		
 	}
 
 	// if user changes sensor choice , then record again--
@@ -833,6 +814,9 @@ public class Layout extends BorderPane {
 		AppList.setText("");
 		// create a new controller
 		newScene = new Controller("Scene");
+		Controller.linkCounter = 1;
+		Controller.nodeCounter = 1;
+		Controller.appCounter = 1;
 	}
 	
 	
