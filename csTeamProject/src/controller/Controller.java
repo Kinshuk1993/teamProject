@@ -31,7 +31,7 @@ public class Controller {
 		this.sceneName = "DefaultName";
 		Controller.listOfLinks = new ArrayList<String>();
 		Controller.listOfApps = new ArrayList<Apps>();
-		this.listOfAreas = new ArrayList<Area>();
+		Controller.listOfAreas = new ArrayList<Area>();
 		this.topLevelAreas = new ArrayList<Area>();
 		this.innerAreas = new ArrayList<Area>();
 		Controller.listOfNodes = new ArrayList<Node>();
@@ -42,7 +42,7 @@ public class Controller {
 		this.sceneName = name;
 		Controller.listOfLinks = new ArrayList<String>();
 		Controller.listOfApps = new ArrayList<Apps>();
-		this.listOfAreas = new ArrayList<Area>();
+		Controller.listOfAreas = new ArrayList<Area>();
 		this.topLevelAreas = new ArrayList<Area>();
 		this.innerAreas = new ArrayList<Area>();
 		Controller.listOfNodes = new ArrayList<Node>();
@@ -75,7 +75,7 @@ public class Controller {
 
 	// get list of Areas
 	public ArrayList<Area> getAreas() {
-		return this.listOfAreas;
+		return Controller.listOfAreas;
 	}
 
 	// get list of topAreas
@@ -98,7 +98,7 @@ public class Controller {
 	 */
 	public String addTopArea(String name) {
 		Area newArea = new Area(name);
-		this.listOfAreas.add(newArea);
+		Controller.listOfAreas.add(newArea);
 		this.topLevelAreas.add(newArea);
 		return newArea.getId();
 	}
@@ -118,7 +118,7 @@ public class Controller {
 		// add new area to parent area
 		Area newArea = new Area(newId);
 		parentArea.addArea(newArea);
-		this.listOfAreas.add(newArea);
+		Controller.listOfAreas.add(newArea);
 		this.innerAreas.add(newArea);
 		return newArea.getId();
 	}
@@ -271,9 +271,9 @@ public class Controller {
         if(indexInner != -1){
             this.innerAreas.remove(indexInner);
         }
-        int index = this.listOfAreas.indexOf(areaRem);
+        int index = Controller.listOfAreas.indexOf(areaRem);
         if(index != -1){
-            this.listOfAreas.remove(index);
+            Controller.listOfAreas.remove(index);
         }
     }
 
@@ -470,8 +470,8 @@ public class Controller {
 					+ "# Node configuration values\natomic fun ctrl MAC(x) = 0;\natomic fun ctrl IPv6(x) = 0;\natomic ctrl T = 0;\natomic ctrl H = 0;\natomic ctrl V = 0;\natomic ctrl P = 0;\natomic ctrl W = 0;\n\n";
 			// All the areas in this scene
 			toWrite = toWrite + "# Topology\n";
-			for (int i = 0; i < this.listOfAreas.size(); i++) {
-				toWrite = toWrite + "ctrl " + this.listOfAreas.get(i).getId() + " = 0;\n";
+			for (int i = 0; i < Controller.listOfAreas.size(); i++) {
+				toWrite = toWrite + "ctrl " + Controller.listOfAreas.get(i).getId() + " = 0;\n";
 			}
 			// Adds the different perspectives (unchangable)
 			toWrite = toWrite
@@ -518,16 +518,16 @@ public class Controller {
 	private Area findArea(String areaName) {
 		Area toReturn = new Area();
 		// find Area
-		for (int i = 0; i < this.listOfAreas.size(); i++) {
+		for (int i = 0; i < Controller.listOfAreas.size(); i++) {
 			if (listOfAreas.get(i).getId().equals(areaName)) {
-				toReturn = this.listOfAreas.get(i);
+				toReturn = Controller.listOfAreas.get(i);
 			}
 		}
 		return toReturn;
 	}
 
 	// find app in list of apps
-	private static Apps findApp(String appName) {
+	public static Apps findApp(String appName) {
 		Apps toReturn = new Apps();
 		// find App
 		for (int i = 0; i < Controller.listOfApps.size(); i++) {

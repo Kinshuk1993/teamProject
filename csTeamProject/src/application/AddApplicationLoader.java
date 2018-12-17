@@ -1,4 +1,4 @@
-/** 
+	/** 
  * University of Glasgow
  * MSc CS+ Team Project, fall 2018
  * 
@@ -16,10 +16,11 @@ import controller.Controller;
 //import controller.Node;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
-//import javafx.scene.control.Tooltip;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -62,10 +63,10 @@ public class AddApplicationLoader {
 		// loop through all available applications
 		for (Apps eachApp : Controller.getApps()) {
 			// get the label for the string ready
-			String eachNewAppName = ++i + ". " + eachApp.getName();
+			String eachNewAppName = ++i + ". " + eachApp.getName() + " " + eachApp.getId();
 			// create a label
-			TextField eachAppNameText = new TextField(eachNewAppName);
-			//COMMENTING OUT FOR FURTHER EXPLORATION - DO NOT REMOVE
+			Label eachAppNameText = new Label(eachNewAppName);
+			// COMMENTING OUT FOR FURTHER EXPLORATION - DO NOT REMOVE
 //			eachAppNameText.setOnMouseEntered(e -> {
 //				String eachAppNodeList = "";
 //				for (Node eachNode : Controller.getNodes()) {
@@ -91,6 +92,45 @@ public class AddApplicationLoader {
 			eachAppNameText.setDisable(true);
 			// add the label to the vertical box
 			appLoaderVBox.getChildren().add(eachAppNameText);
+		}
+	}
+
+	/**
+	 * Function to set action for tool tips
+	 */
+	public static void actionOnMouseOver() {
+		// do only if applications present
+		if (AddApplicationLoader.appLoaderVBox != null) {
+			//for all applications
+			for (Node node : AddApplicationLoader.appLoaderVBox.getChildren()) {
+				//if it is a label
+				if (node instanceof Label) {
+					//get the application using the ID
+					Apps eachApp = Controller.findApp(((Label) node).getText().split(" ")[2]);
+					//variable to store the tool tip text
+					String eachAppNodeList = "";
+					//loop through all nodes to check if it has the current application or not
+					for (controller.Node eachNode : Controller.getNodes()) {
+						//if application exists in node list
+						if (eachNode.getApps().contains(eachApp)) {
+							//add the node name
+							eachAppNodeList = eachAppNodeList + ", " + eachNode.getId();
+						}
+					}
+					//create tool tip
+					Tooltip tooltip = new Tooltip();
+					//set tool tip text
+					if (eachAppNodeList.length() == 0) {
+						tooltip.setText("No nodes linked to this application");
+						((Label) node).setTooltip(tooltip);
+					} else {
+						tooltip.setText(eachAppNodeList);
+						((Label) node).setTooltip(tooltip);
+					}
+				}
+			}
+		} else { // if no applications exists
+			// DO NOTHING
 		}
 	}
 

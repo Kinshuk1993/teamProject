@@ -113,7 +113,7 @@
                <content>
                   <ScrollPane pannable="true" prefHeight="200.0" prefWidth="200.0">
                      <content>
-                        <VBox fx:id="vBoxForAreaNames" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" />
+						<VBox fx:id="vBoxForAreaNames" maxWidth="1.7976931348623157E308" onMouseEntered="#mouseOverForVBox" prefHeight="200.0" prefWidth="361.0" />
                      </content>
                      <cursor>
                         <Cursor fx:constant="TEXT" />

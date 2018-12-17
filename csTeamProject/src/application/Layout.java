@@ -730,4 +730,11 @@ public class Layout extends BorderPane {
 //	 
 //	}
 
+	/**
+	 * Function to perform action on mouse over
+	 */
+	public void mouseOverForVBox() {
+		// call function to perform operation for mouse over
+		AddApplicationLoader.actionOnMouseOver();
+	}
 }
