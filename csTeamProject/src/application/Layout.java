@@ -175,6 +175,19 @@ public class Layout extends BorderPane {
 	                    	deleteLinks(each.getID());
 	                        right_pane.getChildren().remove(each);
 	                        Controller.removeNode(tempIDstore);
+	                        //clear the node's cfg box after the node deleted and update Application List
+	                		Sensor_windspeed.setSelected(false);
+	                		Sensor_windspeed.setSelected(false);
+	                		Sensor_temperature.setSelected(false);
+	                		Sensor_humidity.setSelected(false);
+	                		Sensor_virbration.setSelected(false);
+	                		Sensor_pressure.setSelected(false);
+	                		IPV6ID.setText(""); 
+	                		MACID.setText(""); 
+	                		NodeID.setText(""); 
+	                		NodeIDinvisible.setText(""); 
+	                		AppList.setText("");
+	                		AddApplicationLoader.updateApplicationList();
 	                    }
 	                }
 	            }catch (Exception error) {
@@ -644,14 +657,25 @@ public class Layout extends BorderPane {
 							area_delete.yesButton.setOnAction(e -> {
 								
 								Area temp = Controller.findArea(eachArea.name);
-								
 			    				deleteAreaFunc(temp);
-			    				
 				    			Controller.removeArea(eachArea.name);
+				    			//clear the node cfg box and update the ApplicationList
+				    			Sensor_windspeed.setSelected(false);
+		                		Sensor_windspeed.setSelected(false);
+		                		Sensor_temperature.setSelected(false);
+		                		Sensor_humidity.setSelected(false);
+		                		Sensor_virbration.setSelected(false);
+		                		Sensor_pressure.setSelected(false);
+		                		IPV6ID.setText(""); 
+		                		MACID.setText(""); 
+		                		NodeID.setText(""); 
+		                		NodeIDinvisible.setText(""); 
+		                		AppList.setText("");
+				    			AddApplicationLoader.updateApplicationList();
 				    			areaWindow.close();
+				    			
 							});
 		        	 }
-		        	 
 		        } 
 		        //get eachnode position 
 		        for (DragableNode eachNode : AllNodesCreated) {

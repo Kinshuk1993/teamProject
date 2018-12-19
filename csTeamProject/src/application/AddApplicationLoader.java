@@ -1,5 +1,5 @@
 /** 
-* University of Glasgow
+updateApplicationList* University of Glasgow
 * MSc CS+ Team Project, fall 2018
 * 
 * Class to handle the opening of the dialog box for creating application - FXML Loader
