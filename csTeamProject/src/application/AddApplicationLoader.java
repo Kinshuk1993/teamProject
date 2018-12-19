@@ -59,8 +59,10 @@ public class AddApplicationLoader {
 		String nodes = "[ ";
 		// counter variable
 		int i = 0;
-		// clear contents before writing again
-		appLoaderVBox.getChildren().clear();
+		// clear contents before writing again only if the application list is not empty
+		if (appLoaderVBox != null) {
+			appLoaderVBox.getChildren().clear();
+		}
 		// loop through all available applications
 		for (Apps eachApp : Controller.getApps()) {
 			nodes = "[ ";

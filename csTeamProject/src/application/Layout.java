@@ -673,7 +673,6 @@ public class Layout extends BorderPane {
 		                		AppList.setText("");
 				    			AddApplicationLoader.updateApplicationList();
 				    			areaWindow.close();
-				    			
 							});
 		        	 }
 		        } 
